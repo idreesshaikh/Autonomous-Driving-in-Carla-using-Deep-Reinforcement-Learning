@@ -23,13 +23,16 @@ class DDQnetwork(nn.Module):
             nn.Flatten()
         )
 
-        self.fc_visual = nn.Linear(2048, 276)
-        self.fc_raw = nn.Linear(12, 24)
+        self.fc_visual = nn.Linear(2048, 300)
+        self.fc_raw = nn.Linear(98, 50)
+        self.fc_nav = nn.Linear(2, 100)
 
         self.fc_net = nn.Sequential(
-            nn.Linear(300, 200),
+            nn.Linear(450, 256),
             nn.ReLU(),
-            nn.Linear(200, 84),
+            nn.Linear(256, 128),
+            nn.ReLU(),
+            nn.Linear(128, 84),
             nn.ReLU(),
             nn.Linear(84, n_actions)
         )
@@ -38,13 +41,15 @@ class DDQnetwork(nn.Module):
         self.loss = nn.MSELoss()
         self.device = torch.device(
             "cuda:0" if torch.cuda.is_available() else "cpu")
+        self.to(self.device)
 
-    def forward(self, visual_obs, raw_data):
+    def forward(self, visual_obs, raw_data, nav_data):
         visual_obs = visual_obs.view(-1, 3, 128, 128)
         conv = self.conv_net(visual_obs)
         fcv = F.relu(self.fc_visual(conv))
         fcr = F.relu(self.fc_raw(raw_data))
-        return self.fc_net(torch.cat((fcv, fcr), -1))
+        fcn = F.relu(self.fc_nav(nav_data))
+        return self.fc_net(torch.cat((fcv, fcr, fcn), -1))
 
     def save_checkpoint(self):
         print('\nCheckpoint saving')

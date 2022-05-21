@@ -12,6 +12,7 @@ import logging
 import pickle
 from threading import Thread
 
+
 logging.basicConfig(filename='client.log', level=logging.DEBUG,
                     format='%(levelname)s:%(message)s')
 
@@ -32,29 +33,35 @@ def runner():
 
     checkpoint_load = True
 
-    n_actions = 11  # Car can only make 8 actions
+    n_actions = 16  # Car can only make 10 actions
     agent = Agent(n_actions)
     train_thread = Thread(target=agent.train_step, daemon=True)
     train_thread.start()
 
-    scores = list()
     avg_scores = list()
     epsilon_history = list()
     fieldnames = ['Epoch', 'Epsilon', 'Reward', 'Average_Reward']
-    current_epoch = 1
+    epoch = 1
 
     if checkpoint_load:
         agent.load_model()
         with open('serialized_data.pickle', 'rb') as f:
             data = pickle.load(f)
-            scores = data['scores']
+            #epoch = 820
+            #agent.epsilon = 0.5198199999995198
+            #avg_scores = [-761.4068571310902]
+            epoch = data['epoch']
             avg_scores = data['avg_scores']
-            epsilon_history = data['epsilon_history']
-            current_epoch = data['epoch']
-        agent.epsilon = epsilon_history[-1]
+            #agent.replay_buffer = data['replay_buffer']
+            agent.epsilon = data['epsilon']
 
     try:
         client, world = ClientConnection()._setup()
+
+        #settings = world.get_settings()
+        #settings.no_rendering_mode = True
+        # world.apply_settings(settings)
+
         logging.info("Connection has been setup successfully.")
     except:
         logging.error("Connection has been refused by the server.")
@@ -63,49 +70,50 @@ def runner():
     env = CarlaEnvironment(client, world)
 
     try:
-        for i in range(EPISODES+1):
+        for i in range(epoch, EPISODES+1):
 
-            print('\nStarting Game: ', i+1,
+            print('\nStarting Game: ', i,
                   '\tEpsilon now: {}'.format(agent.epsilon))
 
             epsilon_history.append(agent.epsilon)
             done = False
-            visual_obs, raw_data = env._reset()
+            visual_obs, raw_data, nav_data = env._reset()
             score = 0
 
             while not done:
-                action = agent.pick_action(visual_obs, raw_data)
-                new_visual_obs, new_raw_data, reward, done, _ = env._step(
+                action = agent.pick_action(visual_obs, raw_data, nav_data)
+
+                new_visual_obs, new_raw_data, new_nav_data, reward, done, _ = env._step(
                     action)
+
                 score += reward
-                agent.save_transition(
-                    visual_obs, raw_data, action, reward, new_visual_obs, new_raw_data, int(done))
+                agent.save_transition(visual_obs, raw_data, nav_data, action,
+                                      reward, new_visual_obs, new_raw_data, new_nav_data, int(done))
                 agent.train()
+
                 visual_obs = new_visual_obs
                 raw_data = new_raw_data
+                nav_data = new_nav_data
 
             logging.debug("Done True.")
 
-            scores.append(score)
-
-            avg_score = np.mean(scores)
+            avg_score = ((avg_scores[-1] * epoch) + score) / (epoch+1)
             avg_scores.append(avg_score)
 
             with open('learning_data.csv', 'a') as file_handle:
                 writer = csv.DictWriter(file_handle, fieldnames=fieldnames)
-                info = {'Epoch': i+current_epoch, 'Epsilon': agent.epsilon,
+                info = {'Epoch': i, 'Epsilon': agent.epsilon,
                         'Reward': score, 'Average_Reward': avg_score}
                 writer.writerow(info)
 
-            print('      Episode: ', i+1, '\tScore: %.2f' % score,
-                  '\tAverage Score: %.2f' % avg_score, '\tEpsilon: %.2f' % agent.epsilon)
+            print('Score:\t\t%.2f ' % score, '\tAverage Score: %.2f' %
+                  avg_score, '\tEpsilon: %.2f' % agent.epsilon)
 
             if i > 20 and i % 20 == 0:
 
                 agent.save_model()
-
-                data_obj = {'scores': scores, 'avg_scores': avg_scores,
-                            'epsilon_history': epsilon_history, 'epoch': current_epoch}
+                data_obj = {'avg_scores': avg_scores, 'epsilon': agent.epsilon,
+                            'epoch': i, }  # 'replay_buffer': agent.replay_buffer}
                 with open('serialized_data.pickle', 'wb') as handle:
                     pickle.dump(data_obj, handle)
 

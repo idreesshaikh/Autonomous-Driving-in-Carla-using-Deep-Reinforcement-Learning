@@ -66,8 +66,8 @@ class CameraSensorEnv:
     def _set_camera_sensor(self, world):
 
         thrid_person_camera_bp = world.get_blueprint_library().find(self.sensor_name)
-        thrid_person_camera_bp.set_attribute('image_size_x', f'720')
-        thrid_person_camera_bp.set_attribute('image_size_y', f'720')
+        thrid_person_camera_bp.set_attribute('image_size_x', f'512')
+        thrid_person_camera_bp.set_attribute('image_size_y', f'512')
         third_camera = world.spawn_actor(thrid_person_camera_bp, carla.Transform(
             carla.Location(x=-4.0, z=2.0), carla.Rotation(pitch=-12.0)), attach_to=self.parent)
         logging.info("Environment Camera has been setup.")
@@ -106,7 +106,7 @@ class LiDarSensor:
     # LiDar sensor is setup to get the surrounding readings in order to make better predictions.
     def _set_lidar_sensor(self, world) -> object:
         lidar_bp = world.get_blueprint_library().find(self.sensor_name)
-        lidar_bp.set_attribute('range', f'100')
+        lidar_bp.set_attribute('range', f'5.0')
         sensor_relative_transform = carla.Transform(
             carla.Location(x=1.5, z=1.0))
         lidar = world.spawn_actor(
@@ -121,11 +121,11 @@ class LiDarSensor:
             return
         points = np.frombuffer(image.raw_data, dtype=np.dtype('f4'))
         points = np.reshape(points, (int(points.shape[0] / 6), 6))
-        x = np.mean(points[:, 0])
-        y = np.mean(points[:, 1])
-        z = np.mean(points[:, 2])
 
-        self.data.append(np.array([x, y, z], dtype=np.float32).ravel())
+        x = np.array(points[:32, 0]).ravel()
+        y = np.array(points[:32, 1]).ravel()
+        z = np.array(points[:32, 2]).ravel()
+        self.data.append(np.array([x, y, z]).ravel())
 
 
 # ---------------------------------------------------------------------|
@@ -150,7 +150,7 @@ class CollisionSensor:
     def _set_collision_sensor(self, world) -> object:
         collision_sensor_bp = world.get_blueprint_library().find(self.sensor_name)
         sensor_relative_transform = carla.Transform(
-            carla.Location(x=1.5, z=0.5))
+            carla.Location(x=1.3, z=0.5))
         collision_sensor = world.spawn_actor(
             collision_sensor_bp, sensor_relative_transform, attach_to=self.parent)
         logging.info("Collision sensor has been setup on the vehicle.")
@@ -187,8 +187,8 @@ class RadarSensor:
 
     def _set_radar_sensor(self, world):
         radar_bp = world.get_blueprint_library().find(self.sensor_name)
-        radar_bp.set_attribute('horizontal_fov', '35')
-        radar_bp.set_attribute('vertical_fov', '20')
+        radar_bp.set_attribute('horizontal_fov', f'35')
+        radar_bp.set_attribute('vertical_fov', f'20')
         radar = world.spawn_actor(radar_bp, carla.Transform(
             carla.Location(x=2.0, z=1.5), carla.Rotation(pitch=8.0)), attach_to=self.parent)
         logging.info("Radar sensor has been setup on the vehicle.")
@@ -202,13 +202,11 @@ class RadarSensor:
         points = np.frombuffer(data.raw_data, dtype=np.dtype('f4'))
         points = np.reshape(points, (len(data), 4))
 
-        al = np.mean(points[:, 0])
-        az = np.mean(points[:, 1])
         d = np.mean(points[:, 2])
         v = np.mean(points[:, 3])
 
-        self.radar_data.append(
-            np.array([al, az, d, v], dtype=np.float32).ravel())
+        self.radar_data.append(np.array([d, v], dtype=np.float32).ravel())
+
 
 # ---------------------------------------------------------------------|
 # ------------------------------- LANE INVASION |

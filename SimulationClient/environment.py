@@ -29,9 +29,9 @@ class CarlaEnvironment():
         self.wrong_maneuver = None
         self.destination = None
         self.waypoint = None
+        self.trajectory = None
         self.velocity = None
         self.location = None
-        self.last_position = 0
         self.continus_timestamp = 0
         self.action_space = self._get_action_space()
         self.episode_start_time = None
@@ -131,13 +131,16 @@ class CarlaEnvironment():
             # Rotation
             self.rotation = self.vehicle.get_transform().rotation.yaw
             self.location = self.vehicle.get_location()
-            self.last_position = self.location
 
             # Waypoint nearby
+            angles = list()
             self.waypoint = self.map.get_waypoint(
                 self.location, project_to_road=True, lane_type=(carla.LaneType.Driving))
-            self.waypoint = random.choice(self.waypoint.next(1.5))
-            waypoint = self.waypoint.transform.location.x, self.waypoint.transform.location.y, self.waypoint.transform.rotation.yaw
+            for i in range(5):
+                self.waypoint = random.choice(self.waypoint.next(1.0))
+                angles.append(self.rotation -
+                              self.waypoint.transform.rotation.yaw)
+            self.trajectory = np.mean(angles)
 
             self.collision_history.clear()
             self.continus_timestamp = 0
@@ -145,13 +148,13 @@ class CarlaEnvironment():
             self.episode_start_time = time.time()
 
             # Raw data to be fed alongside the Visual Observation
-            self.raw_data = [self.lidar_sensor[0], self.lidar_sensor[1], self.lidar_sensor[2],
-                             self.radar_sensor[0], self.radar_sensor[1], self.radar_sensor[2], self.radar_sensor[3],
-                             self.velocity, self.rotation,
-                             waypoint[0], waypoint[1], waypoint[2]]
+            extra_data = np.array([self.radar_sensor[0], self.radar_sensor[1]])
+            self.raw_data = np.append(self.lidar_sensor, extra_data)
+
+            self.nav_data = np.array([self.trajectory, self.velocity])
 
             logging.info("Environment has been resetted.")
-            return self.front_camera, self.raw_data
+            return self.front_camera, self.raw_data, self.nav_data
 
         except:
             self.client.apply_batch(
@@ -173,6 +176,7 @@ class CarlaEnvironment():
         try:
 
             # Action fron action space for contolling the vehicle with a discrete action
+            #action("index just make")
             action = self.action_space[action_index]
             self.vehicle.apply_control(carla.VehicleControl(
                 throttle=action[0], steer=action[1], brake=action[2]))
@@ -196,26 +200,40 @@ class CarlaEnvironment():
 
             # Location of the car
             new_location = self.vehicle.get_location()
+            # Location of the vehicle
+            vehicle_x, vehicle_y = new_location.x, new_location.y
             distance_covered = math.sqrt(
                 (new_location.x - self.location.x)**2 + (new_location.y - self.location.y)**2)
             self.location = new_location
 
-            # Randomly picked next waypoint in 1.5m distance.
+            # Randomly picked next waypoint in 1.0m distance.
             # Waypoint broken down in its three necessary components.
-            self.waypoint = random.choice(self.waypoint.next(1.5))
-            waypoint = self.waypoint.transform.location.x, self.waypoint.transform.location.y, self.waypoint.transform.rotation.yaw
+            angles = list()
+            self.waypoint = self.map.get_waypoint(
+                self.location, project_to_road=True, lane_type=(carla.LaneType.Driving))
+            for i in range(5):
+                self.waypoint = random.choice(self.waypoint.next(1.0))
+                angles.append(self.rotation -
+                              self.waypoint.transform.rotation.yaw)
+            self.trajectory = np.mean(angles)
 
             if len(self.collision_history) != 0:
                 done = True
                 reward = -1 * self.collision_history.pop(-1)
+                if reward > 10000:
+                    reward = 10000
+                print("Vehicle has collided.")
 
             elif self.wrong_maneuver:
                 done = True
-                reward = -1 * abs(self.location.x - self.last_position.x)
+                reward = -0.5 * (abs(self.location.x - self.waypoint.transform.location.x) + abs(
+                    self.location.y - self.waypoint.transform.location.y))
+                print("Vehicle has gone out of the lane.")
 
             elif self.continus_timestamp >= 60:
                 done = True
                 reward = -1 * (self.continus_timestamp)
+                print("Vehicle has stopped moving.")
 
             else:
                 done = False
@@ -223,11 +241,6 @@ class CarlaEnvironment():
                     reward = distance_covered
                 else:
                     reward = distance_covered**2
-                self.last_position = self.location
-
-            # Location of the vehicle
-            vehicle_x, vehicle_y = self.vehicle.get_transform(
-            ).location.x, self.vehicle.get_transform().location.y
 
             if self.velocity < 1:
                 self.continus_timestamp += 1
@@ -240,13 +253,13 @@ class CarlaEnvironment():
             elif (self.destination.location.x <= vehicle_x + 1.0 and self.destination.location.x >= vehicle_x - 1.0) and (self.destination.location.y <= vehicle_y + 1.0 and self.destination.location.y >= vehicle_y - 1.0):
                 done = True
 
-            while (self.front_camera is None):
+            while (self.front_camera is None or self.lidar_sensor is None):
                 time.sleep(0.001)
 
-            self.raw_data = [self.lidar_sensor[0], self.lidar_sensor[1], self.lidar_sensor[2],
-                             self.radar_sensor[0], self.radar_sensor[1], self.radar_sensor[2], self.radar_sensor[3],
-                             self.velocity, self.rotation,
-                             waypoint[0], waypoint[1], waypoint[2]]
+            extra_data = np.array([self.radar_sensor[0], self.radar_sensor[1]])
+            self.raw_data = np.append(self.lidar_sensor, extra_data)
+
+            self.nav_data = np.array([self.trajectory, self.velocity])
 
             if done:
                 for sensor in self.sensor_list:
@@ -255,7 +268,7 @@ class CarlaEnvironment():
                 for actor in self.actor_list:
                     actor.destroy()
 
-            return self.front_camera, self.raw_data, reward, done, None
+            return self.front_camera, self.raw_data, self.nav_data, reward, done, None
 
         except:
             self.client.apply_batch(
@@ -379,23 +392,33 @@ class CarlaEnvironment():
     # Continuous actions are broken into discrete here!
 
     def _get_action_space(self) -> list:
-        steer = np.array([-1.0, -0.5, 0.0, 0.5, 1.0])
-        accelerate = np.array([0.0, 1.0])
+        steer = np.array([-0.5, -0.25, 0.0, 0.25, 0.5])
+        accelerate = np.array([0.0, 0.5, 1.0])
         brake = np.array([0.0, 0.5])
 
         action_space = \
             np.array([
-                [accelerate[1], steer[2], brake[0]],  # Accelerate
-                [accelerate[1], steer[1], brake[0]],
-                [accelerate[1], steer[0], brake[0]],
-                [accelerate[1], steer[3], brake[0]],
-                [accelerate[1], steer[4], brake[0]],
+                [accelerate[2], steer[2], brake[0]],  # Accelerate
+                [accelerate[1], steer[2], brake[0]],
                 [accelerate[0], steer[2], brake[0]],
-                [accelerate[0], steer[1], brake[0]],
+
+                [accelerate[2], steer[0], brake[0]],  # Far Left
+                [accelerate[1], steer[0], brake[0]],
                 [accelerate[0], steer[0], brake[0]],
-                [accelerate[0], steer[3], brake[0]],
+
+                [accelerate[2], steer[1], brake[0]],  # Left
+                [accelerate[1], steer[1], brake[0]],
+                [accelerate[0], steer[1], brake[0]],
+
+                [accelerate[2], steer[4], brake[0]],  # Far Right
+                [accelerate[1], steer[4], brake[0]],
                 [accelerate[0], steer[4], brake[0]],
-                [accelerate[0], steer[2], brake[1]]  # Decelerate
+
+                [accelerate[2], steer[3], brake[0]],  # Right
+                [accelerate[1], steer[3], brake[0]],
+                [accelerate[0], steer[3], brake[0]],
+
+                [accelerate[0], steer[2], brake[1]],  # Decelerate
             ])
         return action_space
 

@@ -16,10 +16,8 @@ TIMEOUT = 15.0
 CAR_NAME = 'model3'
 EPISODE_LENGTH = 100
 NUMBER_OF_VEHICLES = 30
-NUMBER_OF_PEDESTRIAN = 20
+NUMBER_OF_PEDESTRIAN = 100
 
 
 RGB_CAMERA = 'sensor.camera.rgb'
-SSC_CAMERA = 'sensor.camera.semantic_segmentation' #'sensor.camera.rgb'
-
-
+SSC_CAMERA = 'sensor.camera.semantic_segmentation'
