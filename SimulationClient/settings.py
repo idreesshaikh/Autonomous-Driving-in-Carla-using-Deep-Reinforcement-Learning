@@ -8,7 +8,6 @@ Names of the parameters are self-explanatory therefore elimating the use of furt
 '''
 
 
-SEED = 42
 HOST = "localhost"
 PORT = 2000
 TIMEOUT = 15.0

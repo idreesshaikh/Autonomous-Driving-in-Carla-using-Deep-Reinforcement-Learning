@@ -2,7 +2,6 @@ import math
 import numpy as np
 import weakref
 import cv2
-import statistics as stats
 import logging
 from SimulationClient.connection import carla
 from SimulationClient.settings import RGB_CAMERA, SSC_CAMERA
@@ -31,7 +30,7 @@ class CameraSensor():
         front_camera_bp.set_attribute('image_size_y', f'128')
         front_camera_bp.set_attribute('fov', f'120')
         front_camera = world.spawn_actor(front_camera_bp, carla.Transform(
-            carla.Location(x=2.0, z=2.0)), attach_to=self.parent)
+            carla.Location(x=2.4, z=0.8)), attach_to=self.parent)
         logging.info("Front Camera has been setup on the vehicle.")
         return front_camera
 
@@ -44,8 +43,9 @@ class CameraSensor():
         placeholder = np.frombuffer(image.raw_data, dtype=np.dtype("uint8"))
         placeholder1 = placeholder.reshape((image.width, image.height, 4))
         placeholder2 = placeholder1[:, :, :3]
-        #placeholder3 = placeholder2[:, :, ::-1]
         self.front_camera.append(placeholder2/255.0)
+        #cv2.imshow("Front Camera", placeholder2)
+        #cv2.waitKey(1)
 
 
 class CameraSensorEnv:
@@ -66,8 +66,8 @@ class CameraSensorEnv:
     def _set_camera_sensor(self, world):
 
         thrid_person_camera_bp = world.get_blueprint_library().find(self.sensor_name)
-        thrid_person_camera_bp.set_attribute('image_size_x', f'512')
-        thrid_person_camera_bp.set_attribute('image_size_y', f'512')
+        thrid_person_camera_bp.set_attribute('image_size_x', f'680')
+        thrid_person_camera_bp.set_attribute('image_size_y', f'680')
         third_camera = world.spawn_actor(thrid_person_camera_bp, carla.Transform(
             carla.Location(x=-4.0, z=2.0), carla.Rotation(pitch=-12.0)), attach_to=self.parent)
         logging.info("Environment Camera has been setup.")
@@ -82,7 +82,6 @@ class CameraSensorEnv:
         array = np.frombuffer(image.raw_data, dtype=np.dtype("uint8"))
         placeholder1 = array.reshape((image.width, image.height, 4))
         placeholder2 = placeholder1[:, :, :3]
-        #placeholder3 = placeholder2[:, :, ::-1]
         cv2.imshow("Front Camera", placeholder2)
         cv2.waitKey(1)
 
@@ -90,7 +89,7 @@ class CameraSensorEnv:
 # ------------------------------- LIDAR |
 # ---------------------------------------------------------------------|
 
-
+"""
 class LiDarSensor:
 
     def __init__(self, vehicle) -> None:
@@ -106,7 +105,7 @@ class LiDarSensor:
     # LiDar sensor is setup to get the surrounding readings in order to make better predictions.
     def _set_lidar_sensor(self, world) -> object:
         lidar_bp = world.get_blueprint_library().find(self.sensor_name)
-        lidar_bp.set_attribute('range', f'5.0')
+        lidar_bp.set_attribute('range', f'3.0')
         sensor_relative_transform = carla.Transform(
             carla.Location(x=1.5, z=1.0))
         lidar = world.spawn_actor(
@@ -127,7 +126,7 @@ class LiDarSensor:
         z = np.array(points[:32, 2]).ravel()
         self.data.append(np.array([x, y, z]).ravel())
 
-
+"""
 # ---------------------------------------------------------------------|
 # ------------------------------- COLLISION SENSOR|
 # ---------------------------------------------------------------------|
@@ -171,7 +170,7 @@ class CollisionSensor:
 # ------------------------------- RADAR |
 # ---------------------------------------------------------------------|
 
-
+'''
 # Radar sensor is setup to get the surrounding readings in order to make better predictions.
 
 class RadarSensor:
@@ -206,7 +205,7 @@ class RadarSensor:
         v = np.mean(points[:, 3])
 
         self.radar_data.append(np.array([d, v], dtype=np.float32).ravel())
-
+'''
 
 # ---------------------------------------------------------------------|
 # ------------------------------- LANE INVASION |
@@ -230,8 +229,8 @@ class LaneInvasionSensor:
 
     def _set_lane_invasion_sensor(self, world) -> object:
         lane_invasion_bp = world.get_blueprint_library().find(self.sensor_name)
-        lane_invasion_sensor = world.spawn_actor(lane_invasion_bp, carla.Transform(
-            carla.Location(x=0.2)), attach_to=self.parent)
+        lane_invasion_sensor = world.spawn_actor(
+            lane_invasion_bp, carla.Transform(), attach_to=self.parent)
         logging.info("Lane invasion sensor has been setup on the vehicle.")
         return lane_invasion_sensor
 
@@ -242,11 +241,14 @@ class LaneInvasionSensor:
             return
         for x in event.crossed_lane_markings:
             # if x.lane_change == False:
-            #    self.wrong_maneuver =  True
+            #    self.wrong_maneuver = True
             #    logging.debug("X( Wrong turn!")
             if (x.color == carla.LaneMarkingColor.Yellow and x.type == carla.LaneMarkingType.Solid):
                 self.wrong_maneuver = True
                 logging.debug("X( Wrong turn!")
+            #elif (x.color == carla.LaneMarkingColor.Yellow and x.type == carla.LaneMarkingType.Broken):
+                #self.wrong_maneuver = True
+                #logging.debug("X( Wrong turn!")
             elif(x.color == carla.LaneMarkingColor.Yellow and x.type == carla.LaneMarkingType.SolidSolid):
                 self.wrong_maneuver = True
                 logging.debug("X( Wrong turn!")

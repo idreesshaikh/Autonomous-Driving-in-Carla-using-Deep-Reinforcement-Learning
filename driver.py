@@ -2,8 +2,8 @@ from SimulationClient.connection import ClientConnection
 from parameters import EPISODES
 from SimulationClient.environment import CarlaEnvironment
 from Network.agent import Agent
-import random
 import sys
+import random
 import csv
 import torch
 import matplotlib.pyplot as plt
@@ -16,7 +16,7 @@ from threading import Thread
 logging.basicConfig(filename='client.log', level=logging.DEBUG,
                     format='%(levelname)s:%(message)s')
 
-
+'''
 def plot_graph(x, y, xlabel, ylabel, filename):
     plt.xlabel(xlabel)
     plt.ylabel(ylabel)
@@ -24,7 +24,7 @@ def plot_graph(x, y, xlabel, ylabel, filename):
     plt.legend(loc='upper left')
     plt.tight_layout()
     plt.savefig(filename)
-
+'''
 
 def runner():
 
@@ -33,13 +33,14 @@ def runner():
 
     checkpoint_load = True
 
-    n_actions = 16  # Car can only make 10 actions
+    n_actions = 18  # Car can only make 12 actions
     agent = Agent(n_actions)
     train_thread = Thread(target=agent.train_step, daemon=True)
     train_thread.start()
 
-    avg_scores = list()
-    epsilon_history = list()
+    avg_score = None
+    scores = list()
+
     fieldnames = ['Epoch', 'Epsilon', 'Reward', 'Average_Reward']
     epoch = 1
 
@@ -47,20 +48,16 @@ def runner():
         agent.load_model()
         with open('serialized_data.pickle', 'rb') as f:
             data = pickle.load(f)
-            #epoch = 820
-            #agent.epsilon = 0.5198199999995198
-            #avg_scores = [-761.4068571310902]
             epoch = data['epoch']
-            avg_scores = data['avg_scores']
+            avg_score = data['avg_score']
             #agent.replay_buffer = data['replay_buffer']
             agent.epsilon = data['epsilon']
 
     try:
         client, world = ClientConnection()._setup()
-
-        #settings = world.get_settings()
-        #settings.no_rendering_mode = True
-        # world.apply_settings(settings)
+        settings = world.get_settings()
+        settings.no_rendering_mode = True
+        world.apply_settings(settings)
 
         logging.info("Connection has been setup successfully.")
     except:
@@ -69,57 +66,64 @@ def runner():
 
     env = CarlaEnvironment(client, world)
 
+
+    while agent.replay_buffer.counter < agent.replay_buffer.buffer_size:
+        visual_obs, nav_data = env._reset()
+        done = False
+        while not done:
+            action = random.choice([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17])
+            new_visual_obs, new_nav_data, reward, done, _ = env._step(action)
+            agent.save_transition(visual_obs, action, nav_data, reward, new_visual_obs, new_nav_data, int(done))
+            visual_obs = new_visual_obs
+            nav_data = new_nav_data
+    
+    print('Memory has been initialized!!!\n')
+
     try:
-        for i in range(epoch, EPISODES+1):
+        for i in range(epoch+1, EPISODES+1):
 
-            print('\nStarting Game: ', i,
-                  '\tEpsilon now: {}'.format(agent.epsilon))
+            print('\nStarting Game: ', i, '\tEpsilon now: {}'.format(agent.epsilon))
 
-            epsilon_history.append(agent.epsilon)
             done = False
-            visual_obs, raw_data, nav_data = env._reset()
+            visual_obs, nav_data = env._reset()
             score = 0
 
             while not done:
-                action = agent.pick_action(visual_obs, raw_data, nav_data)
+                action = agent.pick_action(visual_obs, nav_data)
 
-                new_visual_obs, new_raw_data, new_nav_data, reward, done, _ = env._step(
-                    action)
+                new_visual_obs, new_nav_data, reward, done, _ = env._step(action)
 
                 score += reward
-                agent.save_transition(visual_obs, raw_data, nav_data, action,
-                                      reward, new_visual_obs, new_raw_data, new_nav_data, int(done))
+                agent.save_transition(visual_obs, action, nav_data, reward, new_visual_obs, new_nav_data, int(done))
                 agent.train()
 
                 visual_obs = new_visual_obs
-                raw_data = new_raw_data
                 nav_data = new_nav_data
-
             logging.debug("Done True.")
+            scores.append(score)
+            if checkpoint_load:
+                avg_score = ((avg_score * epoch) + score) / (epoch+1)
+            else:
+                avg_score = np.mean(scores)
 
-            avg_score = ((avg_scores[-1] * epoch) + score) / (epoch+1)
-            avg_scores.append(avg_score)
 
-            with open('learning_data.csv', 'a') as file_handle:
-                writer = csv.DictWriter(file_handle, fieldnames=fieldnames)
-                info = {'Epoch': i, 'Epsilon': agent.epsilon,
-                        'Reward': score, 'Average_Reward': avg_score}
-                writer.writerow(info)
+            print('Score:\t\t%.2f ' % score, '\tAverage Score: %.2f' % avg_score, '\tEpsilon: %.2f' % agent.epsilon)
 
-            print('Score:\t\t%.2f ' % score, '\tAverage Score: %.2f' %
-                  avg_score, '\tEpsilon: %.2f' % agent.epsilon)
-
-            if i > 20 and i % 20 == 0:
+            if i >= 20 and i % 20 == 0:
 
                 agent.save_model()
-                data_obj = {'avg_scores': avg_scores, 'epsilon': agent.epsilon,
-                            'epoch': i, }  # 'replay_buffer': agent.replay_buffer}
+
+                with open('learning_data.csv', 'a') as file_handle:
+                    writer = csv.DictWriter(file_handle, fieldnames=fieldnames)
+                    info = {'Epoch': int(i), 'Epsilon': round(agent.epsilon, 3), 'Reward': round(score,2), 'Average_Reward': round(avg_score,2)}
+                    writer.writerow(info)
+
+                data_obj = {'avg_score': avg_score, 'epsilon': agent.epsilon,'epoch': i}#,'replay_buffer': agent.replay_buffer}
                 with open('serialized_data.pickle', 'wb') as handle:
                     pickle.dump(data_obj, handle)
 
-        ep_num = [i+1 for i in range(EPISODES)]
-        plot_graph(ep_num, avg_scores, 'Training Epochs',
-                   'Average Return', 'episodic_average_reward.png')
+        #ep_num = [i+1 for i in range(EPISODES)]
+        #plot_graph(ep_num, avg_scores, 'Training Epochs', 'Average Return', 'episodic_average_reward.png')
         train_thread.join()
 
     finally:

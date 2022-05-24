@@ -10,46 +10,62 @@ class DDQnetwork(nn.Module):
     def __init__(self, n_actions, model):
         super(DDQnetwork, self).__init__()
 
+        self.n_actions = n_actions
         self.checkpoint_file = os.path.join(CHECKPOINT_DIR, model)
-        self.conv_net = nn.Sequential(
-            nn.Conv2d(3, 32, (5, 5), stride=3),
-            nn.ReLU(),
-            nn.Conv2d(32, 48, (5, 5), stride=3),
-            nn.ReLU(),
-            nn.Conv2d(48, 64, (3, 3), stride=2),
-            nn.ReLU(),
-            nn.Conv2d(64, 128, (3, 3), stride=1),
-            nn.ReLU(),
-            nn.Flatten()
+        self.conv_net = nn.Sequential(   
+            nn.Conv2d(3, 32, 3, stride=2),
+            nn.LeakyReLU(),
+            nn.Conv2d(32, 64, 3, stride=2),
+            nn.BatchNorm2d(64),
+            nn.LeakyReLU(),
+            nn.Dropout(0.25),
+            nn.Conv2d(64, 128, 3, stride=2),
+            nn.LeakyReLU(),
+            nn.Conv2d(128, 256, 3, stride=2),
+            nn.LeakyReLU(),
+            nn.Conv2d(256, 512, 3, stride=2),
+            nn.BatchNorm2d(512),
+            nn.LeakyReLU(),
+            nn.Dropout(0.25),
+            nn.Flatten(),
+            nn.Linear(4608,2048),
         )
 
-        self.fc_visual = nn.Linear(2048, 300)
-        self.fc_raw = nn.Linear(98, 50)
-        self.fc_nav = nn.Linear(2, 100)
+        self.Linear1 = nn.Linear(2048, 200)
+        self.Linear2 = nn.Linear(2048, 200)
+        self.Linear3 = nn.Linear(200, 150)
+        self.fc_nav = nn.Linear(4, 50)
+        self.V = nn.Linear(150, 1)
+        self.A = nn.Linear(150, self.n_actions)
 
         self.fc_net = nn.Sequential(
-            nn.Linear(450, 256),
+            nn.Linear(200, 150),
             nn.ReLU(),
-            nn.Linear(256, 128),
-            nn.ReLU(),
-            nn.Linear(128, 84),
-            nn.ReLU(),
-            nn.Linear(84, n_actions)
         )
+
+        self.Normal= torch.distributions.Normal(0, 1)
+        self.Normal.loc = self.Normal.loc.cuda()
+        self.Normal.scale = self.Normal.scale.cuda()
+        self.Kullback_Leibler = 0
 
         self.optimizer = optim.Adam(self.parameters(), lr=LEARNING_RATE)
         self.loss = nn.MSELoss()
-        self.device = torch.device(
-            "cuda:0" if torch.cuda.is_available() else "cpu")
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.to(self.device)
 
-    def forward(self, visual_obs, raw_data, nav_data):
-        visual_obs = visual_obs.view(-1, 3, 128, 128)
-        conv = self.conv_net(visual_obs)
-        fcv = F.relu(self.fc_visual(conv))
-        fcr = F.relu(self.fc_raw(raw_data))
-        fcn = F.relu(self.fc_nav(nav_data))
-        return self.fc_net(torch.cat((fcv, fcr, fcn), -1))
+    def forward(self, x, y):
+        x = x.view(-1,3,128,128)
+        x = self.conv_net(x)
+        mu =  self.Linear1(x)
+        sigma = torch.exp(self.Linear2(x))
+        z = mu + sigma*self.Normal.sample(mu.shape)
+        self.Kullback_Leibler = (sigma**2 + mu**2 - torch.log(sigma) - 1/2).sum()  
+        fcv = F.relu(self.Linear3(z))
+        fcn = F.relu(self.fc_nav(y))
+        fc_net = self.fc_net(torch.cat((fcv, fcn), -1))
+        V = self.V(fc_net)
+        A = self.A(fc_net)
+        return V, A
 
     def save_checkpoint(self):
         print('\nCheckpoint saving')
