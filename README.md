@@ -7,7 +7,7 @@
 
 * Install all the dependencies in the requirement file `pip install -r requirement.txt`
 
-* Download the Carla version 0.9.12 to be exact on windows. 
+* Download the Carla version 0.9.12 on windows. 
   Note: This code is only meant to work on windows' OS.
 
 * To run it use `python drivery.py` command. Don't forget to start the Carla server beforehand.
