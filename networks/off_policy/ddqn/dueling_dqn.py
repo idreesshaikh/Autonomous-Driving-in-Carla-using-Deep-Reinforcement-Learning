@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 from parameters import DQN_LEARNING_RATE, DQN_CHECKPOINT_DIR, LATENT_DIM
-from autoencoder.autoencoder import VariationalEncoder
+from autoencoder.variational_autoencoder import VariationalEncoder
 
 class DuelingDQnetwork(nn.Module):
     def __init__(self, n_actions, model):

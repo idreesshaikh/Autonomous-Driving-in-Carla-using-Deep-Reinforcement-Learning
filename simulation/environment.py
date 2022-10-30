@@ -5,11 +5,10 @@ import numpy as np
 import logging
 import pygame
 from simulation.connection import carla, logging
-from parameters import CONTINUOUS_ACTION_SPACE, VISUAL_DISPLAY
-from simulation.settings import CAR_NAME, EPISODE_LENGTH, NUMBER_OF_VEHICLES, NUMBER_OF_PEDESTRIAN
+from parameters import CONTINUOUS_ACTION, VISUAL_DISPLAY
 from simulation.sensors import CameraSensor, CameraSensorEnv, CollisionSensor, LaneInvasionSensor
+from simulation.settings import *
 
-random.seed(0)
 
 class CarlaEnvironment():
 
@@ -24,7 +23,6 @@ class CarlaEnvironment():
         self.front_camera = None
         self.collision_history = None
         self.wrong_maneuver = None
-        #self.destination = None
         self.waypoint = None
         self.trajectory = None
         self.velocity = None
@@ -32,12 +30,13 @@ class CarlaEnvironment():
         self.prev_steer = None
         self.signed_waypoint_distance = None
         self.action_space = self._get_action_space()
-        self.continous_action_space = CONTINUOUS_ACTION_SPACE
+        self.continous_action_space = CONTINUOUS_ACTION
         self.episode_start_time = None
-
+        self.display_on = VISUAL_DISPLAY
+        
         # Objects to be kept alive
         self.camera_obj = None
-        if VISUAL_DISPLAY:
+        if self.display_on:
             self.env_camera_obj = None
         self.collision_obj = None
         self.lane_invasion_obj = None
@@ -46,14 +45,11 @@ class CarlaEnvironment():
         self.sensor_list = list()
         self.actor_list = list()
         self.walker_list = list()
-
-
         self._create_pedestrians()
         logging.info("CarlaEnvironment obj has been initialized!")
 
 
     # A reset function for reseting our environment.
-
     def _reset(self):
 
         try:
@@ -76,7 +72,7 @@ class CarlaEnvironment():
 
 
             # Destination set
-            self._set_destination(self.vehicle.get_location(), spawn_points)
+            #self._set_destination(self.vehicle.get_location(), spawn_points)
 
             # Camera Sensor
             self.camera_obj = CameraSensor(self.vehicle)
@@ -87,12 +83,12 @@ class CarlaEnvironment():
 
             # Third person view of our vehicle in the Simulated env
             #self.third_view_obj = CameraSensorEnv(self.vehicle)
-            if VISUAL_DISPLAY:
+            if self.display_on:
                 self.env_camera_obj = CameraSensorEnv(self.vehicle)
                 self.sensor_list.append(self.env_camera_obj.sensor)
 
             # Quick start our vehicle from its initial state
-            self.vehicle.apply_control(carla.VehicleControl(throttle=1.0))
+            self.vehicle.apply_control(carla.VehicleControl(throttle=0.5))
 
             # Collision sensor
             self.collision_obj = CollisionSensor(self.vehicle)
@@ -115,7 +111,7 @@ class CarlaEnvironment():
             # Rotation
             self.rotation = self.vehicle.get_transform().rotation.yaw
             self.location = self.vehicle.get_location()
-            self.prev_steer = 0.000
+            self.prev_steer = 0.000000
             
             # Waypoint nearby angle and distance from it
             angles = list()
@@ -177,7 +173,7 @@ class CarlaEnvironment():
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.sensor_list])
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.actor_list])
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.walker_list])
-            if VISUAL_DISPLAY:
+            if self.display_on:
                 pygame.quit()
 
 
@@ -348,7 +344,7 @@ class CarlaEnvironment():
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.sensor_list])
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.actor_list])
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.walker_list])
-            if VISUAL_DISPLAY:
+            if self.display_on:
                 pygame.quit()
 
 
@@ -358,8 +354,6 @@ class CarlaEnvironment():
 # -------------------------------------------------
 
     # Walkers are to be included in the simulation yet!
-
-
     def _create_pedestrians(self):
         try:
             # Our code for this method has been broken into 3 sections.
@@ -400,7 +394,7 @@ class CarlaEnvironment():
 
             # 3. Starting the motion of our pedestrians
             # set how many pedestrians can cross the road
-            self.world.set_pedestrians_cross_factor(30)
+            self.world.set_pedestrians_cross_factor(0)
             for i in range(0, len(self.walker_list), 2):
                 # start walker
                 all_actors[i].start()
@@ -505,30 +499,27 @@ class CarlaEnvironment():
     # Spawn the vehicle in the environment
     def _set_vehicle(self, vehicle_bp, spawn_points):
         # Main vehicle spawned into the env
-        self.two_positions = [(9.530024528503418,302.57000732421875,-179.9996337890625),
-            (193.77999877929688, 121.20999908447266 ,-89.99981689453125),
-            (-7.529999732971191   ,288.2200012207031  ,89.99995422363281),
-            (166.9145050048828   ,191.77003479003906  ,-0.00018310546875),
-            (151.75006103515625   ,109.40003967285156  ,-0.00018310546875),
-            (25.530019760131836   ,105.54998779296875  ,-179.9996337890625)]
+        #self.two_positions = [(9.530024528503418,302.57000732421875,-179.9996337890625),
+        #    (193.77999877929688, 121.20999908447266 ,-89.99981689453125),
+        #    (-7.529999732971191   ,288.2200012207031  ,89.99995422363281),
+        #    (166.9145050048828   ,191.77003479003906  ,-0.00018310546875),
+        #    (151.75006103515625   ,109.40003967285156  ,-0.00018310546875),
+        #    (25.530019760131836   ,105.54998779296875  ,-179.9996337890625)]
         spawn_point = random.choice(spawn_points) if spawn_points else carla.Transform()
         #print(spawn_point)
-        #position = self.two_positions[0]#random.choice(self.two_positions)
+        #position = random.choice(self.two_positions)
         #spawn_point = carla.Transform(carla.Location(x=position[0], y=position[1]), carla.Rotation(yaw= position[2]))
-        #spawn_point.location.x = position[0]
-        #spawn_point.location.y =  position[1]
-        #spawn_point.rotation.yaw = position[2] 
         self.vehicle = self.world.try_spawn_actor(vehicle_bp, spawn_point)
 
 
     # Setting destination for our vehicle
     # It's a random spawn point in that particular map
 
-    def _set_destination(self, vehicle_location, spawn_points):
-        destination = random.choice(spawn_points)
-        while destination == vehicle_location:
-            destination = random.choice(spawn_points)
-        self.destination = destination
+    #def _set_destination(self, vehicle_location, spawn_points):
+    #    destination = random.choice(spawn_points)
+    #    while destination == vehicle_location:
+    #        destination = random.choice(spawn_points)
+    #    self.destination = destination
 
     # Clean up method
     def remove_sensors(self):
@@ -541,7 +532,7 @@ class CarlaEnvironment():
         if self.lane_invasion_obj is not None:
             del self.lane_invasion_obj
             self.lane_invasion_obj = None
-        if VISUAL_DISPLAY:
+        if self.display_on:
             if self.env_camera_obj is not None:
                 del self.env_camera_obj
                 self.env_camera_obj = None

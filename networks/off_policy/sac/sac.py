@@ -7,7 +7,7 @@ import torch.optim as optim
 from torch.distributions.normal import Normal
 import numpy as np
 from parameters import SAC_LEARNING_RATE, SAC_CHECKPOINT_DIR, LATENT_DIM
-from autoencoder.autoencoder import VariationalEncoder
+from autoencoder.variational_autoencoder import VariationalEncoder
 
 class CriticNetwork(nn.Module):
     def __init__(self, n_actions, model):

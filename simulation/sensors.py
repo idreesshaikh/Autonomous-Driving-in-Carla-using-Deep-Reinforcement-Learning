@@ -196,17 +196,17 @@ class LaneInvasionSensor:
         if not self:
             return
         for x in event.crossed_lane_markings:
-            if x.lane_change == False:
-                self.wrong_maneuver = True
-            if (x.color == carla.LaneMarkingColor.Yellow and x.type == carla.LaneMarkingType.Solid):
-                self.wrong_maneuver = True
+            #if x.lane_change == False:
+            #    self.wrong_maneuver = True
+            #elif (x.color == carla.LaneMarkingColor.Yellow and x.type == carla.LaneMarkingType.Solid):
+            #    self.wrong_maneuver = True
             #elif (x.color == carla.LaneMarkingColor.Yellow and x.type == carla.LaneMarkingType.Broken):
-                #self.wrong_maneuver = True
-            elif(x.color == carla.LaneMarkingColor.Yellow and x.type == carla.LaneMarkingType.SolidSolid):
-                self.wrong_maneuver = True
-            elif x.color == carla.LaneMarkingColor.White and x.type == carla.LaneMarkingType.Solid:
-                self.wrong_maneuver = True
-            elif x.type == carla.LaneMarkingType.NONE:
+            #    self.wrong_maneuver = True
+            #elif(x.color == carla.LaneMarkingColor.Yellow and x.type == carla.LaneMarkingType.SolidSolid):
+            #    self.wrong_maneuver = True
+            #elif x.color == carla.LaneMarkingColor.White and x.type == carla.LaneMarkingType.Solid:
+            #    self.wrong_maneuver = True
+            if x.type == carla.LaneMarkingType.NONE:
                 self.wrong_maneuver = True
             elif (x.type == carla.LaneMarkingType.Other):
                 self.wrong_maneuver = True

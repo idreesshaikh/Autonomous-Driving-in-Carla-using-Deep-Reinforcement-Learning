@@ -6,7 +6,7 @@ import torch.optim as optim
 import numpy as np
 from torch.distributions.categorical import Categorical
 from parameters import PPO_CHECKPOINT_DIR, LATENT_DIM, PPO_LEARNING_RATE
-from autoencoder.autoencoder import VariationalEncoder
+from autoencoder.variational_autoencoder import VariationalEncoder
 
 
 class ActorNetwork(nn.Module):

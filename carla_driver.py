@@ -1,10 +1,10 @@
-import argparse
-import logging
-import pickle
 import sys
 import time
 import random
 import numpy as np
+import argparse
+import logging
+import pickle
 import torch
 from distutils.util import strtobool
 from threading import Thread
@@ -29,7 +29,7 @@ def parse_args():
     parser.add_argument('--torch-deterministic', type=lambda x:bool(strtobool(x)), default=True, nargs='?', const=True, help='if toggled, `torch.backends.cudnn.deterministic=False`')
     parser.add_argument('--cuda', type=lambda x:bool(strtobool(x)), default=True, nargs='?', const=True, help='if toggled, cuda will not be enabled by deafult')
     parser.add_argument('--track', type=lambda x:bool(strtobool(x)), default=False, nargs='?', const=True, help='if toggled, experiment will be tracked with Weights and Biases')
-    parser.add_argument('--wandb-project-name', type=str, default='ddqn-carla', help="wandb's project name")
+    parser.add_argument('--wandb-project-name', type=str, default='autonomous driving', help="wandb's project name")
     parser.add_argument('--wandb-entity', type=str, default="idreesrazak", help="enitity (team) of wandb's project")
     args = parser.parse_args()
     
@@ -48,8 +48,8 @@ def runner():
 
         if exp_name == 'ddqn':
             run_name = f"ddqn_{args.env_name}"
-        elif exp_name == 'sac':
-            run_name = f"sac_{args.env_name}"
+        #elif exp_name == 'sac':
+        #    run_name = f"sac_{args.env_name}"
         elif exp_name == 'ppo':
             run_name = f"ppo_{args.env_name}"
 
@@ -89,12 +89,15 @@ def runner():
     if exp_name == 'ddqn':
         n_actions = 24  # Car can only make 24 actions
         agent = DQNAgent(n_actions)
-    elif exp_name == 'sac':
-        n_actions = 2  # Car can only make 19 actions
-        agent = SACAgent(n_actions)
+    #elif exp_name == 'sac':
+    #    n_actions = 2  # Car can only make 19 actions
+    #    agent = SACAgent(n_actions)
     elif exp_name == 'ppo':
         n_actions = 2  # Car can only make 19 actions
         agent = PPOAgent(n_actions)
+        learn_iters = 0
+        n_steps = 0
+        N = 20
     
     #train_thread = Thread(target=agent.train, daemon=True)
     #train_thread.start()
@@ -103,26 +106,22 @@ def runner():
     scores = list()
     episodic_length = 0
     epoch = 0
-    if exp_name == 'ppo':
-        N = 20
-        learn_iters = 0
-        n_steps = 0
 
     if checkpoint_load:
         agent.load_model()
         if exp_name == 'ddqn':
-            with open('checkpoint_DDQN.pickle', 'rb') as f:
+            with open('checkpoint_ddqn.pickle', 'rb') as f:
                 data = pickle.load(f)
                 epoch = data['epoch']
                 cumulative_score = data['cumulative_score']
                 agent.epsilon = data['epsilon']
-        elif exp_name == 'sac':
-            with open('checkpoint_SAC.pickle', 'rb') as f:
-                data = pickle.load(f)
-                epoch = data['epoch']
-                cumulative_score = data['cumulative_score']
+        #elif exp_name == 'sac':
+        #    with open('checkpoint_SAC.pickle', 'rb') as f:
+        #        data = pickle.load(f)
+        #        epoch = data['epoch']
+        #        cumulative_score = data['cumulative_score']
         elif exp_name == 'ppo':
-            with open('checkpoint_PPO.pickle', 'rb') as f:
+            with open('checkpoint_ppo.pickle', 'rb') as f:
                 data = pickle.load(f)
                 epoch = data['epoch']
                 cumulative_score = data['cumulative_score']
@@ -167,18 +166,20 @@ def runner():
 
     try:
         time.sleep(1)
-        #if exp_name == 'ddqn':
-        #    logging.info('\nMemory has been initialized...\n')
         for step in range(epoch+1, EPISODES+1):
             if exp_name == 'ddqn':
                 print('Starting Episode: ', step, ', Epsilon Now:  {:.3f}'.format(agent.epsilon), ', ', end="")
             else:
                 print('Starting Episode: ', step ,', ', end="")
 
+
+            #Reset
             done = False
             visual_obs, nav_data = env._reset()
-            t1 = datetime.now()
             score = 0
+
+            #Episode start: timestamp
+            t1 = datetime.now()
 
             while not done:
                 if exp_name == 'ppo':
@@ -201,13 +202,15 @@ def runner():
                 visual_obs = new_visual_obs
                 nav_data = new_nav_data
 
+            #Episode end : timestamp
             t2 = datetime.now()
             t3 = t2-t1
             episodic_length += abs(t3.total_seconds())
 
             logging.info("Done == True.")
-
+            
             scores.append(score)
+
             if checkpoint_load:
                 cumulative_score = ((cumulative_score * (step - 1)) + score) / (step)
             else:
@@ -216,17 +219,16 @@ def runner():
             print('Reward:  {:.2f}'.format(score), ', Average Reward:  {:.2f}'.format(cumulative_score))
 
             if step >= 20 and step % 20 == 0:
-
                 agent.save_model()
 
                 if exp_name == 'ddqn':
                     data_obj = {'cumulative_score': cumulative_score, 'epsilon': agent.epsilon,'epoch': step}
                     with open('checkpoint_DDQN.pickle', 'wb') as handle:
                         pickle.dump(data_obj, handle)
-                elif exp_name == 'sac':
-                    data_obj = {'cumulative_score': cumulative_score,'epoch': step}
-                    with open('checkpoint_SAC.pickle', 'wb') as handle:
-                        pickle.dump(data_obj, handle)
+                #elif exp_name == 'sac':
+                    #data_obj = {'cumulative_score': cumulative_score,'epoch': step}
+                    #with open('checkpoint_SAC.pickle', 'wb') as handle:
+                        #pickle.dump(data_obj, handle)
                 elif exp_name == 'ppo':
                     data_obj = {'cumulative_score': cumulative_score,'epoch': step}
                     with open('checkpoint_PPO.pickle', 'wb') as handle:
