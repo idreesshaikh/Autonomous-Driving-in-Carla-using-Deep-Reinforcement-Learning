@@ -42,7 +42,7 @@ class CameraSensor():
         placeholder = np.frombuffer(image.raw_data, dtype=np.dtype("uint8"))
         placeholder1 = placeholder.reshape((image.width, image.height, 4))
         target = placeholder1[:, :, :3]
-        self.front_camera.append(target/255.0)
+        self.front_camera.append(target)#/255.0)
 
 
 
@@ -91,8 +91,6 @@ class CameraSensorEnv:
 
 
 
-
-
 # ---------------------------------------------------------------------|
 # ------------------------------- COLLISION SENSOR|
 # ---------------------------------------------------------------------|
@@ -133,7 +131,7 @@ class CollisionSensor:
 # ---------------------------------------------------------------------|
 # ------------------------------- OBSTACLE SENSOR|
 # ---------------------------------------------------------------------|
-
+'''
 # It's an important as it helps us to detect Obstacles
 class ObstacleSensor:
 
@@ -163,7 +161,7 @@ class ObstacleSensor:
             return
         self.distance = event.distance
 
-
+'''
 # ---------------------------------------------------------------------|
 # ------------------------------- LANE INVASION |
 # ---------------------------------------------------------------------|

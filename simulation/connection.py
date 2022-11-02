@@ -44,7 +44,7 @@ class ClientConnection:
             # Connecting to the  Server
             self.client = carla.Client(HOST, PORT)
             self.client.set_timeout(TIMEOUT)
-            self.world = self.client.load_world('Town02')
+            self.world = self.client.load_world('Town07')
             return self.client, self.world
 
         except Exception as e:

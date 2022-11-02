@@ -14,6 +14,8 @@ class DuelingDQnetwork(nn.Module):
         
         self.conv_encoder = VariationalEncoder(LATENT_DIM)
         self.conv_encoder.load()
+        
+        
         self.conv_encoder.eval()
         for params in self.conv_encoder.parameters():
             params.requires_grad = False
@@ -44,10 +46,8 @@ class DuelingDQnetwork(nn.Module):
         return V, A
 
     def save_checkpoint(self):
-        print('\nCheckpoint saving')
         torch.save(self.state_dict(), self.checkpoint_file)
 
     def load_checkpoint(self):
-        print('\nCheckpoint loading')
         self.load_state_dict(torch.load(self.checkpoint_file))
 

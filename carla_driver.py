@@ -48,8 +48,6 @@ def runner():
 
         if exp_name == 'ddqn':
             run_name = f"ddqn_{args.env_name}"
-        #elif exp_name == 'sac':
-        #    run_name = f"sac_{args.env_name}"
         elif exp_name == 'ppo':
             run_name = f"ppo_{args.env_name}"
 
@@ -87,13 +85,10 @@ def runner():
     checkpoint_load = MODEL_LOAD
 
     if exp_name == 'ddqn':
-        n_actions = 24  # Car can only make 24 actions
+        n_actions = 11  # Car can only make 11 actions
         agent = DQNAgent(n_actions)
-    #elif exp_name == 'sac':
-    #    n_actions = 2  # Car can only make 19 actions
-    #    agent = SACAgent(n_actions)
     elif exp_name == 'ppo':
-        n_actions = 2  # Car can only make 19 actions
+        n_actions = 2  # Car can only make 2 actions
         agent = PPOAgent(n_actions)
         learn_iters = 0
         n_steps = 0
@@ -115,11 +110,6 @@ def runner():
                 epoch = data['epoch']
                 cumulative_score = data['cumulative_score']
                 agent.epsilon = data['epsilon']
-        #elif exp_name == 'sac':
-        #    with open('checkpoint_SAC.pickle', 'rb') as f:
-        #        data = pickle.load(f)
-        #        epoch = data['epoch']
-        #        cumulative_score = data['cumulative_score']
         elif exp_name == 'ppo':
             with open('checkpoint_ppo.pickle', 'rb') as f:
                 data = pickle.load(f)
@@ -172,7 +162,6 @@ def runner():
             else:
                 print('Starting Episode: ', step ,', ', end="")
 
-
             #Reset
             done = False
             visual_obs, nav_data = env._reset()
@@ -193,11 +182,11 @@ def runner():
                 if exp_name == 'ppo':
                     agent.save_transition(visual_obs, nav_data, action, prob, val, reward, done)
                     if n_steps % N == 0:
-                        agent.train()
+                        agent.learn()
                         learn_iters +=1
                 else:
                     agent.save_transition(visual_obs, action, nav_data, reward, new_visual_obs, new_nav_data, int(done))
-                    agent.train()
+                    agent.learn()
 
                 visual_obs = new_visual_obs
                 nav_data = new_nav_data
@@ -225,10 +214,6 @@ def runner():
                     data_obj = {'cumulative_score': cumulative_score, 'epsilon': agent.epsilon,'epoch': step}
                     with open('checkpoint_DDQN.pickle', 'wb') as handle:
                         pickle.dump(data_obj, handle)
-                #elif exp_name == 'sac':
-                    #data_obj = {'cumulative_score': cumulative_score,'epoch': step}
-                    #with open('checkpoint_SAC.pickle', 'wb') as handle:
-                        #pickle.dump(data_obj, handle)
                 elif exp_name == 'ppo':
                     data_obj = {'cumulative_score': cumulative_score,'epoch': step}
                     with open('checkpoint_PPO.pickle', 'wb') as handle:

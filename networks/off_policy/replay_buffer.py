@@ -1,5 +1,5 @@
 import numpy as np
-from parameters import BATCH_SIZE, CONTINUOUS_ACTION_SPACE
+from parameters import BATCH_SIZE
 
 
 
@@ -13,10 +13,7 @@ class ReplayBuffer(object):
         self.new_img_state_memory = np.zeros((self.buffer_size, *img_shape), dtype=np.float32)
         self.nav_data = np.zeros((self.buffer_size, *nav_shape), dtype=np.float32)
         self.new_nav_data = np.zeros((self.buffer_size, *nav_shape), dtype=np.float32)
-        if CONTINUOUS_ACTION_SPACE:
-            self.action_memory = np.zeros((self.buffer_size, n_actions), dtype=np.float64)
-        else:
-            self.action_memory = np.zeros(self.buffer_size, dtype=np.int64)
+        self.action_memory = np.zeros(self.buffer_size, dtype=np.int64)
         self.reward_memory = np.zeros(self.buffer_size, dtype=np.float32)
         self.terminal_memory = np.zeros(self.buffer_size, dtype=np.bool)
 

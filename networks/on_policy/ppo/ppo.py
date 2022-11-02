@@ -17,12 +17,14 @@ class ActorNetwork(nn.Module):
         
         self.conv_encoder = VariationalEncoder(LATENT_DIM)
         self.conv_encoder.load()
+
+        
         self.conv_encoder.eval()
         for params in self.conv_encoder.parameters():
             params.requires_grad = False
         
         self.actor = nn.Sequential(
-            nn.Linear(200+4, 256),
+            nn.Linear(200+3, 256),
             nn.ReLU(),
             nn.Linear(256, 128),
             nn.ReLU(),
@@ -37,10 +39,23 @@ class ActorNetwork(nn.Module):
         self.to(self.device)
 
     def forward(self, img, nav):
+
+        """
+			Runs a forward pass on the neural network.
+
+			Parameters:
+				img, nav - observation to pass as input
+
+			Return:
+				output - the output of our forward pass
+		"""
+        # Convert observation to tensor if it's a numpy array
+        if isinstance(img, np.ndarray):
+            obs = torch.tensor(obs, dtype=torch.float)
         img = img.view(-1,3,128,128)
         img = self.conv_encoder(img)
         img = img.view(-1, 200)
-        nav = nav.view(-1, 4)
+        nav = nav.view(-1, 3)
         state = torch.cat((img, nav), -1)
         
         dist = self.actor(state)
@@ -48,11 +63,9 @@ class ActorNetwork(nn.Module):
         return dist
 
     def save_checkpoint(self):
-        print('\nCheckpoint saving')
         torch.save(self.state_dict(), self.checkpoint_file)
 
     def load_checkpoint(self):
-        print('\nCheckpoint loading')
         self.load_state_dict(torch.load(self.checkpoint_file))
 
 
@@ -69,7 +82,7 @@ class CriticNetwork(nn.Module):
             params.requires_grad = False
         
         self.critic = nn.Sequential(
-            nn.Linear(200+4, 256),
+            nn.Linear(200+3, 256),
             nn.ReLU(),
             nn.Linear(256, 128),
             nn.ReLU(),
@@ -83,21 +96,30 @@ class CriticNetwork(nn.Module):
         self.to(self.device)
 
     def forward(self, img, nav):
+
+        """
+			Runs a forward pass on the neural network.
+
+			Parameters:
+				img, nav - observation to pass as input
+
+			Return:
+				output - the output of our forward pass
+		"""
+
         img = img.view(-1,3,128,128)
         img = self.conv_encoder(img)
 
         img = img.view(-1, 200)
-        nav = nav.view(-1, 4)
+        nav = nav.view(-1, 3)
         state = torch.cat((img, nav), -1)
         value = self.critic(state)
 
         return value
 
     def save_checkpoint(self):
-        print('\nCheckpoint saving')
         torch.save(self.state_dict(), self.checkpoint_file)
 
     def load_checkpoint(self):
-        print('\nCheckpoint loading')
         self.load_state_dict(torch.load(self.checkpoint_file))
 
