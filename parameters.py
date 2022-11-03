@@ -22,17 +22,8 @@ REPLACE_NETWORK = 10
 DQN_CHECKPOINT_DIR = 'models/ddqn'
 MODEL_ONLINE = 'carla_dueling_dqn_online.pth'
 MODEL_TARGET = 'carla_dueling_dqn_target.pth'
-'''
-#SAC (hyper)parameters
-SAC_LEARNING_RATE = 3e-4
-SAC_CHECKPOINT_DIR = 'models/sac'
-TAU = 0.005
-ACTOR_SAC = 'carla_actor_sac.pth'
-CRITIC_1_SAC = 'carla_critic_1_sac.pth'
-CRITIC_2_SAC = 'carla_critic_2_sac.pth'
-VALUE_SAC = 'carla_value_sac.pth'
-TARGET_VALUE_SAC = 'carla_target_value_sac.pth'
-'''
+
+
 #Proximal Policy Optimization (hyper)parameters
 PPO_LEARNING_RATE = 2.5e-4  
 PPO_CHECKPOINT_DIR = 'models/ppo'

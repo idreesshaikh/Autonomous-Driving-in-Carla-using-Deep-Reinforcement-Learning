@@ -136,8 +136,8 @@ class CarlaEnvironment():
 
             logging.info("Environment has been resetted.")
             self.episode_start_time = time.time()
-
-            return self.image_obs, self.navigation_obs
+            observation = np.concatenate(self.image_obs.flatten(), self.navigation_obs)
+            return observation
 
         except:
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.sensor_list])
@@ -282,8 +282,8 @@ class CarlaEnvironment():
                 self.remove_sensors()
                 for actor in self.actor_list:
                     actor.destroy()
-
-            return self.image_obs, self.navigation_obs, reward, done, None
+            observation = np.concatenate(self.image_obs.flatten(), self.navigation_obs)
+            return observation, reward, done, None
 
         except:
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.sensor_list])

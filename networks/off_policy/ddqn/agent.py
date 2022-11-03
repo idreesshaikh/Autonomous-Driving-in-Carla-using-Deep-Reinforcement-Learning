@@ -16,18 +16,17 @@ class DQNAgent(object):
         self.mem_size = MEMORY_SIZE
         self.batch_size = BATCH_SIZE
         self.train_step = 0
-        self.replay_buffer = ReplayBuffer(MEMORY_SIZE, (128,128, 3), (4, 1), n_actions)
+        self.replay_buffer = ReplayBuffer(MEMORY_SIZE,(203,), n_actions)
         self.q_network_eval = DuelingDQnetwork(n_actions, MODEL_ONLINE)
         self.q_network_target = DuelingDQnetwork(n_actions, MODEL_TARGET)
 
-    def save_transition(self, visual_state, action, nav_data,  reward, new_visual_state, new_nav_data, done):
-        self.replay_buffer.save_transition(visual_state, action, nav_data, reward, new_visual_state, new_nav_data, done)
+    def save_transition(self, observation, action,  reward, new_observation, done):
+        self.replay_buffer.save_transition(observation, action, reward, new_observation, done)
 
-    def pick_action(self, visual_state, nav_data):
+    def get_action(self, observation):
         if np.random.random() > self.epsilon:
-            visual_state = torch.tensor(visual_state, dtype=torch.float).to(self.q_network_eval.device)
-            nav_data = torch.tensor(nav_data, dtype=torch.float).to(self.q_network_eval.device)
-            _, advantage = self.q_network_eval.forward(visual_state, nav_data)
+            observation = torch.tensor(observation, dtype=torch.float).to(self.q_network_eval.device)
+            _, advantage = self.q_network_eval.forward(observation)
             action = torch.argmax(advantage).item()
         else:
             action = np.random.choice(self.action_space)
@@ -47,7 +46,7 @@ class DQNAgent(object):
         self.q_network_eval.load_checkpoint()
         self.q_network_target.load_checkpoint()
 
-    def train(self):
+    def learn(self):
         if self.replay_buffer.counter < self.batch_size:
             return
 
@@ -56,20 +55,18 @@ class DQNAgent(object):
         if self.train_step % REPLACE_NETWORK == 0:
             self.q_network_target.load_state_dict(self.q_network_eval.state_dict())
 
-        visual_state, action, nav_data, reward, new_visual_state, new_nav_data, done = self.replay_buffer.sample_buffer()
+        observation, action, reward, new_observation, done = self.replay_buffer.sample_buffer()
  
 
-        visual_state = torch.tensor(visual_state).to(self.q_network_eval.device)
+        observation = torch.tensor(observation).to(self.q_network_eval.device)
         action = torch.tensor(action).to(self.q_network_eval.device)
-        nav_data = torch.tensor(nav_data).to(self.q_network_eval.device)
         reward = torch.tensor(reward).to(self.q_network_eval.device)
-        new_visual_state = torch.tensor(new_visual_state).to(self.q_network_eval.device)
-        new_nav_data = torch.tensor(new_nav_data).to(self.q_network_eval.device)
+        new_observation = torch.tensor(new_observation).to(self.q_network_eval.device)
         done = torch.tensor(done).to(self.q_network_eval.device)
 
 
-        Vs, As = self.q_network_eval.forward(visual_state, nav_data)
-        nVs, nAs = self.q_network_target.forward(new_visual_state, new_nav_data)
+        Vs, As = self.q_network_eval.forward(observation)
+        nVs, nAs = self.q_network_target.forward(new_observation)
         q_pred = torch.add(Vs, (As - As.mean(dim=1, keepdim=True))).gather(1,action.unsqueeze(-1)).squeeze(-1)
         q_next =  torch.add(nVs, (nAs - nAs.mean(dim=1, keepdim=True)))
         q_target = reward + self.gamma*torch.max(q_next, dim=1)[0].detach()

@@ -4,7 +4,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
 import numpy as np
-from networks.on_policy.ppo.memory import PPOMemory
+from torch.optim import Adam
+from torch.distributions import MultivariateNormal
 from networks.on_policy.ppo.ppo import ActorNetwork, CriticNetwork
 from parameters import PPO_BATCH_SIZE, GAMMA, POLICY_CLIP, PPO_ACTOR, PPO_CRITIC
 
@@ -13,90 +14,124 @@ class PPOAgent(object):
 
     def __init__(self, n_actions):
         self.n_actions = n_actions
-        self.gamma = GAMMA
-        self.policy_clip = POLICY_CLIP
-        self.batch_size = PPO_BATCH_SIZE
-        self.N = 2048
-        self.gae_lambda = 0.95
-        self.n_epochs = 10
+        self.timesteps_per_batch = 4800
+        self.max_timesteps_per_episode = 1600
+        self.n_updates_per_iteration = 5
+        self.lr = 0.005                                 # Learning rate of actor optimizer
+        self.gamma = 0.95
+        self.clip = 0.2
+        self.render = True
+        self.render_every_i = 10 
+        self.save_freq = 10
+        self.seed = None
 
         self.actor = ActorNetwork(self.n_actions, PPO_ACTOR)
-        self.critic = CriticNetwork(self.n_actions, PPO_CRITIC)
-        self.memory = PPOMemory()
-        
-    def save_transition(self, visual_state , nav_data, action, probs, vals, reward, done):
-        self.memory.save_memory((visual_state , nav_data), action, probs, vals, reward, done)
+        self.critic = CriticNetwork(PPO_CRITIC)
 
-    def pick_action(self, visual_state, nav_data):
-        visual_state = torch.tensor([visual_state], dtype=torch.float).to(self.actor.device)
-        nav_data = torch.tensor([nav_data], dtype=torch.float).to(self.actor.device)
+		# Initialize optimizers for actor and critic
+        self.actor_optim = Adam(self.actor.parameters(), lr=self.lr)
+        self.critic_optim = Adam(self.critic.parameters(), lr=self.lr)
 
-        dist = self.actor(visual_state, nav_data)
-        value = self.critic(visual_state, nav_data)
-        action = dist.sample()
-
-        probs = torch.squeeze(dist.log_prob(action)).item()
-        action= torch.squeeze(action).item()
-        value = torch.squeeze(value).item()
-
-        return action, probs, value
+        # Initialize the covariance matrix used to query the actor for actions
+        self.cov_var = torch.full(size=(self.act_dim,), fill_value=0.5)
+        self.cov_mat = torch.diag(self.cov_var)
 
     def save_model(self):
-        print('...saving model...')
         self.actor.save_checkpoint()
         self.critic.save_checkpoint()
 
     def load_model(self):
-        print('...loading model...')
         self.actor.load_checkpoint()
         self.critic.load_checkpoint()
 
-    def train(self):
+    def learn(self, total_timesteps):
+        t_so_far = 0  # Timesteps simulated so far
+        i_so_far = 0  # Iterations ran so far
+        while t_so_far < total_timesteps:
+            batch_obs, batch_acts, batch_log_probs, batch_rtgs, batch_lens = self.rollout()
+            t_so_far += np.sum(batch_lens)
 
-        for _ in range(self.n_epochs):
-            state_arr, action_arr, old_prob_arr, vals_arr , reward_arr, done_arr, batches = self.memory.generate_batches()
+            i_so_far += 1
 
-            values = vals_arr
-            advantage = np.zeros(len(reward_arr), dtype=np.float32)
+            V, _ = self.evaluate(batch_obs, batch_acts)
+            # ALG STEP 5
+            A_k = batch_rtgs - V.detach()
+            A_k = (A_k - A_k.mean()) / (A_k.std() + 1e-10)
 
-            for t in range(len(reward_arr)-1):
-                discount = 1
-                a_t = 0
-                for k in range(t, len(reward_arr)-1):
-                    a_t += discount*(reward_arr[k]+ self.gamma*values[k+1]*(1-int(done_arr[k]))-values[k])
-                    discount *= self.gamma*self.gae_lambda
-                advantage[t] = a_t
-            advantage = torch.tensor(advantage).to(self.actor.device)
+            for _ in range(self.n_updates_per_iteration):
+                V, curr_log_probs = self.evaluate(batch_obs, batch_acts)
+                ratios = torch.exp(curr_log_probs - batch_log_probs)
 
-            values = torch.tensor(values).to(self.actor.device)
-            for batch in batches:
-                states = torch.tensor(state_arr[batch], dtype=torch.float32).to(self.actor.device)
-                old_probs = torch.tensor(old_prob_arr[batch]).to(self.actor.device)
-                actions = torch.tensor(action_arr[batch]).to(self.actor.device)
+                surr1 = ratios * A_k
+                surr2 = torch.clamp(ratios, 1 - self.clip, 1 + self.clip) * A_k
+                actor_loss = (-torch.min(surr1, surr2)).mean()
+                critic_loss = nn.MSELoss()(V, batch_rtgs)
+                self.actor_optim.zero_grad()
+                actor_loss.backward(retain_graph=True)
+                self.actor_optim.step()
+                self.critic_optim.zero_grad()
+                critic_loss.backward()
+                self.critic_optim.step()
 
-                dist = self.actor(states)
-                critic_value = self.critic(states)
+            # Save our model if it's time
+            if i_so_far % self.save_freq == 0:
+                self.save_model()
 
-                critic_value = torch.squeeze(critic_value)
+    def rollout(self):
+        batch_obs = []
+        batch_acts = []
+        batch_log_probs = []
+        batch_rews = []
+        batch_rtgs = []
+        batch_lens = []
+        ep_rews = []
 
-                new_probs = dist.log_prob(actions)
-                prob_ratio = new_probs.exp() / old_probs.exp()
-                weighted_probs = advantage[batch] * prob_ratio
-                weighted_clipped_probs = torch.clamp(prob_ratio, 1-self.policy_clip, 1+self.policy_clip)*advantage[batch]
+        t = 0 
 
-                actor_loss = -torch.min(weighted_probs, weighted_clipped_probs).mean()
+        while t < self.timesteps_per_batch:
+            ep_rews = []
+            obs = self.env.reset()
+            done = False
+            for ep_t in range(self.max_timesteps_per_episode):
+                if self.render and (self.logger['i_so_far'] % self.render_every_i == 0) and len(batch_lens) == 0:
+                    self.env.render()
+                t += 1 
+                batch_obs.append(obs)
+                action, log_prob = self.get_action(obs)
+                obs, rew, done, _ = self.env.step(action)
+                ep_rews.append(rew)
+                batch_acts.append(action)
+                batch_log_probs.append(log_prob)
+                if done:
+                    break
+            batch_lens.append(ep_t + 1)
+            batch_rews.append(ep_rews)
+        batch_obs = torch.tensor(batch_obs, dtype=torch.float)
+        batch_acts = torch.tensor(batch_acts, dtype=torch.float)
+        batch_log_probs = torch.tensor(batch_log_probs, dtype=torch.float)
+        batch_rtgs = self.compute_rtgs(batch_rews)
+        return batch_obs, batch_acts, batch_log_probs, batch_rtgs, batch_lens
 
-                returns = advantage[batch] + values[batch]
-                critic_loss = (returns -critic_value)**2
-                critic_loss = critic_loss.mean()
+    def compute_rtgs(self, batch_rews):
+        batch_rtgs = []
 
+        # Iterate through each episode
+        for ep_rews in reversed(batch_rews):
 
-                total_loss = actor_loss + 0.5*critic_loss
-                self.actor.optimizer.zero_grad()
-                self.critic.optimizer.zero_grad()
-                total_loss.backward()
-                self.actor.optimizer.step()
-                self.critic.optimizer.step()
+            discounted_reward = 0  # The discounted reward so far
 
-        self.memory.clear_memory()    
+            # Iterate through all rewards in the episode. We go backwards for smoother calculation of each
+            # discounted return (think about why it would be harder starting from the beginning)
+            for rew in reversed(ep_rews):
+                discounted_reward = rew + discounted_reward * self.gamma
+                batch_rtgs.insert(0, discounted_reward)
 
+        batch_rtgs = torch.tensor(batch_rtgs, dtype=torch.float)
+        return batch_rtgs
+
+    def evaluate(self, batch_obs, batch_acts):
+        V = self.critic(batch_obs).squeeze()
+        mean = self.actor(batch_obs)
+        dist = MultivariateNormal(mean, self.cov_mat)
+        log_probs = dist.log_prob(batch_acts)
+        return V, log_probs

@@ -15,7 +15,6 @@ from simulation.connection import ClientConnection
 from parameters import *
 from simulation.environment import CarlaEnvironment
 from networks.off_policy.ddqn.agent import DQNAgent
-from networks.off_policy.sac.agent import SACAgent
 
 
 def parse_args():
@@ -90,9 +89,9 @@ def runner():
     elif exp_name == 'ppo':
         n_actions = 2  # Car can only make 2 actions
         agent = PPOAgent(n_actions)
-        learn_iters = 0
-        n_steps = 0
-        N = 20
+        #learn_iters = 0
+        #n_steps = 0
+        #N = 20
     
     #train_thread = Thread(target=agent.train, daemon=True)
     #train_thread.start()
@@ -122,7 +121,7 @@ def runner():
     #========================================================================
 
     try:
-        client, world = ClientConnection()._setup()
+        client, world = ClientConnection().setup()
         #settings = world.get_settings()
         #settings.no_rendering_mode = True
         #world.apply_settings(settings)
@@ -140,14 +139,13 @@ def runner():
     
     if exp_name == 'ddqn':
         while agent.replay_buffer.counter < agent.replay_buffer.buffer_size:
-            visual_obs, nav_data = env._reset()
+            observation = env.reset()
             done = False
             while not done:
                 action = random.randint(0,n_actions-1)
-                new_visual_obs, new_nav_data, reward, done, _ = env._step(action)
-                agent.save_transition(visual_obs, action, nav_data, reward, new_visual_obs, new_nav_data, int(done))
-                visual_obs = new_visual_obs
-                nav_data = new_nav_data
+                new_observation, reward, done, _ = env.step(action)
+                agent.save_transition(observation, action, reward, new_observation, int(done))
+                observation = new_observation
     
     #========================================================================
     #                           ALGORITHM
@@ -164,7 +162,7 @@ def runner():
 
             #Reset
             done = False
-            visual_obs, nav_data = env._reset()
+            observation = env.reset()
             score = 0
 
             #Episode start: timestamp
@@ -172,24 +170,21 @@ def runner():
 
             while not done:
                 if exp_name == 'ppo':
-                    action, prob, val = agent.pick_action(visual_obs, nav_data)
+                    action, prob, val = agent.get_action(observation)
                 else:
-                    action = agent.pick_action(visual_obs, nav_data)
+                    action = agent.get_action(observation)
 
-                new_visual_obs, new_nav_data, reward, done, _ = env._step(action)
+                new_observation, reward, done, _ = env.step(action)
                 score += reward
                 
                 if exp_name == 'ppo':
-                    agent.save_transition(visual_obs, nav_data, action, prob, val, reward, done)
-                    if n_steps % N == 0:
-                        agent.learn()
-                        learn_iters +=1
+                    agent.save_transition(observation, action, prob, val, reward, done)
+                    agent.learn(total_timesteps=200_000_000)
                 else:
-                    agent.save_transition(visual_obs, action, nav_data, reward, new_visual_obs, new_nav_data, int(done))
+                    agent.save_transition(observation, action, reward, new_observation, int(done))
                     agent.learn()
 
-                visual_obs = new_visual_obs
-                nav_data = new_nav_data
+                observation = new_observation
 
             #Episode end : timestamp
             t2 = datetime.now()
