@@ -130,8 +130,26 @@ class PPOAgent(object):
         return batch_rtgs
 
     def evaluate(self, batch_obs, batch_acts):
+        
+        
         V = self.critic(batch_obs).squeeze()
         mean = self.actor(batch_obs)
         dist = MultivariateNormal(mean, self.cov_mat)
         log_probs = dist.log_prob(batch_acts)
         return V, log_probs
+
+class RolloutBuffer:
+    def __init__(self):
+        self.states = []
+        self.actions = []
+        self.logprobs = []
+        self.rewards = []
+        self.is_terminals = []
+    
+
+    def clear(self):
+        del self.states[:]
+        del self.actions[:]
+        del self.logprobs[:]
+        del self.rewards[:]
+        del self.is_terminals[:]

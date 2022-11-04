@@ -68,7 +68,7 @@ def runner():
             name=run_name,
             save_code=True,
         )
-        wandb.tensorboard.patch(root_logdir="runs/{run_name}", save=False, tensorboard_x=True, pytorch=True)
+        #wandb.tensorboard.patch(root_logdir="runs/{run_name}", save=False, tensorboard_x=True, pytorch=True)
     
     #Seeding to reproduce the results 
     random.seed(args.seed)
@@ -87,19 +87,17 @@ def runner():
         n_actions = 11  # Car can only make 11 actions
         agent = DQNAgent(n_actions)
     elif exp_name == 'ppo':
-        n_actions = 2  # Car can only make 2 actions
-        agent = PPOAgent(n_actions)
-        #learn_iters = 0
-        #n_steps = 0
-        #N = 20
+        action_dim = 2  # Car can only make 2 actions
+        agent = PPOAgent(action_dim)
     
     #train_thread = Thread(target=agent.train, daemon=True)
     #train_thread.start()
-
     cumulative_score = None
     scores = list()
     episodic_length = 0
     epoch = 0
+
+
 
     if checkpoint_load:
         agent.load_model()

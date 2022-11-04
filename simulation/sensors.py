@@ -1,11 +1,11 @@
 import math
-from autoencoder.encoder import VariationalEncoder
 import numpy as np
 import weakref
 import logging
 from parameters import LATENT_DIM
 import pygame
 from simulation.connection import carla
+from autoencoder.encoder import VariationalEncoder
 from simulation.settings import RGB_CAMERA, SSC_CAMERA
 
 

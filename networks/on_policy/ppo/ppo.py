@@ -9,9 +9,9 @@ from parameters import PPO_CHECKPOINT_DIR, LATENT_DIM, PPO_LEARNING_RATE
 
 
 class ActorNetwork(nn.Module):
-    def __init__(self, n_actions, model):
+    def __init__(self, action_dim, model):
         super(ActorNetwork, self).__init__()
-        self.n_actions = n_actions
+        self.action_dim = action_dim
         self.checkpoint_file = os.path.join(PPO_CHECKPOINT_DIR, model)
         
         self.actor = nn.Sequential(
@@ -19,8 +19,8 @@ class ActorNetwork(nn.Module):
             nn.ReLU(),
             nn.Linear(128, 64),
             nn.ReLU(),
-            nn.Linear(64, self.n_actions),
-            nn.Softmax(dim=-1),
+            nn.Linear(64, self.action_dim),
+            nn.Tanh()
         )
 
         self.optimizer = optim.Adam(self.parameters(), lr=PPO_LEARNING_RATE)
