@@ -1,9 +1,7 @@
 import math
-from autoencoder.encoder import VariationalEncoder
 import numpy as np
 import weakref
 import logging
-from parameters import LATENT_DIM
 import pygame
 from simulation.connection import carla
 from simulation.settings import RGB_CAMERA, SSC_CAMERA
@@ -21,15 +19,6 @@ class CameraSensor():
         self.front_camera = list()
         world = self.parent.get_world()
         self.sensor = self._set_camera_sensor(world)
-
-        self.conv_encoder = VariationalEncoder(LATENT_DIM)
-        self.conv_encoder.load()
-        
-        
-        self.conv_encoder.eval()
-        for params in self.conv_encoder.parameters():
-            params.requires_grad = False
-
         weak_self = weakref.ref(self)
         self.sensor.listen(
             lambda image: CameraSensor._get_front_camera_data(weak_self, image))
@@ -37,8 +26,8 @@ class CameraSensor():
     # Main front camera is setup and provide the visual observations for our network.
     def _set_camera_sensor(self, world):
         front_camera_bp = world.get_blueprint_library().find(self.sensor_name)
-        front_camera_bp.set_attribute('image_size_x', f'128')
-        front_camera_bp.set_attribute('image_size_y', f'128')
+        front_camera_bp.set_attribute('image_size_x', f'160')
+        front_camera_bp.set_attribute('image_size_y', f'80')
         front_camera_bp.set_attribute('fov', f'125')
         front_camera = world.spawn_actor(front_camera_bp, carla.Transform(
             carla.Location(x=2.4, z=1.5), carla.Rotation(pitch= -10)), attach_to=self.parent)
@@ -53,10 +42,7 @@ class CameraSensor():
         placeholder = np.frombuffer(image.raw_data, dtype=np.dtype("uint8"))
         placeholder1 = placeholder.reshape((image.width, image.height, 4))
         target = placeholder1[:, :, :3]
-        self.conv_encoder(target)
         self.front_camera.append(target)#/255.0)
-
-
 
 
 # ---------------------------------------------------------------------|

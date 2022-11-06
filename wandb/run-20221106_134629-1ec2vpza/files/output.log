@@ -1,0 +1,77 @@
+
+Starting Episode:  1 , Epsilon Now:  1.000 , Reward:  159.45 , Average Reward:  159.45
+Starting Episode:  2 , Epsilon Now:  0.999 , Reward:  63.18 , Average Reward:  111.32
+Starting Episode:  3 , Epsilon Now:  0.999 , Reward:  111.01 , Average Reward:  111.22
+Starting Episode:  4 , Epsilon Now:  0.999 , Reward:  47.55 , Average Reward:  95.30
+Starting Episode:  5 , Epsilon Now:  0.999 , Reward:  134.46 , Average Reward:  103.13
+Starting Episode:  6 , Epsilon Now:  0.998 , Reward:  25.66 , Average Reward:  90.22
+Starting Episode:  7 , Epsilon Now:  0.998 , Reward:  116.07 , Average Reward:  93.91
+Starting Episode:  8 , Epsilon Now:  0.998 , Reward:  56.42 , Average Reward:  89.23
+Starting Episode:  9 , Epsilon Now:  0.997 , Reward:  294.90 , Average Reward:  112.08
+Starting Episode:  10 , Epsilon Now:  0.997 , Reward:  61.98 , Average Reward:  107.07
+Starting Episode:  11 , Epsilon Now:  0.997 , Reward:  135.96 , Average Reward:  109.69
+Starting Episode:  12 , Epsilon Now:  0.996 , Reward:  57.39 , Average Reward:  105.34
+Starting Episode:  13 , Epsilon Now:  0.996 , Reward:  392.62 , Average Reward:  127.44
+Starting Episode:  14 , Epsilon Now:  0.995 , Reward:  53.93 , Average Reward:  122.19
+Starting Episode:  15 , Epsilon Now:  0.995 , Reward:  92.14 , Average Reward:  120.18
+Starting Episode:  16 , Epsilon Now:  0.995 , Reward:  179.62 , Average Reward:  123.90
+Starting Episode:  17 , Epsilon Now:  0.994 , Reward:  49.62 , Average Reward:  119.53
+Starting Episode:  18 , Epsilon Now:  0.994 , Reward:  65.44 , Average Reward:  116.52
+Starting Episode:  19 , Epsilon Now:  0.994 , Reward:  35.92 , Average Reward:  112.28
+Starting Episode:  20 , Epsilon Now:  0.994 , Reward:  86.43 , Average Reward:  110.99
+Starting Episode:  21 , Epsilon Now:  0.993 , Reward:  73.38 , Average Reward:  109.20
+Starting Episode:  22 , Epsilon Now:  0.993 , Reward:  12.02 , Average Reward:  104.78
+Starting Episode:  23 , Epsilon Now:  0.993 , Reward:  593.72 , Average Reward:  126.04
+Starting Episode:  24 , Epsilon Now:  0.992 , Reward:  178.61 , Average Reward:  128.23
+Starting Episode:  25 , Epsilon Now:  0.991 , Reward:  50.55 , Average Reward:  125.12
+Starting Episode:  26 , Epsilon Now:  0.991 , Reward:  54.60 , Average Reward:  122.41
+Starting Episode:  27 , Epsilon Now:  0.991 , Reward:  79.39 , Average Reward:  120.82
+Starting Episode:  28 , Epsilon Now:  0.990 , Reward:  147.77 , Average Reward:  121.78
+Starting Episode:  29 , Epsilon Now:  0.990 , Reward:  189.01 , Average Reward:  124.10
+Starting Episode:  30 , Epsilon Now:  0.990 , Reward:  -9.19 , Average Reward:  119.65
+Starting Episode:  31 , Epsilon Now:  0.990 , Reward:  32.68 , Average Reward:  116.85
+Starting Episode:  32 , Epsilon Now:  0.989 , Reward:  74.84 , Average Reward:  115.54
+Starting Episode:  33 , Epsilon Now:  0.989 , Reward:  143.21 , Average Reward:  116.37
+Starting Episode:  34 , Epsilon Now:  0.989 , Reward:  154.02 , Average Reward:  117.48
+Starting Episode:  35 , Epsilon Now:  0.988 , Reward:  139.24 , Average Reward:  118.10
+Starting Episode:  36 , Epsilon Now:  0.988 , Reward:  71.91 , Average Reward:  116.82
+Starting Episode:  37 , Epsilon Now:  0.988 , Reward:  199.36 , Average Reward:  119.05
+Starting Episode:  38 , Epsilon Now:  0.987 , Reward:  95.49 , Average Reward:  118.43
+Starting Episode:  39 , Epsilon Now:  0.987 , Reward:  127.81 , Average Reward:  118.67
+Starting Episode:  40 , Epsilon Now:  0.986 , Reward:  71.82 , Average Reward:  117.50
+Starting Episode:  41 , Epsilon Now:  0.986 , Reward:  54.40 , Average Reward:  115.96
+Starting Episode:  42 , Epsilon Now:  0.986 , Reward:  22.80 , Average Reward:  113.74
+Starting Episode:  43 , Epsilon Now:  0.986 , Reward:  86.11 , Average Reward:  113.10
+Starting Episode:  44 , Epsilon Now:  0.985 , Reward:  58.12 , Average Reward:  111.85
+Starting Episode:  45 , Epsilon Now:  0.985 , Reward:  72.97 , Average Reward:  110.99
+Starting Episode:  46 , Epsilon Now:  0.985 , Reward:  67.00 , Average Reward:  110.03
+Starting Episode:  47 , Epsilon Now:  0.985 , Reward:  132.16 , Average Reward:  110.50
+Starting Episode:  48 , Epsilon Now:  0.984 , Reward:  38.43 , Average Reward:  109.00
+Starting Episode:  49 , Epsilon Now:  0.984 , Reward:  77.12 , Average Reward:  108.35
+Starting Episode:  50 , Epsilon Now:  0.984 , Reward:  70.06 , Average Reward:  107.58
+Starting Episode:  51 , Epsilon Now:  0.984 , Reward:  89.23 , Average Reward:  107.22
+Starting Episode:  52 , Epsilon Now:  0.983 , Reward:  101.02 , Average Reward:  107.10
+Starting Episode:  53 , Epsilon Now:  0.983 , Reward:  194.48 , Average Reward:  108.75
+Starting Episode:  54 , Epsilon Now:  0.982 , Reward:  81.84 , Average Reward:  108.25
+Starting Episode:  55 , Epsilon Now:  0.982 , Reward:  77.19 , Average Reward:  107.69
+Starting Episode:  56 , Epsilon Now:  0.982 , Reward:  219.89 , Average Reward:  109.69
+Starting Episode:  57 , Epsilon Now:  0.981 , Reward:  270.97 , Average Reward:  112.52
+Starting Episode:  58 , Epsilon Now:  0.981 , Reward:  273.22 , Average Reward:  115.29
+Starting Episode:  59 , Epsilon Now:  0.980 , Reward:  293.83 , Average Reward:  118.32
+Starting Episode:  60 , Epsilon Now:  0.979 , Reward:  59.21 , Average Reward:  117.33
+Starting Episode:  61 , Epsilon Now:  0.979 , Reward:  68.93 , Average Reward:  116.54
+Starting Episode:  62 , Epsilon Now:  0.979 , Reward:  98.45 , Average Reward:  116.25
+Starting Episode:  63 , Epsilon Now:  0.979 , Reward:  119.46 , Average Reward:  116.30
+Starting Episode:  64 , Epsilon Now:  0.978 , Reward:  84.08 , Average Reward:  115.80
+Starting Episode:  65 , Epsilon Now:  0.978 , Reward:  63.84 , Average Reward:  115.00
+Starting Episode:  66 , Epsilon Now:  0.978 , Reward:  60.40 , Average Reward:  114.17
+Starting Episode:  67 , Epsilon Now:  0.978 ,
+Exit
+Traceback (most recent call last):
+  File "carla_driver.py", line 240, in <module>
+    runner()
+  File "carla_driver.py", line 170, in runner
+    observation = encode.process(observation)
+  File "C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\encoder_init.py", line 21, in process
+    image_obs = torch.tensor(obs[0], dtype=torch.float).to(self.device)
+TypeError: 'NoneType' object is not subscriptable

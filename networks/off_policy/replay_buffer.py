@@ -1,4 +1,5 @@
 import numpy as np
+import torch
 from parameters import BATCH_SIZE
 
 
@@ -9,11 +10,11 @@ class ReplayBuffer(object):
         self.n_actions = n_actions
         self.buffer_size = max_size
         self.counter = 0
-        self.state_memory = np.zeros((self.buffer_size, observation), dtype=np.float32)
-        self.new_state_memory = np.zeros((self.buffer_size, observation), dtype=np.float32)
-        self.action_memory = np.zeros(self.buffer_size, dtype=np.int64)
-        self.reward_memory = np.zeros(self.buffer_size, dtype=np.float32)
-        self.terminal_memory = np.zeros(self.buffer_size, dtype=np.bool)
+        self.state_memory = torch.zeros((self.buffer_size, observation), dtype=torch.float32)
+        self.new_state_memory = torch.zeros((self.buffer_size, observation), dtype=torch.float32)
+        self.action_memory = torch.zeros(self.buffer_size, dtype=torch.int64)
+        self.reward_memory = torch.zeros(self.buffer_size, dtype=torch.float32)
+        self.terminal_memory = torch.zeros(self.buffer_size, dtype=torch.bool)
 
     def save_transition(self, state, action, reward, new_state, done):
 

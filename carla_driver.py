@@ -15,13 +15,14 @@ from simulation.connection import ClientConnection
 from parameters import *
 from simulation.environment import CarlaEnvironment
 from networks.off_policy.ddqn.agent import DQNAgent
+from encoder_init import EncodeState
 
 
 def parse_args():
     
     parser = argparse.ArgumentParser()
     parser.add_argument('--exp-name', type=str, help='name of the experiment')
-    parser.add_argument('--env-name', type=str, default='carla-0.9.8', help='name of the simulation environment')
+    parser.add_argument('--env-name', type=str, default='carla', help='name of the simulation environment')
     parser.add_argument('--learning-rate', type=float, help='learning rate of the optimizer')
     parser.add_argument('--seed', type=int, default=0, help='seed of the experiment')
     parser.add_argument('--total-timesteps', type=int, default=EPISODES, help='total timesteps of the experiment')
@@ -35,6 +36,7 @@ def parse_args():
     return args
 
 
+
 def runner():
 
     #========================================================================
@@ -46,9 +48,9 @@ def runner():
     try:
 
         if exp_name == 'ddqn':
-            run_name = f"ddqn_{args.env_name}"
+            run_name = f"DDQN"
         elif exp_name == 'ppo':
-            run_name = f"ppo_{args.env_name}"
+            run_name = f"PPO"
 
     except Exception as e:
         print(e.message)
@@ -68,7 +70,7 @@ def runner():
             name=run_name,
             save_code=True,
         )
-        wandb.tensorboard.patch(root_logdir="runs/{run_name}", save=False, tensorboard_x=True, pytorch=True)
+        #wandb.tensorboard.patch(root_logdir="runs/{run_name}", save=False, tensorboard_x=True, pytorch=True)
     
     #Seeding to reproduce the results 
     random.seed(args.seed)
@@ -84,7 +86,7 @@ def runner():
     checkpoint_load = MODEL_LOAD
 
     if exp_name == 'ddqn':
-        n_actions = 11  # Car can only make 11 actions
+        n_actions = 7  # Car can only make 7 actions
         agent = DQNAgent(n_actions)
     elif exp_name == 'ppo':
         n_actions = 2  # Car can only make 2 actions
@@ -115,7 +117,6 @@ def runner():
                 epoch = data['epoch']
                 cumulative_score = data['cumulative_score']
 
-
     #========================================================================
     #                           CREATING THE SIMULATION
     #========================================================================
@@ -132,18 +133,21 @@ def runner():
         ConnectionRefusedError
 
     env = CarlaEnvironment(client, world)
+    encode = EncodeState(LATENT_DIM)
 
     #========================================================================
     #                           INITIALIZING THE MEMORY
     #========================================================================
     
-    if exp_name == 'ddqn':
+    if exp_name == 'ddqn' and checkpoint_load:
         while agent.replay_buffer.counter < agent.replay_buffer.buffer_size:
             observation = env.reset()
+            observation = encode.process(observation)
             done = False
             while not done:
                 action = random.randint(0,n_actions-1)
                 new_observation, reward, done, _ = env.step(action)
+                new_observation = encode.process(new_observation)
                 agent.save_transition(observation, action, reward, new_observation, int(done))
                 observation = new_observation
     
@@ -163,6 +167,7 @@ def runner():
             #Reset
             done = False
             observation = env.reset()
+            observation = encode.process(observation)
             score = 0
 
             #Episode start: timestamp
@@ -173,8 +178,8 @@ def runner():
                     action, prob, val = agent.get_action(observation)
                 else:
                     action = agent.get_action(observation)
-
                 new_observation, reward, done, _ = env.step(action)
+                new_observation = encode.process(new_observation)
                 score += reward
                 
                 if exp_name == 'ppo':
@@ -207,11 +212,11 @@ def runner():
 
                 if exp_name == 'ddqn':
                     data_obj = {'cumulative_score': cumulative_score, 'epsilon': agent.epsilon,'epoch': step}
-                    with open('checkpoint_DDQN.pickle', 'wb') as handle:
+                    with open('checkpoint_ddqn.pickle', 'wb') as handle:
                         pickle.dump(data_obj, handle)
                 elif exp_name == 'ppo':
                     data_obj = {'cumulative_score': cumulative_score,'epoch': step}
-                    with open('checkpoint_PPO.pickle', 'wb') as handle:
+                    with open('checkpoint_ppo.pickle', 'wb') as handle:
                         pickle.dump(data_obj, handle)
 
                 writer.add_scalar("Reward/info", np.mean(scores[-20:]), step)

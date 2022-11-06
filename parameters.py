@@ -3,20 +3,20 @@
     All the much needed hyper-parameters needed for the algorithm implementation. 
 
 """
-MODEL_LOAD = False
+MODEL_LOAD = True
 BATCH_SIZE = 1
 IM_WIDTH = 128
 IM_HEIGHT = 128
 GAMMA = 0.99
 MEMORY_SIZE = 10000
 EPISODES = 10000
-LATENT_DIM = 200
+LATENT_DIM = 95
 
 #Dueling DQN (hyper)parameters
 DQN_LEARNING_RATE = 0.0001
 EPSILON = 1.00
-EPSILON_END = 0.02
-EPSILON_DECREMENT = 0.0000002
+EPSILON_END = 0.05
+EPSILON_DECREMENT = 0.000001
 
 REPLACE_NETWORK = 10
 DQN_CHECKPOINT_DIR = 'models/ddqn'

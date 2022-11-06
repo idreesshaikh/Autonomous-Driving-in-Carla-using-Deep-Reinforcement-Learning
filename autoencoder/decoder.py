@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 
 
-torch.manual_seed(0)
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 class Decoder(nn.Module):
@@ -12,21 +11,21 @@ class Decoder(nn.Module):
 
         self.decoder_linear = nn.Sequential(
             nn.Linear(latent_dims, 1024),
-            nn.ReLU(),
+            nn.LeakyReLU(),
             nn.Linear(1024, 9 * 4 * 256),
-            nn.ReLU()
+            nn.LeakyReLU()
         )
 
         self.unflatten = nn.Unflatten(dim=1, unflattened_size=(256,4,9))
 
         self.decoder = nn.Sequential(
             nn.ConvTranspose2d(256, 128, 3, stride=2),
-            nn.ReLU(),
+            nn.LeakyReLU(),
             nn.ConvTranspose2d(128, 64, 4,  stride=2),
             nn.LeakyReLU(),
             nn.ConvTranspose2d(64, 32, 3, stride=2,
                                padding=1),
-            nn.ReLU(),
+            nn.LeakyReLU(),
             nn.ConvTranspose2d(32, 3, 4, stride=2),
             nn.Sigmoid())
         

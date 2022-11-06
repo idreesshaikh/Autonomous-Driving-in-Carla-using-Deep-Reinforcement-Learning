@@ -16,7 +16,7 @@ class DQNAgent(object):
         self.mem_size = MEMORY_SIZE
         self.batch_size = BATCH_SIZE
         self.train_step = 0
-        self.replay_buffer = ReplayBuffer(MEMORY_SIZE,(203,), n_actions)
+        self.replay_buffer = ReplayBuffer(MEMORY_SIZE,100, n_actions)
         self.q_network_eval = DuelingDQnetwork(n_actions, MODEL_ONLINE)
         self.q_network_target = DuelingDQnetwork(n_actions, MODEL_TARGET)
 
@@ -25,7 +25,7 @@ class DQNAgent(object):
 
     def get_action(self, observation):
         if np.random.random() > self.epsilon:
-            observation = torch.tensor(observation, dtype=torch.float).to(self.q_network_eval.device)
+            #observation = torch.tensor(observation, dtype=torch.float).to(self.q_network_eval.device)
             _, advantage = self.q_network_eval.forward(observation)
             action = torch.argmax(advantage).item()
         else:
@@ -58,11 +58,11 @@ class DQNAgent(object):
         observation, action, reward, new_observation, done = self.replay_buffer.sample_buffer()
  
 
-        observation = torch.tensor(observation).to(self.q_network_eval.device)
-        action = torch.tensor(action).to(self.q_network_eval.device)
-        reward = torch.tensor(reward).to(self.q_network_eval.device)
-        new_observation = torch.tensor(new_observation).to(self.q_network_eval.device)
-        done = torch.tensor(done).to(self.q_network_eval.device)
+        observation = observation.to(self.q_network_eval.device)
+        action = action.to(self.q_network_eval.device)
+        reward = reward.to(self.q_network_eval.device)
+        new_observation = new_observation.to(self.q_network_eval.device)
+        done = done.to(self.q_network_eval.device)
 
 
         Vs, As = self.q_network_eval.forward(observation)

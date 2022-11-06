@@ -1,0 +1,353 @@
+2022-11-06 13:46:29,866 INFO    StreamThr :34164 [internal.py:wandb_internal():91] W&B internal server running at pid: 34164, started at: 2022-11-06 13:46:29.865625
+2022-11-06 13:46:29,868 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: status
+2022-11-06 13:46:29,876 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: status
+2022-11-06 13:46:29,903 DEBUG   SenderThread:34164 [sender.py:send():303] send: header
+2022-11-06 13:46:29,903 INFO    WriterThread:34164 [datastore.py:open_for_write():75] open: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\run-1ec2vpza.wandb
+2022-11-06 13:46:29,978 DEBUG   SenderThread:34164 [sender.py:send():303] send: run
+2022-11-06 13:46:30,376 INFO    SenderThread:34164 [dir_watcher.py:__init__():216] watching files in: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files
+2022-11-06 13:46:30,377 INFO    SenderThread:34164 [sender.py:_start_run_threads():931] run started: 1ec2vpza with start time 1667738789.871626
+2022-11-06 13:46:30,377 DEBUG   SenderThread:34164 [sender.py:send():303] send: summary
+2022-11-06 13:46:30,378 INFO    SenderThread:34164 [sender.py:_save_file():1171] saving file wandb-summary.json with policy end
+2022-11-06 13:46:30,392 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: check_version
+2022-11-06 13:46:30,392 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: check_version
+2022-11-06 13:46:30,510 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: run_start
+2022-11-06 13:46:30,538 DEBUG   HandlerThread:34164 [meta.py:__init__():34] meta init
+2022-11-06 13:46:30,539 DEBUG   HandlerThread:34164 [meta.py:__init__():49] meta init done
+2022-11-06 13:46:30,539 DEBUG   HandlerThread:34164 [meta.py:probe():215] probe
+2022-11-06 13:46:30,556 DEBUG   HandlerThread:34164 [meta.py:_setup_git():205] setup git
+2022-11-06 13:46:30,686 DEBUG   HandlerThread:34164 [meta.py:_setup_git():212] setup git done
+2022-11-06 13:46:30,686 DEBUG   HandlerThread:34164 [meta.py:_save_code():87] save code
+2022-11-06 13:46:30,747 DEBUG   HandlerThread:34164 [meta.py:_save_code():108] save code done
+2022-11-06 13:46:30,747 DEBUG   HandlerThread:34164 [meta.py:_save_patches():125] save patches
+2022-11-06 13:46:31,394 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\wandb-summary.json
+2022-11-06 13:46:31,395 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\diff.patch
+2022-11-06 13:46:31,396 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\code\carla_driver.py
+2022-11-06 13:46:31,396 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\code
+2022-11-06 13:46:32,342 DEBUG   HandlerThread:34164 [meta.py:_save_patches():167] save patches done
+2022-11-06 13:46:32,343 DEBUG   HandlerThread:34164 [meta.py:_save_pip():53] save pip
+2022-11-06 13:46:32,344 DEBUG   HandlerThread:34164 [meta.py:_save_pip():67] save pip done
+2022-11-06 13:46:32,344 DEBUG   HandlerThread:34164 [meta.py:probe():253] probe done
+2022-11-06 13:46:32,400 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\diff.patch
+2022-11-06 13:46:32,401 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\requirements.txt
+2022-11-06 13:46:32,401 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\wandb-metadata.json
+2022-11-06 13:46:32,606 DEBUG   SenderThread:34164 [sender.py:send():303] send: files
+2022-11-06 13:46:32,606 INFO    SenderThread:34164 [sender.py:_save_file():1171] saving file wandb-metadata.json with policy now
+2022-11-06 13:46:32,607 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:46:32,609 INFO    SenderThread:34164 [sender.py:_save_file():1171] saving file code\carla_driver.py with policy now
+2022-11-06 13:46:32,611 INFO    SenderThread:34164 [sender.py:_save_file():1171] saving file diff.patch with policy now
+2022-11-06 13:46:32,613 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:46:32,807 DEBUG   SenderThread:34164 [sender.py:send():303] send: telemetry
+2022-11-06 13:46:32,844 INFO    Thread-36 :34164 [upload_job.py:push():123] Skipped uploading C:\Users\idree\AppData\Local\Temp\tmpx552ag6wwandb\2v5zoc0h-code/carla_driver.py
+2022-11-06 13:46:33,182 INFO    Thread-35 :34164 [upload_job.py:push():143] Uploaded file C:\Users\idree\AppData\Local\Temp\tmpx552ag6wwandb\23oj6dzg-wandb-metadata.json
+2022-11-06 13:46:33,233 INFO    Thread-37 :34164 [upload_job.py:push():143] Uploaded file C:\Users\idree\AppData\Local\Temp\tmpx552ag6wwandb\2fruniyu-diff.patch
+2022-11-06 13:46:46,505 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_created():275] file/dir created: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:46:47,819 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:46:47,819 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:46:48,519 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:47:00,610 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\config.yaml
+2022-11-06 13:47:01,490 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:47:03,002 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:47:03,002 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:47:08,670 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:47:14,721 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:47:18,593 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:47:18,593 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:47:30,850 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:47:33,757 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:47:33,757 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:47:34,581 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:47:38,910 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:47:48,932 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:47:48,932 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:47:48,985 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:47:57,060 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:48:04,110 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:48:04,110 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:48:07,666 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:48:11,181 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:48:19,241 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:48:19,277 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:48:19,278 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:48:34,449 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:48:34,450 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:48:40,761 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:48:43,436 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:48:49,645 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:48:49,646 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:48:53,512 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:49:04,815 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:49:04,815 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:49:05,602 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:49:13,662 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:49:13,876 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:49:19,984 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:49:19,984 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:49:35,168 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:49:35,168 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:49:37,842 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:49:46,969 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:49:47,932 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:49:50,331 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:49:50,332 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:50:00,038 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:50:05,509 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:50:05,509 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:50:14,143 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:50:20,112 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:50:20,696 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:50:20,696 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:50:24,218 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:50:32,277 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:50:35,869 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:50:35,869 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:50:40,337 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:50:50,412 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:50:51,053 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:50:51,054 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:50:53,213 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:50:58,473 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:51:06,254 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:51:06,254 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:51:06,532 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:51:21,426 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:51:21,426 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:51:26,327 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:51:36,595 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:51:36,596 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:51:44,818 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:51:51,780 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:51:51,780 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:51:59,442 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:52:00,937 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:52:06,953 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:52:06,953 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:52:08,998 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:52:17,058 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:52:22,117 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:52:22,117 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:52:25,117 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:52:32,550 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:52:37,315 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:52:37,316 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:52:39,222 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:52:52,489 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:52:52,489 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:52:53,328 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:52:59,372 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:53:05,665 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:53:07,470 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:53:07,688 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:53:07,689 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:53:17,544 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:53:22,883 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:53:22,884 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:53:33,664 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:53:38,050 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:53:38,051 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:53:38,785 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:53:47,770 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:53:53,235 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:53:53,235 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:54:03,905 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:54:08,413 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:54:08,414 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:54:11,880 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:54:13,980 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:54:23,582 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:54:23,582 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:54:32,115 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:54:38,769 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:54:38,769 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:54:42,190 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:54:44,988 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:54:53,953 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:54:53,953 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:54:54,279 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:55:02,340 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:55:09,141 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:55:09,141 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:55:12,430 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:55:18,087 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:55:18,475 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:55:24,312 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:55:24,313 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:55:28,551 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:55:34,596 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:55:39,503 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:55:39,503 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:55:44,671 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:55:51,191 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:55:54,710 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:55:54,710 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:55:54,747 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:56:06,835 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:56:09,891 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:56:09,891 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:56:12,881 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:56:22,955 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:56:24,264 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:56:25,069 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:56:25,070 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:56:33,032 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:56:40,235 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:56:40,236 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:56:43,106 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:56:55,212 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:56:55,434 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:56:55,434 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:56:57,406 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:57:10,621 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:57:10,621 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:57:11,331 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:57:21,406 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:57:25,857 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:57:25,858 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:57:30,586 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:57:31,481 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:57:41,028 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:57:41,029 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:57:47,601 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:57:56,199 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:57:56,200 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:58:03,690 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:58:07,751 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:58:11,372 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:58:11,373 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:58:26,550 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:58:26,551 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:58:29,931 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:58:36,752 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:58:41,757 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:58:41,758 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:58:54,112 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:58:56,963 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:58:56,963 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:59:02,171 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:59:09,869 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:59:10,232 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:59:12,147 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:59:12,148 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:59:20,337 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:59:27,325 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:59:27,326 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:59:34,443 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:59:42,493 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:59:42,493 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 13:59:42,972 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 13:59:44,518 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:59:56,624 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 13:59:57,670 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 13:59:57,670 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 14:00:04,683 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 14:00:12,875 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: stop_status
+2022-11-06 14:00:12,876 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: stop_status
+2022-11-06 14:00:16,003 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 14:00:22,310 DEBUG   SenderThread:34164 [sender.py:send():303] send: exit
+2022-11-06 14:00:22,310 INFO    SenderThread:34164 [sender.py:send_exit():442] handling exit code: 1
+2022-11-06 14:00:22,311 INFO    SenderThread:34164 [sender.py:send_exit():444] handling runtime: 831
+2022-11-06 14:00:22,312 INFO    SenderThread:34164 [sender.py:_save_file():1171] saving file wandb-summary.json with policy end
+2022-11-06 14:00:22,312 INFO    SenderThread:34164 [sender.py:send_exit():450] send defer
+2022-11-06 14:00:22,313 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: defer
+2022-11-06 14:00:22,313 INFO    HandlerThread:34164 [handler.py:handle_request_defer():161] handle defer: 0
+2022-11-06 14:00:22,313 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: defer
+2022-11-06 14:00:22,314 INFO    SenderThread:34164 [sender.py:send_request_defer():459] handle sender defer: 0
+2022-11-06 14:00:22,314 INFO    SenderThread:34164 [sender.py:transition_state():463] send defer: 1
+2022-11-06 14:00:22,314 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: defer
+2022-11-06 14:00:22,314 INFO    HandlerThread:34164 [handler.py:handle_request_defer():161] handle defer: 1
+2022-11-06 14:00:22,380 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: defer
+2022-11-06 14:00:22,381 INFO    SenderThread:34164 [sender.py:send_request_defer():459] handle sender defer: 1
+2022-11-06 14:00:22,381 INFO    SenderThread:34164 [sender.py:transition_state():463] send defer: 2
+2022-11-06 14:00:22,382 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: defer
+2022-11-06 14:00:22,383 DEBUG   SenderThread:34164 [sender.py:send():303] send: stats
+2022-11-06 14:00:22,383 INFO    HandlerThread:34164 [handler.py:handle_request_defer():161] handle defer: 2
+2022-11-06 14:00:22,384 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: defer
+2022-11-06 14:00:22,384 INFO    SenderThread:34164 [sender.py:send_request_defer():459] handle sender defer: 2
+2022-11-06 14:00:22,384 INFO    SenderThread:34164 [sender.py:transition_state():463] send defer: 3
+2022-11-06 14:00:22,384 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: defer
+2022-11-06 14:00:22,384 INFO    HandlerThread:34164 [handler.py:handle_request_defer():161] handle defer: 3
+2022-11-06 14:00:22,385 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: defer
+2022-11-06 14:00:22,385 INFO    SenderThread:34164 [sender.py:send_request_defer():459] handle sender defer: 3
+2022-11-06 14:00:22,385 INFO    SenderThread:34164 [sender.py:transition_state():463] send defer: 4
+2022-11-06 14:00:22,386 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: defer
+2022-11-06 14:00:22,386 INFO    HandlerThread:34164 [handler.py:handle_request_defer():161] handle defer: 4
+2022-11-06 14:00:22,386 DEBUG   SenderThread:34164 [sender.py:send():303] send: summary
+2022-11-06 14:00:22,387 INFO    SenderThread:34164 [sender.py:_save_file():1171] saving file wandb-summary.json with policy end
+2022-11-06 14:00:22,388 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: defer
+2022-11-06 14:00:22,388 INFO    SenderThread:34164 [sender.py:send_request_defer():459] handle sender defer: 4
+2022-11-06 14:00:22,388 INFO    SenderThread:34164 [sender.py:transition_state():463] send defer: 5
+2022-11-06 14:00:22,388 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: defer
+2022-11-06 14:00:22,389 INFO    HandlerThread:34164 [handler.py:handle_request_defer():161] handle defer: 5
+2022-11-06 14:00:22,389 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: defer
+2022-11-06 14:00:22,389 INFO    SenderThread:34164 [sender.py:send_request_defer():459] handle sender defer: 5
+2022-11-06 14:00:22,389 INFO    SenderThread:34164 [sender.py:transition_state():463] send defer: 6
+2022-11-06 14:00:22,389 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: defer
+2022-11-06 14:00:22,390 INFO    HandlerThread:34164 [handler.py:handle_request_defer():161] handle defer: 6
+2022-11-06 14:00:22,390 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: defer
+2022-11-06 14:00:22,390 INFO    SenderThread:34164 [sender.py:send_request_defer():459] handle sender defer: 6
+2022-11-06 14:00:22,821 INFO    Thread-17 :34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\wandb-summary.json
+2022-11-06 14:00:23,327 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: poll_exit
+2022-11-06 14:00:24,352 INFO    SenderThread:34164 [sender.py:transition_state():463] send defer: 7
+2022-11-06 14:00:24,353 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: poll_exit
+2022-11-06 14:00:24,353 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: defer
+2022-11-06 14:00:24,353 INFO    HandlerThread:34164 [handler.py:handle_request_defer():161] handle defer: 7
+2022-11-06 14:00:24,354 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: defer
+2022-11-06 14:00:24,354 INFO    SenderThread:34164 [sender.py:send_request_defer():459] handle sender defer: 7
+2022-11-06 14:00:24,354 INFO    SenderThread:34164 [dir_watcher.py:finish():362] shutting down directory watcher
+2022-11-06 14:00:24,835 INFO    SenderThread:34164 [dir_watcher.py:_on_file_modified():292] file/dir modified: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 14:00:24,836 INFO    SenderThread:34164 [dir_watcher.py:finish():392] scan: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files
+2022-11-06 14:00:24,837 INFO    SenderThread:34164 [dir_watcher.py:finish():406] scan save: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\config.yaml config.yaml
+2022-11-06 14:00:24,838 INFO    SenderThread:34164 [dir_watcher.py:finish():406] scan save: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\diff.patch diff.patch
+2022-11-06 14:00:24,838 INFO    SenderThread:34164 [dir_watcher.py:finish():406] scan save: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log output.log
+2022-11-06 14:00:24,844 INFO    SenderThread:34164 [dir_watcher.py:finish():406] scan save: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\requirements.txt requirements.txt
+2022-11-06 14:00:24,850 INFO    SenderThread:34164 [dir_watcher.py:finish():406] scan save: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\wandb-metadata.json wandb-metadata.json
+2022-11-06 14:00:24,850 INFO    SenderThread:34164 [dir_watcher.py:finish():406] scan save: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\wandb-summary.json wandb-summary.json
+2022-11-06 14:00:24,857 INFO    SenderThread:34164 [dir_watcher.py:finish():406] scan save: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\code\carla_driver.py code\carla_driver.py
+2022-11-06 14:00:24,863 INFO    SenderThread:34164 [sender.py:transition_state():463] send defer: 8
+2022-11-06 14:00:24,863 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: defer
+2022-11-06 14:00:24,864 INFO    HandlerThread:34164 [handler.py:handle_request_defer():161] handle defer: 8
+2022-11-06 14:00:24,864 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: defer
+2022-11-06 14:00:24,864 INFO    SenderThread:34164 [sender.py:send_request_defer():459] handle sender defer: 8
+2022-11-06 14:00:24,864 INFO    SenderThread:34164 [file_pusher.py:finish():168] shutting down file pusher
+2022-11-06 14:00:25,399 INFO    Thread-39 :34164 [upload_job.py:push():143] Uploaded file C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\output.log
+2022-11-06 14:00:25,402 INFO    Thread-40 :34164 [upload_job.py:push():143] Uploaded file C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\requirements.txt
+2022-11-06 14:00:25,429 INFO    Thread-41 :34164 [upload_job.py:push():143] Uploaded file C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\wandb-summary.json
+2022-11-06 14:00:25,436 INFO    Thread-38 :34164 [upload_job.py:push():143] Uploaded file C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\files\config.yaml
+2022-11-06 14:00:25,651 INFO    Thread-16 :34164 [sender.py:transition_state():463] send defer: 9
+2022-11-06 14:00:25,652 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: defer
+2022-11-06 14:00:25,652 INFO    HandlerThread:34164 [handler.py:handle_request_defer():161] handle defer: 9
+2022-11-06 14:00:25,652 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: defer
+2022-11-06 14:00:25,652 INFO    SenderThread:34164 [sender.py:send_request_defer():459] handle sender defer: 9
+2022-11-06 14:00:25,652 INFO    SenderThread:34164 [file_pusher.py:join():173] waiting for file pusher
+2022-11-06 14:00:25,652 INFO    SenderThread:34164 [sender.py:transition_state():463] send defer: 10
+2022-11-06 14:00:25,653 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: defer
+2022-11-06 14:00:25,653 INFO    HandlerThread:34164 [handler.py:handle_request_defer():161] handle defer: 10
+2022-11-06 14:00:25,653 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: defer
+2022-11-06 14:00:25,653 INFO    SenderThread:34164 [sender.py:send_request_defer():459] handle sender defer: 10
+2022-11-06 14:00:26,108 INFO    SenderThread:34164 [sender.py:transition_state():463] send defer: 11
+2022-11-06 14:00:26,109 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: defer
+2022-11-06 14:00:26,109 INFO    HandlerThread:34164 [handler.py:handle_request_defer():161] handle defer: 11
+2022-11-06 14:00:26,109 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: defer
+2022-11-06 14:00:26,109 INFO    SenderThread:34164 [sender.py:send_request_defer():459] handle sender defer: 11
+2022-11-06 14:00:26,110 INFO    SenderThread:34164 [sender.py:transition_state():463] send defer: 12
+2022-11-06 14:00:26,110 DEBUG   SenderThread:34164 [sender.py:send():303] send: final
+2022-11-06 14:00:26,111 DEBUG   SenderThread:34164 [sender.py:send():303] send: footer
+2022-11-06 14:00:26,111 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: defer
+2022-11-06 14:00:26,111 INFO    HandlerThread:34164 [handler.py:handle_request_defer():161] handle defer: 12
+2022-11-06 14:00:26,112 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: defer
+2022-11-06 14:00:26,112 INFO    SenderThread:34164 [sender.py:send_request_defer():459] handle sender defer: 12
+2022-11-06 14:00:26,113 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: poll_exit
+2022-11-06 14:00:26,114 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: poll_exit
+2022-11-06 14:00:26,114 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: server_info
+2022-11-06 14:00:26,114 DEBUG   SenderThread:34164 [sender.py:send_request():317] send_request: server_info
+2022-11-06 14:00:26,118 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: get_summary
+2022-11-06 14:00:26,119 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: sampled_history
+2022-11-06 14:00:26,421 INFO    MainThread:34164 [wandb_run.py:_footer_history_summary_info():3377] rendering history
+2022-11-06 14:00:26,421 INFO    MainThread:34164 [wandb_run.py:_footer_history_summary_info():3409] rendering summary
+2022-11-06 14:00:26,421 INFO    MainThread:34164 [wandb_run.py:_footer_sync_info():3333] logging synced files
+2022-11-06 14:00:26,422 DEBUG   HandlerThread:34164 [handler.py:handle_request():138] handle_request: shutdown
+2022-11-06 14:00:26,423 INFO    HandlerThread:34164 [handler.py:finish():814] shutting down handler
+2022-11-06 14:00:27,124 INFO    WriterThread:34164 [datastore.py:close():279] close: C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning\wandb\run-20221106_134629-1ec2vpza\run-1ec2vpza.wandb
+2022-11-06 14:00:27,434 INFO    SenderThread:34164 [sender.py:finish():1331] shutting down sender
+2022-11-06 14:00:27,434 INFO    SenderThread:34164 [file_pusher.py:finish():168] shutting down file pusher
+2022-11-06 14:00:27,434 INFO    SenderThread:34164 [file_pusher.py:join():173] waiting for file pusher
+2022-11-06 14:00:27,439 INFO    MainThread:34164 [internal.py:handle_exit():78] Internal process exited

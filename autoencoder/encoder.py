@@ -3,7 +3,6 @@ import torch
 import torch.nn as nn
 
 
-torch.manual_seed(0)
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
 class VariationalEncoder(nn.Module):
@@ -14,23 +13,25 @@ class VariationalEncoder(nn.Module):
 
         self.encoder_layer1 = nn.Sequential(
             nn.Conv2d(3, 32, 4, stride=2),  # 79, 39
-            nn.ReLU())
+            nn.LeakyReLU())
 
         self.encoder_layer2 = nn.Sequential(
             nn.Conv2d(32, 64, 3, stride=2, padding=1),  # 40, 20
-            nn.ReLU())#,
+            nn.BatchNorm2d(64),
+            nn.LeakyReLU())
 
         self.encoder_layer3 = nn.Sequential(
             nn.Conv2d(64, 128, 4, stride=2),  # 19, 9
-            nn.ReLU())
+            nn.LeakyReLU())
 
         self.encoder_layer4 = nn.Sequential(
             nn.Conv2d(128, 256, 3, stride=2),  # 9, 4
-            nn.ReLU())
+            nn.BatchNorm2d(256),
+            nn.LeakyReLU())
 
         self.linear = nn.Sequential(
             nn.Linear(9*4*256, 1024),
-            nn.ReLU())
+            nn.LeakyReLU())
 
         self.mu = nn.Linear(1024, latent_dims)
         self.sigma = nn.Linear(1024, latent_dims)

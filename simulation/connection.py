@@ -8,7 +8,7 @@ try:
         sys.version_info.minor,
         'win-amd64' if os.name == 'nt' else 'linux-x86_64'))[0])
 except IndexError:
-    pass
+    logging.error('Couldn\'t import Carla egg properly')
 
 import carla
 import logging
@@ -38,7 +38,7 @@ class ClientConnection:
     def __init__(self):
         self.client = None
 
-    def _setup(self):
+    def setup(self):
         try:
 
             # Connecting to the  Server
@@ -50,10 +50,10 @@ class ClientConnection:
         except Exception as e:
             logging.error(
                 'Failed to make a connection with the server: {}'.format(e))
-            self._error_log()
+            self.error_log()
 
     # An error log method: prints out the details if the client failed to make a connection
-    def _error_log(self):
+    def error_log(self):
 
         logging.debug("\nClient version: {}".format(
             self.client.get_client_version()))

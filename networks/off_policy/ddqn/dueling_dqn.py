@@ -3,8 +3,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.optim as optim
-from parameters import DQN_LEARNING_RATE, DQN_CHECKPOINT_DIR, LATENT_DIM
-from autoencoder.variational_autoencoder import VariationalEncoder
+from parameters import DQN_LEARNING_RATE, DQN_CHECKPOINT_DIR
+
 
 class DuelingDQnetwork(nn.Module):
     def __init__(self, n_actions, model):
@@ -12,8 +12,8 @@ class DuelingDQnetwork(nn.Module):
         self.n_actions = n_actions
         self.checkpoint_file = os.path.join(DQN_CHECKPOINT_DIR, model)
 
-        self.Linear = nn.Sequential(
-            nn.Linear(200+3, 128),
+        self.Linear1 = nn.Sequential(
+            nn.Linear(95 + 5, 128),
             nn.ReLU(),
             nn.Linear(128, 64),
             nn.ReLU()
@@ -28,7 +28,7 @@ class DuelingDQnetwork(nn.Module):
         self.to(self.device)
 
     def forward(self, x):
-        fc = self.Linear(x)
+        fc = self.Linear1(x)
         V = self.V(fc)
         A = self.A(fc)
         return V, A

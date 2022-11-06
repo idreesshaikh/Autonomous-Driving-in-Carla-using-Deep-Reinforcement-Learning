@@ -1,0 +1,2676 @@
+DEBUG:Popen(['git', 'version'], cwd=C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning, universal_newlines=False, shell=None, istream=None)
+DEBUG:Popen(['git', 'version'], cwd=C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning, universal_newlines=False, shell=None, istream=None)
+DEBUG:Popen(['git', 'rev-parse', '--show-toplevel'], cwd=C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning, universal_newlines=False, shell=None, istream=None)
+DEBUG:Starting new HTTPS connection (1): api.wandb.ai:443
+DEBUG:https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG:Starting new HTTPS connection (1): api.wandb.ai:443
+DEBUG:https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG:Popen(['git', 'cat-file', '--batch-check'], cwd=C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning, universal_newlines=False, shell=None, istream=<valid stream>)
+INFO:Connection has been setup successfully.
+INFO:NPC pedestrians / walkers have been generated.
+INFO:CarlaEnvironment obj has been initialized!
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+DEBUG:Starting new HTTPS connection (1): o151352.ingest.sentry.io:443
+DEBUG:https://o151352.ingest.sentry.io:443 "POST /api/5288891/envelope/ HTTP/1.1" 200 2
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Exiting.
+DEBUG:Popen(['git', 'version'], cwd=C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning, universal_newlines=False, shell=None, istream=None)
+DEBUG:Popen(['git', 'version'], cwd=C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning, universal_newlines=False, shell=None, istream=None)
+DEBUG:Popen(['git', 'rev-parse', '--show-toplevel'], cwd=C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning, universal_newlines=False, shell=None, istream=None)
+DEBUG:Starting new HTTPS connection (1): api.wandb.ai:443
+DEBUG:https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG:Starting new HTTPS connection (1): api.wandb.ai:443
+DEBUG:https://api.wandb.ai:443 "POST /graphql HTTP/1.1" 200 None
+DEBUG:Popen(['git', 'cat-file', '--batch-check'], cwd=C:\Thesis BME 2022\Autonomous-Driving-in-Carla-using-Deep-Reinforcement-Learning, universal_newlines=False, shell=None, istream=<valid stream>)
+INFO:Connection has been setup successfully.
+INFO:NPC pedestrians / walkers have been generated.
+INFO:CarlaEnvironment obj has been initialized!
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+DEBUG:Starting new HTTPS connection (1): o151352.ingest.sentry.io:443
+DEBUG:https://o151352.ingest.sentry.io:443 "POST /api/5288891/envelope/ HTTP/1.1" 200 2
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has stopped moving.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has collided.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
+INFO:Environment Camera has been setup.
+INFO:Environment has been resetted.
+WARNING:Vehicle has gone out of the lane.
+DEBUG:All the sensors have been removed.
+INFO:Done == True.
+DEBUG:All the sensors have been removed.
