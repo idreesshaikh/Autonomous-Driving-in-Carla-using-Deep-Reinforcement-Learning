@@ -49,11 +49,10 @@ def runner():
 
         if exp_name == 'ddqn':
             run_name = f"DDQN"
-        elif exp_name == 'ppo':
-            run_name = f"PPO"
 
     except Exception as e:
         print(e.message)
+        sys.exit()
 
     writer = SummaryWriter(f"runs/{run_name}")
     writer.add_text(
@@ -84,16 +83,8 @@ def runner():
     #========================================================================
 
     checkpoint_load = MODEL_LOAD
-
-    if exp_name == 'ddqn':
-        n_actions = 7  # Car can only make 7 actions
-        agent = DQNAgent(n_actions)
-    elif exp_name == 'ppo':
-        n_actions = 2  # Car can only make 2 actions
-        agent = PPOAgent(n_actions)
-        #learn_iters = 0
-        #n_steps = 0
-        #N = 20
+    n_actions = 7  # Car can only make 7 actions
+    agent = DQNAgent(n_actions)
     
     #train_thread = Thread(target=agent.train, daemon=True)
     #train_thread.start()
@@ -106,16 +97,11 @@ def runner():
     if checkpoint_load:
         agent.load_model()
         if exp_name == 'ddqn':
-            with open('checkpoint_ddqn.pickle', 'rb') as f:
+            with open('checkpoints/checkpoint_ddqn.pickle', 'rb') as f:
                 data = pickle.load(f)
                 epoch = data['epoch']
                 cumulative_score = data['cumulative_score']
                 agent.epsilon = data['epsilon']
-        elif exp_name == 'ppo':
-            with open('checkpoint_ppo.pickle', 'rb') as f:
-                data = pickle.load(f)
-                epoch = data['epoch']
-                cumulative_score = data['cumulative_score']
 
     #========================================================================
     #                           CREATING THE SIMULATION
@@ -222,8 +208,7 @@ def runner():
                 writer.add_scalar("Reward/info", np.mean(scores[-20:]), step)
                 writer.add_scalar("Cumulative Reward/info", cumulative_score, step)
                 writer.add_scalar("Episode Length (s)/info", episodic_length/20, step)
-                if exp_name == 'ddqn':
-                    writer.add_scalar("Epsilon/info", agent.epsilon, step)
+                writer.add_scalar("Epsilon/info", agent.epsilon, step)
 
                 episodic_length = 0
 
@@ -236,7 +221,7 @@ def runner():
 if __name__ == "__main__":
     try:
         
-        logging.basicConfig(filename='client.log', level=logging.DEBUG,format='%(levelname)s:%(message)s')
+        logging.basicConfig(filename='logs/client.log', level=logging.DEBUG,format='%(levelname)s:%(message)s')
         runner()
 
     except KeyboardInterrupt:

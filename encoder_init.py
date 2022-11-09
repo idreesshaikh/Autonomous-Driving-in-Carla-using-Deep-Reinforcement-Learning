@@ -18,6 +18,7 @@ class EncodeState():
             sys.exit()
     
     def process(self, obs):
+        
         image_obs = torch.tensor(obs[0], dtype=torch.float).to(self.device)
         image_obs = image_obs.unsqueeze(0)
         image_obs = image_obs.permute(0,3,2,1)

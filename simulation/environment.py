@@ -68,7 +68,7 @@ class CarlaEnvironment():
             # Camera Sensor
             self.camera_obj = CameraSensor(self.vehicle)
             while(len(self.camera_obj.front_camera) == 0):
-                time.sleep(0.001)
+                time.sleep(0.0001)
             self.image_obs = self.camera_obj.front_camera.pop(-1)
             self.sensor_list.append(self.camera_obj.sensor)
 
@@ -98,7 +98,7 @@ class CarlaEnvironment():
             self.min_speed = 15.0
             self.max_distance_from_center = 3.0
             self.route_waypoints = list()
-            self.total_distance = 3000
+            self.total_distance = 1800
             self.throttle = float(0.0000000)
             self.previous_steer = float(0.0000000)
             self.velocity = float(0.0000000)
@@ -147,6 +147,9 @@ class CarlaEnvironment():
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.sensor_list])
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.actor_list])
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.walker_list])
+            self.sensor_list.clear()
+            self.actor_list.clear()
+            self.remove_sensors()
             if self.display_on:
                 pygame.quit()
 
@@ -160,17 +163,20 @@ class CarlaEnvironment():
 
     def step(self, action_idx):
         try:
-
             # Velocity of the vehicle
             velocity = self.vehicle.get_velocity()
             self.velocity = np.sqrt(velocity.x**2 + velocity.y**2 + velocity.z**2) * 3.6
 
             # Action fron action space for contolling the vehicle with a discrete action
             if self.continous_action_space:
-                self.vehicle.apply_control(carla.VehicleControl(steer=float(action_idx[0]), throttle=float(action_idx[1])))
-                self.prev_steer = float(action_idx[0])
+                np.clip(action_idx, -1, 1)
+                steer = float(action_idx[0])
+                np.clip(action_idx, 0, 1)
+                throttle = float(action_idx[1])
+                self.vehicle.apply_control(carla.VehicleControl(steer=steer, throttle=throttle))
+                self.prev_steer = steer
+                self.throttle = throttle
             else:
-                
                 action = self.action_space[action_idx]
                 if self.velocity < 20.0:
                     self.vehicle.apply_control(carla.VehicleControl(steer=action, throttle=float(0.5)))
@@ -272,7 +278,7 @@ class CarlaEnvironment():
                     reward = 1.0 * centering_factor * angle_factor                 
 
             while(len(self.camera_obj.front_camera) == 0):
-                time.sleep(0.001)
+                time.sleep(0.0001)
             self.image_obs = self.camera_obj.front_camera.pop(-1)
 
             self.navigation_obs = np.array([self.throttle, self.velocity, self.previous_steer, self.distance_from_center, self.angle])
@@ -289,6 +295,9 @@ class CarlaEnvironment():
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.sensor_list])
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.actor_list])
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.walker_list])
+            self.sensor_list.clear()
+            self.actor_list.clear()
+            self.remove_sensors()
             if self.display_on:
                 pygame.quit()
 
