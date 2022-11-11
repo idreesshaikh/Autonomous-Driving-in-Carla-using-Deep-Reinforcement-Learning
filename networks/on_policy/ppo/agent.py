@@ -12,153 +12,115 @@ from parameters import LATENT_DIM
 from parameters import PPO_CHECKPOINT_DIR
 
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
+
+class Buffer:
+    def __init__(self):
+         # Batch data
+        self.observation = []     # batch observations
+        self.actions = []         # batch actions
+        self.log_probs = []       # log probs of each action
+        self.rewards = []         # batch rewards
+        self.dones = []
+
+    def clear(self):
+        del self.observation[:]     # batch observations
+        del self.actions[:]         # batch actions
+        del self.log_probs[:]       # log probs of each action
+        del self.rewards[:]         # batch rewards
+        del self.dones[:]
 
 class PPOAgent(object):
-    def __init__(self, env):
+    def __init__(self,action_std_init=0.4):
         
-        self.env = env
+        #self.env = env
         self.obs_dim = 100
         self.action_dim = 2
-        self.timesteps_per_batch = 12288
-        self.max_timesteps_per_episode = 3048
         self.clip = 0.1
         self.gamma = 0.95
         self.n_updates_per_iteration = 10
         self.lr = 2e-4
         self.encode = EncodeState(LATENT_DIM)
-
-        self.policy = ActorCritic(self.obs_dim, self.action_dim)
-        self.actor_optim = Adam(self.policy.actor.parameters(), lr=self.lr)
-        self.critic_optim = Adam(self.policy.critic.parameters(), lr=self.lr)
-        #self.MseLoss = nn.MSELoss()
-
-
-    def rollout(self):
-        # Batch data
-        batch_observation = []     # batch observations
-        batch_actions = []         # batch actions
-        batch_log_probs = []       # log probs of each action
-        batch_rewards = []         # batch rewards
-        batch_rtgs = []            # batch rewards-to-go
-        batch_lens = []            # episodic lengths in batch
-
-        episode_reward = []
-        # Number of timesteps run so far this batch
-        t = 0 
-        while t < self.timesteps_per_batch:
-        # Rewards this episode
+        self.memory = Buffer()
         
-            episode_reward = []
+        self.policy = ActorCritic(self.obs_dim, self.action_dim, action_std_init)
+        #self.actor_optim = Adam(self.policy.actor.parameters(), lr=self.lr)
+        #self.critic_optim = Adam(self.policy.critic.parameters(), lr=self.lr)
+        self.optimizer = torch.optim.Adam([
+                        {'params': self.policy.actor.parameters(), 'lr': self.lr},
+                        {'params': self.policy.critic.parameters(), 'lr': self.lr}])
 
-            obs = self.env.reset()
-            obs = self.encode.process(obs)
+        self.old_policy = ActorCritic(self.obs_dim, self.action_dim, action_std_init)
+        self.old_policy.load_state_dict(self.policy.state_dict())
+        self.MseLoss = nn.MSELoss()
+
+
+    def get_action(self, obs):
+
+        with torch.no_grad():
+            if isinstance(obs, np.ndarray):
+                obs = torch.tensor(obs, dtype=torch.float)
+            action, logprob = self.old_policy.get_action_and_log_prob(obs.to(device))
+
+        self.memory.observation.append(obs.to(device))
+        self.memory.actions.append(action)
+        self.memory.log_probs.append(logprob)
+
+        return action.detach().cpu().numpy().flatten()
+
+    def learn(self):
+
+        # Monte Carlo estimate of returns
+        rewards = []
+        discounted_reward = 0
+        for reward, is_terminal in zip(reversed(self.memory.rewards), reversed(self.memory.dones)):
+            if is_terminal:
+                discounted_reward = 0
+            discounted_reward = reward + (self.gamma * discounted_reward)
+            rewards.insert(0, discounted_reward)
             
-            done = False
-            for ep_t in range(self.max_timesteps_per_episode):
-                # Increment timesteps ran this batch so far
-                t += 1
-                # Collect observation
-                batch_observation.append(obs.cpu().numpy())
-                action, log_prob = self.policy.get_action_and_log_prob(obs.cpu())
-                obs, rew, done, _ = self.env.step(action)
-                obs = self.encode.process(obs)
+        # Normalizing the rewards
+        rewards = torch.tensor(rewards, dtype=torch.float32).to(device)
+        rewards = (rewards - rewards.mean()) / (rewards.std() + 1e-7)
 
-                # Collect reward, action, and log prob
-                episode_reward.append(rew)
-                batch_actions.append(action)
-                batch_log_probs.append(log_prob)
-                
-                if done:
-                    break
-            # Collect episodic length and rewards
-            batch_lens.append(ep_t + 1) # plus 1 because timestep starts at 0
-            batch_rewards.append(episode_reward)
+        # convert list to tensor
+        old_states = torch.squeeze(torch.stack(self.memory.observation, dim=0)).detach().to(device)
+        old_actions = torch.squeeze(torch.stack(self.memory.actions, dim=0)).detach().to(device)
+        old_logprobs = torch.squeeze(torch.stack(self.memory.log_probs, dim=0)).detach().to(device)
+
         
-        # Reshape data as tensors in the shape specified before returning
-        batch_observation = torch.tensor(np.array(batch_observation), dtype=torch.float) #torch.stack(batch_observation)#
-        batch_actions = torch.tensor(np.array(batch_actions), dtype=torch.float)
-        batch_log_probs = torch.tensor(np.array(batch_log_probs), dtype=torch.float)
-        # ALG STEP #4
-        batch_rtgs = self.compute_rtgs(batch_rewards)
-        # Return the batch data
-        return batch_observation, batch_actions, batch_log_probs, batch_rtgs, batch_lens
+        # Optimize policy for K epochs
+        for _ in range(self.n_updates_per_iteration):
 
-    
-    def compute_rtgs(self, batch_rews):
-        # The rewards-to-go (rtg) per episode per batch to return.
-        # The shape will be (num timesteps per episode)
-        batch_rtgs = []
-        # Iterate through each episode backwards to maintain same order
-        # in batch_rtgs
-        for ep_rews in reversed(batch_rews):
-            discounted_reward = 0 # The discounted reward so far
-            for rew in reversed(ep_rews):
-                discounted_reward = rew + discounted_reward * self.gamma
-                batch_rtgs.insert(0, discounted_reward)
-        # Convert the rewards-to-go into a tensor
-        batch_rtgs = torch.tensor(np.array(batch_rtgs), dtype=torch.float)
-        return batch_rtgs
+            # Evaluating old actions and values
+            logprobs, values, dist_entropy = self.policy.evaluate(old_states, old_actions)
 
-    def evaluate(self, batch_obs, batch_acts):
-        # Calculate the log probabilities of batch actions using most 
-        # recent actor network.
-        # This segment of code is similar to that in get_action()
-        mean = self.policy.get_action(batch_obs)
-        dist = MultivariateNormal(mean, self.policy.cov_mat)
-        log_probs = dist.log_prob(batch_acts)
-
-        V = self.policy.get_value(batch_obs).squeeze()
-        # Return predicted values V and log probs log_probs
-        return V, log_probs
-
-
-    def learn(self, total_timesteps):
-        t_so_far = 0 # Timesteps simulated so far
-        while t_so_far < total_timesteps:              # ALG STEP 2
-            batch_observation, batch_actions, batch_log_probs, batch_rtgs, batch_lens = self.rollout()
-            #print(len("batch len: ",batch_lens," sum(", np.sum(batch_lens), ") "))
-            # Calculate how many timesteps we collected this batch   
-            t_so_far += np.sum(batch_lens)
+            # match values tensor dimensions with rewards tensor
+            values = torch.squeeze(values)
             
-            # Calculate V_phi and pi_theta(a_t | s_t)    
-            V, curr_log_probs = self.evaluate(batch_observation, batch_actions)
-            # ALG STEP 5
-            # Calculate advantage
-            A_k = batch_rtgs - V.detach()
-            # Normalize advantages
-            A_k = (A_k - A_k.mean()) / (A_k.std() + 1e-10)
-            print(t_so_far)
-            for _ in range(self.n_updates_per_iteration):
-                print(_, end=" ")
-                V , curr_log_probs = self.evaluate(batch_observation, batch_actions)
+            # Finding the ratio (pi_theta / pi_theta__old)
+            ratios = torch.exp(logprobs - old_logprobs.detach())
 
-                # Calculate ratios
-                ratios = torch.exp(curr_log_probs - batch_log_probs)
+            # Finding Surrogate Loss
+            advantages = rewards - values.detach()   
+            surr1 = ratios * advantages
+            surr2 = torch.clamp(ratios, 1-self.clip, 1+self.clip) * advantages
 
-                # Calculate surrogate losses
-                surr1 = ratios * A_k
-                surr2 = torch.clamp(ratios, 1 - self.clip, 1 + self.clip) * A_k
+            # final loss of clipped objective PPO
+            loss = -torch.min(surr1, surr2) + 0.5*self.MseLoss(values, rewards) - 0.01*dist_entropy
+            
+            # take gradient step
+            self.optimizer.zero_grad()
+            loss.mean().backward()
+            self.optimizer.step()
 
-                actor_loss = (-torch.min(surr1, surr2)).mean()
-
-                # Calculate gradients and perform backward propagation for actor 
-                # network
-                self.actor_optim.zero_grad()
-                actor_loss.backward()
-                self.actor_optim.step()
-
-
-                critic_loss = nn.MSELoss()(V, batch_rtgs)
-                # Calculate gradients and perform backward propagation for critic network    
-                self.critic_optim.zero_grad()    
-                critic_loss.backward()    
-                self.critic_optim.step()
+        self.old_policy.load_state_dict(self.policy.state_dict())
+        self.memory.clear()
     
-    def save(self, checkpoint_path):
-        torch.save(self.policy.state_dict(), checkpoint_path)
+    def save(self):
+        torch.save(self.old_policy.state_dict(), PPO_CHECKPOINT_DIR+"/ppo_policy.pth")
    
-
-    def load(self, checkpoint_path):
-        self.policy.load_state_dict(torch.load(checkpoint_path))
+    def load(self):
+        self.old_policy.load_state_dict(torch.load(PPO_CHECKPOINT_DIR+"/ppo_policy.pth"))
+        self.policy.load_state_dict(torch.load(PPO_CHECKPOINT_DIR+"/ppo_policy.pth"))
             
