@@ -38,7 +38,7 @@ class PPOAgent(object):
         self.action_dim = 2
         self.clip = 0.1
         self.gamma = 0.95
-        self.n_updates_per_iteration = 10
+        self.n_updates_per_iteration = 40
         self.lr = 2e-4
         self.encode = EncodeState(LATENT_DIM)
         self.memory = Buffer()
@@ -67,6 +67,20 @@ class PPOAgent(object):
         self.memory.log_probs.append(logprob)
 
         return action.detach().cpu().numpy().flatten()
+    
+    def set_action_std(self, new_action_std):
+        self.action_std = new_action_std
+        self.policy.set_action_std(new_action_std)
+        self.old_policy.set_action_std(new_action_std)
+
+    
+    def decay_action_std(self, action_std_decay_rate, min_action_std):
+        self.action_std = self.action_std - action_std_decay_rate
+        self.action_std = round(self.action_std, 4)
+        if (self.action_std <= min_action_std):
+            self.action_std = min_action_std
+        self.set_action_std(self.action_std)
+
 
     def learn(self):
 

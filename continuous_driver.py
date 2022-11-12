@@ -25,7 +25,7 @@ def parse_args():
     parser.add_argument('--env-name', type=str, default='carla', help='name of the simulation environment')
     parser.add_argument('--learning-rate', type=float, default=PPO_LEARNING_RATE, help='learning rate of the optimizer')
     parser.add_argument('--seed', type=int, default=0, help='seed of the experiment')
-    parser.add_argument('--total-timesteps', type=int, default=20e6, help='total timesteps of the experiment')
+    parser.add_argument('--total-timesteps', type=int, default=1e7, help='total timesteps of the experiment')
     parser.add_argument('--episode-length', type=int, default=10000, help='max timesteps in an episode')
     parser.add_argument('--train', type=bool, default=True, help='is it training?')
     parser.add_argument('--load-checkpoint', type=bool, default=False, help='resume training?')
@@ -68,12 +68,12 @@ def runner():
         wandb.init(
             project=args.wandb_project_name,
             entity=args.wandb_entity,
-            sync_tensorboard=True,
+            #sync_tensorboard=True,
             config=vars(args),
             name=run_name,
             save_code=True,
         )
-        #wandb.tensorboard.patch(root_logdir="runs/{run_name}", save=False, tensorboard_x=True, pytorch=True)
+        wandb.tensorboard.patch(root_logdir="runs/{run_name}", save=False, tensorboard_x=True, pytorch=True)
     
     #Seeding to reproduce the results 
     random.seed(args.seed)
@@ -91,13 +91,19 @@ def runner():
     run_number = len(current_num_files)
     log_file = 'logs/PPO_carla' + "_log_" + str(run_number) + ".csv"
     
-
+    log_freq = 2e4
+    save_freq = 4e4
+    action_std = 0.6
+    action_std_decay_rate = 5e-2
+    min_action_std = 1e-1            
+    action_std_decay_freq = 5e5
+    
     episodic_length = 0
-    scores = list()
     timestep = 0
     episode = 0
     cumulative_score = 0
 
+    scores = list()
     #========================================================================
     #                           CREATING THE SIMULATION
     #========================================================================
@@ -123,8 +129,7 @@ def runner():
     try:
         time.sleep(1)
         
-        agent = PPOAgent()
-
+        agent = PPOAgent(action_std)
         if args.train:
 
             if checkpoint_load:
@@ -140,16 +145,9 @@ def runner():
 
             # track total training time
             log_f = open(log_file,"w+")
-            log_f.write('episode,timestep,reward\n')
+            log_f.write('episode,timestep,reward,cumulative reward\n')
 
             while timestep < args.total_timesteps:
-                # ALG STEP 2
-                #batch_observation, batch_actions, batch_log_probs, batch_rtgs, batch_lens = self.rollout()
-                #print(len("batch len: ",batch_lens," sum(", np.sum(batch_lens), ") "))
-                # Calculate how many timesteps we collected this batch   
-                #timestep += np.sum(batch_lens)
-                # training loop
-                #while timestep <= args.total_timesteps:
             
                 observation = env.reset()
                 observation = encode.process(observation)
@@ -171,54 +169,51 @@ def runner():
                     timestep +=1
                     current_ep_reward += reward
                     
-                    
-                    if timestep % args.episode_length == 0:
+                    if timestep % (args.episode_length * 2) == 0:
                         agent.learn()
-                    if timestep % (args.episode_length*2) == 0:
+                    
+                    if timestep % action_std_decay_freq == 0:
+                        agent.decay_action_std(action_std_decay_rate, min_action_std)
+
+                    if timestep % log_freq == 0:
+                        log_f.write('{},{},{},{}\n'.format(episode, timestep, current_ep_reward, cumulative_score))
+                        log_f.flush()
+                    
+                    if timestep % save_freq == 0:
                         agent.save()
+
+                        data_obj = {'cumulative_score': cumulative_score, 'episode': episode, 'timestep': timestep }
+                        with open('checkpoints/checkpoint_ppo.pickle', 'wb') as handle:
+                            pickle.dump(data_obj, handle)
+
+                        writer.add_scalar("Reward/info", np.mean(scores[-100:]), episode)
+                        writer.add_scalar("Episodic Reward/info", current_ep_reward, episode)
+                        writer.add_scalar("Cumulative Reward/info", cumulative_score, episode)
+                        writer.add_scalar("Episode Length (s)/info", episodic_length/episode, episode)
+                        writer.add_scalar("Cummulative Reward/(t)", cumulative_score, timestep)
+                        writer.add_scalar("Reward/(t)", reward, timestep)
+
+                        episodic_length = 0
 
                     # break; if the episode is over
                     if done:
                         episode += 1
+                        t2 = datetime.now()
+                        t3 = t2-t1
+                        episodic_length += abs(t3.total_seconds())
                         break
 
-                #Episode end : timestamp
-                t2 = datetime.now()
-                t3 = t2-t1
-                episodic_length += abs(t3.total_seconds())
-
                 scores.append(current_ep_reward)
-
                 if checkpoint_load:
                     cumulative_score = ((cumulative_score * (episode - 1)) + current_ep_reward) / (episode)
                 else:
                     cumulative_score = np.mean(scores)
 
-                log_f.write('{},{},{}\n'.format(episode, timestep, cumulative_score))
-                log_f.flush()
-
                 print('Episode: {}'.format(episode),', Timestep: {}'.format(timestep),', Reward:  {:.2f}'.format(current_ep_reward),', Average Reward:  {:.2f}'.format(cumulative_score))
-                
-
-                if episode >= 20 and episode % 20 == 0:
-                    data_obj = {'cumulative_score': cumulative_score, 'episode': episode, 'timestep': timestep }
-                    with open('checkpoints/checkpoint_ppo.pickle', 'wb') as handle:
-                        pickle.dump(data_obj, handle)
-
-                    writer.add_scalar("Reward/info", np.mean(scores[-20:]), episode)
-                    writer.add_scalar("Episodic Reward/info", current_ep_reward, episode)
-                    writer.add_scalar("Cumulative Reward/info", cumulative_score, episode)
-                    writer.add_scalar("Episode Length (s)/info", episodic_length/20, episode)
-                    writer.add_scalar("Cummulative Reward/(t)", cumulative_score, timestep)
-                    writer.add_scalar("Reward/(t)", current_ep_reward, timestep)
-
-                    episodic_length = 0
-
             log_f.close()
 
-
         else:
-            test_timesteps = 100
+            test_timesteps = 50
             test(env,agent,encode,test_timesteps,args.episode_length)
         #train_thread.join()
 
