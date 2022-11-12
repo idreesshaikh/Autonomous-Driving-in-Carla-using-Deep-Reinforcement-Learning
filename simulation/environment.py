@@ -236,6 +236,9 @@ class CarlaEnvironment():
 
             self.distance_traveled += (math.sqrt((self.previous_location.x - self.location.x)**2 + (self.previous_location.y - self.location.y)**2))
             self.previous_location = self.location
+
+            if not self.fresh_start:
+                self.checkpoint_waypoint_index = (self.current_waypoint_index//self.checkpoint_frequency) * self.checkpoint_frequency
             
             # Rewards are given below!
             done = False
