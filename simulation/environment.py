@@ -24,6 +24,9 @@ class CarlaEnvironment():
         self.settings = None
         self.current_waypoint_index = 0
         self.checkpoint_waypoint_index = 0
+        self.fresh_start=True
+        self.checkpoint_frequency = 100
+        self.route_waypoints = None
         
         # Objects to be kept alive
         self.camera_obj = None
@@ -40,7 +43,7 @@ class CarlaEnvironment():
 
 
     # A reset function for reseting our environment.
-    def reset(self, from_start=True):
+    def reset(self):
 
         try:
             
@@ -52,15 +55,14 @@ class CarlaEnvironment():
             self.remove_sensors()
 
             # Spawn points of the entire map!
-            #spawn_points = self.map.get_spawn_points()
 
             # Blueprint of our main vehicle
             vehicle_bp = self.get_vehicle(CAR_NAME)
 
             #vehicle = self.actor_vehicle(vehicle_bp, spawn_points)
             #self.set_vehicle(vehicle_bp, spawn_points)
-            transform = self.map.get_spawn_points()[1]
-            transform.location += carla.Location(z=0.2)
+            transform = self.map.get_spawn_points()[38]
+            transform.location += carla.Location(z=1.0)
             self.vehicle = self.world.try_spawn_actor(vehicle_bp, transform)
             self.actor_list.append(self.vehicle)
 
@@ -68,7 +70,7 @@ class CarlaEnvironment():
             # Camera Sensor
             self.camera_obj = CameraSensor(self.vehicle)
             while(len(self.camera_obj.front_camera) == 0):
-                time.sleep(0.001)
+                time.sleep(0.0001)
             self.image_obs = self.camera_obj.front_camera.pop(-1)
             self.sensor_list.append(self.camera_obj.sensor)
 
@@ -88,7 +90,7 @@ class CarlaEnvironment():
             self.wrong_maneuver = self.lane_invasion_obj.wrong_maneuver
             self.sensor_list.append(self.lane_invasion_obj.sensor)
 
-            self.from_start = from_start
+            self.timesteps = 0
             self.rotation = self.vehicle.get_transform().rotation.yaw
             self.previous_location = self.vehicle.get_location()
             self.distance_traveled = 0.0
@@ -97,56 +99,59 @@ class CarlaEnvironment():
             self.max_speed = 22.0
             self.min_speed = 15.0
             self.max_distance_from_center = 3.0
-            self.route_waypoints = list()
-            self.total_distance = 3000
+            self.total_distance = 1234
             self.throttle = float(0.0000000)
             self.previous_steer = float(0.0000000)
             self.velocity = float(0.0000000)
             self.distance_from_center = float(0.000000)
             self.angle = float(0.000000)
 
-
-            # Waypoint nearby angle and distance from it
-            self.waypoint = self.map.get_waypoint(self.vehicle.get_location(), project_to_road=True, lane_type=(carla.LaneType.Driving))
-            current_waypoint = self.waypoint
-            self.route_waypoints.append(current_waypoint)
-            for _ in range(self.total_distance):
-                next_waypoint = current_waypoint.next(1.0)[0]
-                self.route_waypoints.append(next_waypoint)
-                current_waypoint = next_waypoint
-
-            if not from_start:
-            # Teleport vehicle to last checkpoint
+            if self.fresh_start:
+                self.current_waypoint_index = 0
+                # Waypoint nearby angle and distance from it
+                self.route_waypoints = list()
+                self.waypoint = self.map.get_waypoint(self.vehicle.get_location(), project_to_road=True, lane_type=(carla.LaneType.Driving))
+                current_waypoint = self.waypoint
+                self.route_waypoints.append(current_waypoint)
+                for x in range(self.total_distance):
+                    if x < 650:
+                        next_waypoint = current_waypoint.next(1.0)[0]
+                    elif x < 850:
+                        next_waypoint = current_waypoint.next(1.0)[-1]
+                    elif x < 1100:
+                        next_waypoint = current_waypoint.next(1.0)[0]
+                    elif x < 1200:
+                        next_waypoint = current_waypoint.next(1.0)[-1]
+                    else:
+                        next_waypoint = current_waypoint.next(1.0)[0]
+                    self.route_waypoints.append(next_waypoint)
+                    current_waypoint = next_waypoint
+            else:
+                # Teleport vehicle to last checkpoint
                 waypoint = self.route_waypoints[self.checkpoint_waypoint_index % len(self.route_waypoints)]
                 transform = waypoint.transform
                 transform.location += carla.Location(z=1.0)
                 self.vehicle.set_transform(transform)
                 self.current_waypoint_index = self.checkpoint_waypoint_index
 
-            else:
-                #waypoint = self.route_waypoints[0]
-                self.current_waypoint_index = 0
-                transform = self.waypoint.transform
-                transform.location += carla.Location(z=1.0)
-                #self.vehicle = self.world.try_spawn_actor(vehicle_bp, transform)
-                #self.actor_list.append(self.vehicle)
-                self.vehicle.set_transform(transform)
-                self.vehicle.set_simulate_physics(False)
-                self.vehicle.set_simulate_physics(True)
-            
-            self.start_waypoint_index = self.current_waypoint_index
-            
-            self.collision_history.clear()
             self.navigation_obs = np.array([self.throttle, self.velocity, self.previous_steer, self.distance_from_center, self.angle])
 
             logging.info("Environment has been resetted.")
+            
             self.episode_start_time = time.time()
+            self.collision_history.clear()
+            
+            time.sleep(0.5)
+
             return [self.image_obs, self.navigation_obs]
 
         except:
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.sensor_list])
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.actor_list])
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.walker_list])
+            self.sensor_list.clear()
+            self.actor_list.clear()
+            self.remove_sensors()
             if self.display_on:
                 pygame.quit()
 
@@ -161,29 +166,35 @@ class CarlaEnvironment():
     def step(self, action_idx):
         try:
 
+            self.timesteps+=1
+            self.fresh_start = False
+
             # Velocity of the vehicle
             velocity = self.vehicle.get_velocity()
             self.velocity = np.sqrt(velocity.x**2 + velocity.y**2 + velocity.z**2) * 3.6
 
             # Action fron action space for contolling the vehicle with a discrete action
             if self.continous_action_space:
-                self.vehicle.apply_control(carla.VehicleControl(steer=float(action_idx[0]), throttle=float(action_idx[1])))
-                self.prev_steer = float(action_idx[0])
+                steer = float(action_idx[0])
+                steer = max(min(steer, 1.0), -1.0)
+                throttle = float((action_idx[1] + 1.0)/2)
+                throttle = max(min(throttle, 1.0), 0.0)
+                self.vehicle.apply_control(carla.VehicleControl(steer=steer, throttle=throttle))
+                self.previous_steer = steer
+                self.throttle = throttle
             else:
-                
                 action = self.action_space[action_idx]
                 if self.velocity < 20.0:
                     self.vehicle.apply_control(carla.VehicleControl(steer=action, throttle=float(0.5)))
                 else:
                     self.vehicle.apply_control(carla.VehicleControl(steer=action))
-                self.prev_steer = action
+                self.previous_steer = action
         
             # Traffic Light state
             if self.vehicle.is_at_traffic_light():
                 traffic_light = self.vehicle.get_traffic_light()
                 if traffic_light.get_state() == carla.TrafficLightState.Red:
                     traffic_light.set_state(carla.TrafficLightState.Green)
-
 
 
             self.collision_history = self.collision_obj.collision_data
@@ -215,7 +226,7 @@ class CarlaEnvironment():
             self.current_waypoint = self.route_waypoints[ self.current_waypoint_index    % len(self.route_waypoints)]
             self.next_waypoint = self.route_waypoints[(self.current_waypoint_index+1) % len(self.route_waypoints)]
             self.distance_from_center = self.distance_to_line(self.vector(self.current_waypoint.transform.location),self.vector(self.next_waypoint.transform.location),self.vector(self.location))
-            #self.center_lane_deviation += self.distance_from_center
+            self.center_lane_deviation += self.distance_from_center
 
             # Get angle difference between closest waypoint and vehicle forward vector
             fwd    = self.vector(self.vehicle.get_velocity())
@@ -224,17 +235,7 @@ class CarlaEnvironment():
             
 
             self.distance_traveled += (math.sqrt((self.previous_location.x - self.location.x)**2 + (self.previous_location.y - self.location.y)**2))
-            #self.previous_location.distance(self.location)
             self.previous_location = self.location
-
-            self.desired_distance = (self.current_waypoint_index - self.start_waypoint_index) / len(self.route_waypoints)
-            if self.desired_distance >= 1:
-                done = True
-                    
-            # Update checkpoint for training
-            if not self.from_start:
-                checkpoint_frequency = 30
-                self.checkpoint_waypoint_index = (self.current_waypoint_index // checkpoint_frequency) * checkpoint_frequency
             
             # Rewards are given below!
             done = False
@@ -271,12 +272,25 @@ class CarlaEnvironment():
                 else:                                         
                     reward = 1.0 * centering_factor * angle_factor                 
 
+            if self.timesteps >= 10000:
+                logging.warning("10000 steps run complete.")
+                done = True
+            elif self.current_waypoint_index >= len(self.route_waypoints) - 1:
+                logging.warning("Lap completed.")
+                done = True
+                self.fresh_start = True
+                if self.checkpoint_frequency < 600:
+                    self.checkpoint_frequency += 100
+                else:
+                    self.checkpoint_frequency = self.total_distance
+
             while(len(self.camera_obj.front_camera) == 0):
-                time.sleep(0.001)
+                time.sleep(0.0001)
             self.image_obs = self.camera_obj.front_camera.pop(-1)
 
             self.navigation_obs = np.array([self.throttle, self.velocity, self.previous_steer, self.distance_from_center, self.angle])
             # Remove everything that has been spawned in the env
+            
             if done:
                 for sensor in self.sensor_list:
                     sensor.destroy()
@@ -289,6 +303,9 @@ class CarlaEnvironment():
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.sensor_list])
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.actor_list])
             self.client.apply_batch([carla.command.DestroyActor(x) for x in self.walker_list])
+            self.sensor_list.clear()
+            self.actor_list.clear()
+            self.remove_sensors()
             if self.display_on:
                 pygame.quit()
 

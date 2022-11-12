@@ -10,12 +10,11 @@ from distutils.util import strtobool
 from threading import Thread
 from datetime import datetime
 from torch.utils.tensorboard import SummaryWriter
-from networks.on_policy.ppo.agent import PPOAgent
 from simulation.connection import ClientConnection
-from parameters import *
 from simulation.environment import CarlaEnvironment
 from networks.off_policy.ddqn.agent import DQNAgent
 from encoder_init import EncodeState
+from parameters import *
 
 
 def parse_args():
@@ -23,9 +22,9 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--exp-name', type=str, help='name of the experiment')
     parser.add_argument('--env-name', type=str, default='carla', help='name of the simulation environment')
-    parser.add_argument('--learning-rate', type=float, help='learning rate of the optimizer')
+    parser.add_argument('--learning-rate', type=float, default=DQN_LEARNING_RATE, help='learning rate of the optimizer')
     parser.add_argument('--seed', type=int, default=0, help='seed of the experiment')
-    parser.add_argument('--total-timesteps', type=int, default=EPISODES, help='total timesteps of the experiment')
+    parser.add_argument('--total-episodes', type=int, default=EPISODES, help='total timesteps of the experiment')
     parser.add_argument('--torch-deterministic', type=lambda x:bool(strtobool(x)), default=True, nargs='?', const=True, help='if toggled, `torch.backends.cudnn.deterministic=False`')
     parser.add_argument('--cuda', type=lambda x:bool(strtobool(x)), default=True, nargs='?', const=True, help='if toggled, cuda will not be enabled by deafult')
     parser.add_argument('--track', type=lambda x:bool(strtobool(x)), default=False, nargs='?', const=True, help='if toggled, experiment will be tracked with Weights and Biases')
@@ -49,11 +48,10 @@ def runner():
 
         if exp_name == 'ddqn':
             run_name = f"DDQN"
-        elif exp_name == 'ppo':
-            run_name = f"PPO"
 
     except Exception as e:
         print(e.message)
+        sys.exit()
 
     writer = SummaryWriter(f"runs/{run_name}")
     writer.add_text(
@@ -84,16 +82,8 @@ def runner():
     #========================================================================
 
     checkpoint_load = MODEL_LOAD
-
-    if exp_name == 'ddqn':
-        n_actions = 7  # Car can only make 7 actions
-        agent = DQNAgent(n_actions)
-    elif exp_name == 'ppo':
-        n_actions = 2  # Car can only make 2 actions
-        agent = PPOAgent(n_actions)
-        #learn_iters = 0
-        #n_steps = 0
-        #N = 20
+    n_actions = 7  # Car can only make 7 actions
+    agent = DQNAgent(n_actions)
     
     #train_thread = Thread(target=agent.train, daemon=True)
     #train_thread.start()
@@ -106,16 +96,11 @@ def runner():
     if checkpoint_load:
         agent.load_model()
         if exp_name == 'ddqn':
-            with open('checkpoint_ddqn.pickle', 'rb') as f:
+            with open('checkpoints/checkpoint_ddqn.pickle', 'rb') as f:
                 data = pickle.load(f)
                 epoch = data['epoch']
                 cumulative_score = data['cumulative_score']
                 agent.epsilon = data['epsilon']
-        elif exp_name == 'ppo':
-            with open('checkpoint_ppo.pickle', 'rb') as f:
-                data = pickle.load(f)
-                epoch = data['epoch']
-                cumulative_score = data['cumulative_score']
 
     #========================================================================
     #                           CREATING THE SIMULATION
@@ -161,8 +146,6 @@ def runner():
         for step in range(epoch+1, EPISODES+1):
             if exp_name == 'ddqn':
                 print('Starting Episode: ', step, ', Epsilon Now:  {:.3f}'.format(agent.epsilon), ', ', end="")
-            else:
-                print('Starting Episode: ', step ,', ', end="")
 
             #Reset
             done = False
@@ -174,20 +157,14 @@ def runner():
             t1 = datetime.now()
 
             while not done:
-                if exp_name == 'ppo':
-                    action, prob, val = agent.get_action(observation)
-                else:
-                    action = agent.get_action(observation)
+
+                action = agent.get_action(observation)
                 new_observation, reward, done, _ = env.step(action)
                 new_observation = encode.process(new_observation)
                 score += reward
-                
-                if exp_name == 'ppo':
-                    agent.save_transition(observation, action, prob, val, reward, done)
-                    agent.learn(total_timesteps=200_000_000)
-                else:
-                    agent.save_transition(observation, action, reward, new_observation, int(done))
-                    agent.learn()
+
+                agent.save_transition(observation, action, reward, new_observation, int(done))
+                agent.learn()
 
                 observation = new_observation
 
@@ -195,8 +172,6 @@ def runner():
             t2 = datetime.now()
             t3 = t2-t1
             episodic_length += abs(t3.total_seconds())
-
-            logging.info("Done == True.")
             
             scores.append(score)
 
@@ -212,18 +187,13 @@ def runner():
 
                 if exp_name == 'ddqn':
                     data_obj = {'cumulative_score': cumulative_score, 'epsilon': agent.epsilon,'epoch': step}
-                    with open('checkpoint_ddqn.pickle', 'wb') as handle:
-                        pickle.dump(data_obj, handle)
-                elif exp_name == 'ppo':
-                    data_obj = {'cumulative_score': cumulative_score,'epoch': step}
-                    with open('checkpoint_ppo.pickle', 'wb') as handle:
+                    with open('checkpoints/checkpoint_ddqn.pickle', 'wb') as handle:
                         pickle.dump(data_obj, handle)
 
                 writer.add_scalar("Reward/info", np.mean(scores[-20:]), step)
                 writer.add_scalar("Cumulative Reward/info", cumulative_score, step)
                 writer.add_scalar("Episode Length (s)/info", episodic_length/20, step)
-                if exp_name == 'ddqn':
-                    writer.add_scalar("Epsilon/info", agent.epsilon, step)
+                writer.add_scalar("Epsilon/info", agent.epsilon, step)
 
                 episodic_length = 0
 
@@ -236,7 +206,7 @@ def runner():
 if __name__ == "__main__":
     try:
         
-        logging.basicConfig(filename='client.log', level=logging.DEBUG,format='%(levelname)s:%(message)s')
+        logging.basicConfig(filename='logs/ddqn.log', level=logging.DEBUG,format='%(levelname)s:%(message)s')
         runner()
 
     except KeyboardInterrupt:
