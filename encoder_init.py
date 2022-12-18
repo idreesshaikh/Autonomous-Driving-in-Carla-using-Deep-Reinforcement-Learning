@@ -6,6 +6,7 @@ class EncodeState():
     def __init__(self, latent_dim):
         self.latent_dim = latent_dim
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        
         try:
             self.conv_encoder = VariationalEncoder(self.latent_dim).to(self.device)
             self.conv_encoder.load()
@@ -25,4 +26,5 @@ class EncodeState():
         image_obs = self.conv_encoder(image_obs)
         navigation_obs = torch.tensor(obs[1], dtype=torch.float).to(self.device)
         obs = torch.cat((image_obs.view(-1), navigation_obs), -1)
+        
         return obs

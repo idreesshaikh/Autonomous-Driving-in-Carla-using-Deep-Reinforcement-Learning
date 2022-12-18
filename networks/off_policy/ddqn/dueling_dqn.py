@@ -1,19 +1,20 @@
 import os
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 import torch.optim as optim
-from parameters import DQN_LEARNING_RATE, DQN_CHECKPOINT_DIR
+from parameters import DQN_LEARNING_RATE, DQN_CHECKPOINT_DIR, TOWN7
 
 
 class DuelingDQnetwork(nn.Module):
     def __init__(self, n_actions, model):
         super(DuelingDQnetwork, self).__init__()
         self.n_actions = n_actions
-        self.checkpoint_file = os.path.join(DQN_CHECKPOINT_DIR, model)
+        self.checkpoint_file = os.path.join(DQN_CHECKPOINT_DIR + '/' + TOWN7, model)
 
         self.Linear1 = nn.Sequential(
-            nn.Linear(95 + 5, 128),
+            nn.Linear(95 + 5, 256),
+            nn.ReLU(),
+            nn.Linear(256, 128),
             nn.ReLU(),
             nn.Linear(128, 64),
             nn.ReLU()

@@ -54,7 +54,7 @@ class CameraSensorEnv:
     def __init__(self, vehicle):
 
         pygame.init()
-        self.display = pygame.display.set_mode((680,680),pygame.HWSURFACE | pygame.DOUBLEBUF)
+        self.display = pygame.display.set_mode((720, 720),pygame.HWSURFACE | pygame.DOUBLEBUF)
         self.sensor_name = RGB_CAMERA
         self.parent = vehicle
         self.surface = None
@@ -68,8 +68,8 @@ class CameraSensorEnv:
     def _set_camera_sensor(self, world):
 
         thrid_person_camera_bp = world.get_blueprint_library().find(self.sensor_name)
-        thrid_person_camera_bp.set_attribute('image_size_x', f'680')
-        thrid_person_camera_bp.set_attribute('image_size_y', f'680')
+        thrid_person_camera_bp.set_attribute('image_size_x', f'720')
+        thrid_person_camera_bp.set_attribute('image_size_y', f'720')
         third_camera = world.spawn_actor(thrid_person_camera_bp, carla.Transform(
             carla.Location(x=-4.0, z=2.0), carla.Rotation(pitch=-12.0)), attach_to=self.parent)
         logging.info("Environment Camera has been setup.")
@@ -168,7 +168,7 @@ class ObstacleSensor:
 # Lane invasion sensor is a very important sensor!
 # It's necessary for out vehicle not to deviate from the road
 
-
+'''
 class LaneInvasionSensor:
 
     def __init__(self, vehicle) -> None:
@@ -213,3 +213,4 @@ class LaneInvasionSensor:
                 self.wrong_maneuver = True
             else:
                 self.wrong_maneuver = False
+'''

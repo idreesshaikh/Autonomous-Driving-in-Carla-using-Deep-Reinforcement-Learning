@@ -1,15 +1,11 @@
 import os
 import numpy as np
+
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
-from torch.optim import Adam
-from torch.distributions import MultivariateNormal
 from encoder_init import EncodeState
 from networks.on_policy.ppo.ppo import ActorCritic
-from parameters import LATENT_DIM
-from parameters import PPO_CHECKPOINT_DIR
+from parameters import  *
 
 
 device = torch.device("cpu")
@@ -31,26 +27,27 @@ class Buffer:
         del self.dones[:]
 
 class PPOAgent(object):
-    def __init__(self,action_std_init=0.4):
+    def __init__(self, action_std_init=0.4):
         
         #self.env = env
         self.obs_dim = 100
         self.action_dim = 2
-        self.clip = 0.1
-        self.gamma = 0.95
-        self.n_updates_per_iteration = 40
-        self.lr = 2e-4
+        self.clip = POLICY_CLIP
+        self.gamma = GAMMA
+        self.n_updates_per_iteration = 7
+        self.lr = PPO_LEARNING_RATE
+        self.action_std = action_std_init
         self.encode = EncodeState(LATENT_DIM)
         self.memory = Buffer()
+
+        self.checkpoint_file_no = 0
         
-        self.policy = ActorCritic(self.obs_dim, self.action_dim, action_std_init)
-        #self.actor_optim = Adam(self.policy.actor.parameters(), lr=self.lr)
-        #self.critic_optim = Adam(self.policy.critic.parameters(), lr=self.lr)
+        self.policy = ActorCritic(self.obs_dim, self.action_dim, self.action_std)
         self.optimizer = torch.optim.Adam([
                         {'params': self.policy.actor.parameters(), 'lr': self.lr},
                         {'params': self.policy.critic.parameters(), 'lr': self.lr}])
 
-        self.old_policy = ActorCritic(self.obs_dim, self.action_dim, action_std_init)
+        self.old_policy = ActorCritic(self.obs_dim, self.action_dim, self.action_std)
         self.old_policy.load_state_dict(self.policy.state_dict())
         self.MseLoss = nn.MSELoss()
 
@@ -76,10 +73,10 @@ class PPOAgent(object):
     
     def decay_action_std(self, action_std_decay_rate, min_action_std):
         self.action_std = self.action_std - action_std_decay_rate
-        self.action_std = round(self.action_std, 4)
         if (self.action_std <= min_action_std):
             self.action_std = min_action_std
         self.set_action_std(self.action_std)
+        return self.action_std
 
 
     def learn(self):
@@ -130,11 +127,24 @@ class PPOAgent(object):
 
         self.old_policy.load_state_dict(self.policy.state_dict())
         self.memory.clear()
+
     
     def save(self):
-        torch.save(self.old_policy.state_dict(), PPO_CHECKPOINT_DIR+"/ppo_policy.pth")
+        self.checkpoint_file_no = len(next(os.walk(PPO_CHECKPOINT_DIR+TOWN2))[2])
+        checkpoint_file = PPO_CHECKPOINT_DIR+TOWN2+"/ppo_policy_" + str(self.checkpoint_file_no)+"_.pth"
+        torch.save(self.old_policy.state_dict(), checkpoint_file)
+
+    def chkpt_save(self):
+        self.checkpoint_file_no = len(next(os.walk(PPO_CHECKPOINT_DIR+TOWN2))[2])
+        if self.checkpoint_file_no !=0:
+            self.checkpoint_file_no -=1
+        checkpoint_file = PPO_CHECKPOINT_DIR+TOWN2+"/ppo_policy_" + str(self.checkpoint_file_no)+"_.pth"
+        torch.save(self.old_policy.state_dict(), checkpoint_file)
    
     def load(self):
-        self.old_policy.load_state_dict(torch.load(PPO_CHECKPOINT_DIR+"/ppo_policy.pth"))
-        self.policy.load_state_dict(torch.load(PPO_CHECKPOINT_DIR+"/ppo_policy.pth"))
+        self.checkpoint_file_no = len(next(os.walk(PPO_CHECKPOINT_DIR+TOWN2))[2]) - 1
+        print("Resuming from model checkpoint no: ", self.checkpoint_file_no)
+        checkpoint_file = PPO_CHECKPOINT_DIR+TOWN2+"/ppo_policy_" + str(self.checkpoint_file_no)+"_.pth"
+        self.old_policy.load_state_dict(torch.load(checkpoint_file))
+        self.policy.load_state_dict(torch.load(checkpoint_file))
             

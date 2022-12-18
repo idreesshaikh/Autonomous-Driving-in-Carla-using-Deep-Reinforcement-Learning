@@ -29,7 +29,7 @@ class ReplayBuffer(object):
 
     def sample_buffer(self):
         max = min(self.counter, self.buffer_size)
-        batch = np.random.choice(max, BATCH_SIZE, replace=True)
+        batch = np.random.choice(max, BATCH_SIZE, replace=False)
 
         states = self.state_memory[batch]
         new_states = self.new_state_memory[batch]

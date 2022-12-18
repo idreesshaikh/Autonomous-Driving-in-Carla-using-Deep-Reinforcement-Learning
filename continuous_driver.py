@@ -1,4 +1,5 @@
 import os
+from statistics import mean
 import sys
 import time
 import random
@@ -8,7 +9,6 @@ import logging
 import pickle
 import torch
 from distutils.util import strtobool
-from threading import Thread
 from datetime import datetime
 from torch.utils.tensorboard import SummaryWriter
 from encoder_init import EncodeState
@@ -25,8 +25,8 @@ def parse_args():
     parser.add_argument('--env-name', type=str, default='carla', help='name of the simulation environment')
     parser.add_argument('--learning-rate', type=float, default=PPO_LEARNING_RATE, help='learning rate of the optimizer')
     parser.add_argument('--seed', type=int, default=0, help='seed of the experiment')
-    parser.add_argument('--total-timesteps', type=int, default=1e7, help='total timesteps of the experiment')
-    parser.add_argument('--episode-length', type=int, default=10000, help='max timesteps in an episode')
+    parser.add_argument('--total-timesteps', type=int, default=2e6, help='total timesteps of the experiment')
+    parser.add_argument('--episode-length', type=int, default=7500, help='max timesteps in an episode')
     parser.add_argument('--train', type=bool, default=True, help='is it training?')
     parser.add_argument('--load-checkpoint', type=bool, default=False, help='resume training?')
     parser.add_argument('--torch-deterministic', type=lambda x:bool(strtobool(x)), default=True, nargs='?', const=True, help='if toggled, `torch.backends.cudnn.deterministic=False`')
@@ -49,16 +49,14 @@ def runner():
     args = parse_args()
     exp_name = args.exp_name
     try:
-
         if exp_name == 'ppo':
-            run_name = f"PPO"
+            run_name = "PPO"
         else:
             sys.exit()
-
     except Exception as e:
         print(e.message)
 
-    writer = SummaryWriter(f"runs/{run_name}")
+    writer = SummaryWriter(f"runs/{run_name}/Town02")
     writer.add_text(
         "hyperparameters",
         "|param|value|\n|-|-|\n%s" % ("\n".join([f"|{key}|{value}" for key, value in vars(args).items()])))
@@ -73,37 +71,30 @@ def runner():
             name=run_name,
             save_code=True,
         )
-        wandb.tensorboard.patch(root_logdir="runs/{run_name}", save=False, tensorboard_x=True, pytorch=True)
+        wandb.tensorboard.patch(root_logdir="runs/{run_name}/Town02", save=False, tensorboard_x=True, pytorch=True)
     
     #Seeding to reproduce the results 
     random.seed(args.seed)
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
     torch.backends.cudnn.deterministic = args.torch_deterministic
-
-    #train_thread = Thread(target=agent.train, daemon=True)
-    #train_thread.start()
-
     checkpoint_load = args.load_checkpoint
-
     run_number = 0
-    current_num_files = next(os.walk('logs'))[2]
+    current_num_files = next(os.walk('logs/PPO/Town02'))[2]
     run_number = len(current_num_files)
-    log_file = 'logs/PPO_carla' + "_log_" + str(run_number) + ".csv"
-    
-    log_freq = 2e4
-    save_freq = 4e4
-    action_std = 0.6
-    action_std_decay_rate = 5e-2
-    min_action_std = 1e-1            
-    action_std_decay_freq = 5e5
-    
-    episodic_length = 0
+    log_file = 'logs/Town02/PPO_carla_'+ str(run_number) + ".csv"
+    action_std_init = 0.2
+    action_std_decay_rate = 0.1
+    min_action_std = 0.1   
+    action_std_decay_freq = 1e6
     timestep = 0
     episode = 0
     cumulative_score = 0
-
+    episodic_length = list()
     scores = list()
+    deviation_from_center = 0
+    distance_covered = 0
+
     #========================================================================
     #                           CREATING THE SIMULATION
     #========================================================================
@@ -129,19 +120,23 @@ def runner():
     try:
         time.sleep(1)
         
-        agent = PPOAgent(action_std)
-        if args.train:
+        if checkpoint_load:
 
-            if checkpoint_load:
-                agent.load()
-                with open('checkpoints/checkpoint_ppo.pickle', 'rb') as f:
+                chkt_file_nums = len(next(os.walk('checkpoints/PPO/Town02'))[2]) - 1
+                print("Fetching parameteres from checkpoint file no: ", chkt_file_nums)
+                chkpt_file = 'checkpoints/PPO/Town02/checkpoint_ppo_'+str(chkt_file_nums)+'.pickle'
+                with open(chkpt_file, 'rb') as f:
                     data = pickle.load(f)
                     episode = data['episode']
                     timestep = data['timestep']
                     cumulative_score = data['cumulative_score']
-        
-            #model.learn(args.total_timesteps)
-            #print("Checkpointing...")
+                    action_std_init = data['action_std_init']
+                agent = PPOAgent(action_std_init)
+                agent.load()
+        else:
+            agent = PPOAgent(action_std_init)
+
+        if args.train:
 
             # track total training time
             log_f = open(log_file,"w+")
@@ -160,7 +155,9 @@ def runner():
                     # select action with policy
                     action = agent.get_action(observation)
 
-                    observation, reward, done, _ = env.step(action)
+                    observation, reward, done, info = env.step(action)
+                    if observation is None:
+                        break
                     observation = encode.process(observation)
                     
                     agent.memory.rewards.append(reward)
@@ -169,53 +166,88 @@ def runner():
                     timestep +=1
                     current_ep_reward += reward
                     
-                    if timestep % (args.episode_length * 2) == 0:
-                        agent.learn()
-                    
                     if timestep % action_std_decay_freq == 0:
-                        agent.decay_action_std(action_std_decay_rate, min_action_std)
+                        action_std_init =  agent.decay_action_std(action_std_decay_rate, min_action_std)
 
-                    if timestep % log_freq == 0:
-                        log_f.write('{},{},{},{}\n'.format(episode, timestep, current_ep_reward, cumulative_score))
-                        log_f.flush()
-                    
-                    if timestep % save_freq == 0:
-                        agent.save()
-
-                        data_obj = {'cumulative_score': cumulative_score, 'episode': episode, 'timestep': timestep }
-                        with open('checkpoints/checkpoint_ppo.pickle', 'wb') as handle:
-                            pickle.dump(data_obj, handle)
-
-                        writer.add_scalar("Reward/info", np.mean(scores[-100:]), episode)
-                        writer.add_scalar("Episodic Reward/info", current_ep_reward, episode)
-                        writer.add_scalar("Cumulative Reward/info", cumulative_score, episode)
-                        writer.add_scalar("Episode Length (s)/info", episodic_length/episode, episode)
-                        writer.add_scalar("Cummulative Reward/(t)", cumulative_score, timestep)
-                        writer.add_scalar("Reward/(t)", reward, timestep)
-
-                        episodic_length = 0
+                    if timestep == args.total_timesteps -1:
+                        agent.chkpt_save()
 
                     # break; if the episode is over
                     if done:
+
                         episode += 1
+
                         t2 = datetime.now()
                         t3 = t2-t1
-                        episodic_length += abs(t3.total_seconds())
+                        
+                        episodic_length.append(abs(t3.total_seconds()))
+                        
                         break
-
+                
+                deviation_from_center += info[1]
+                distance_covered += info[0]
+                
                 scores.append(current_ep_reward)
+                
                 if checkpoint_load:
                     cumulative_score = ((cumulative_score * (episode - 1)) + current_ep_reward) / (episode)
                 else:
                     cumulative_score = np.mean(scores)
 
-                print('Episode: {}'.format(episode),', Timestep: {}'.format(timestep),', Reward:  {:.2f}'.format(current_ep_reward),', Average Reward:  {:.2f}'.format(cumulative_score))
-            log_f.close()
 
+                print('Episode: {}'.format(episode),', Timestep: {}'.format(timestep),', Reward:  {:.2f}'.format(current_ep_reward),', Average Reward:  {:.2f}'.format(cumulative_score))
+
+                if episode % 10 == 0:
+                    agent.learn()
+
+                    agent.chkpt_save()
+
+                    chkt_file_nums = len(next(os.walk('checkpoints/PPO/Town02'))[2])
+                    if chkt_file_nums != 0:
+                        chkt_file_nums -=1
+                    chkpt_file = 'checkpoints/PPO/Town02/checkpoint_ppo_'+str(chkt_file_nums)+'.pickle'
+                    data_obj = {'cumulative_score': cumulative_score, 'episode': episode, 'timestep': timestep, 'action_std_init': action_std_init}
+                    with open(chkpt_file, 'wb') as handle:
+                        pickle.dump(data_obj, handle)
+                    
+                
+                if episode % 5 == 0:
+                    log_f.write('{},{},{:.3f},{:.3f}\n'.format(episode, timestep, np.mean(scores[-5]), cumulative_score))
+                    log_f.flush()
+
+                    writer.add_scalar("Episodic Reward/episode", scores[-1], episode)
+                    writer.add_scalar("Cumulative Reward/info", cumulative_score, episode)
+                    writer.add_scalar("Cumulative Reward/(t)", cumulative_score, timestep)
+                    writer.add_scalar("Average Episodic Reward/info", np.mean(scores[-5]), episode)
+                    writer.add_scalar("Average Reward/(t)", np.mean(scores[-5]), timestep)
+                    writer.add_scalar("Episode Length (s)/info", mean(episodic_length), episode)
+                    writer.add_scalar("Reward/(t)", current_ep_reward, timestep)
+                    writer.add_scalar("Average Deviation from Center/episode", deviation_from_center/5, episode)
+                    writer.add_scalar("Average Deviation from Center/(t)", deviation_from_center/5, timestep)
+                    writer.add_scalar("Average Distance Covered (m)/episode", distance_covered/5, episode)
+                    writer.add_scalar("Average Distance Covered (m)/(t)", distance_covered/5, timestep)
+
+                    episodic_length = list()
+                    deviation_from_center = 0
+                    distance_covered = 0
+
+                if episode % 100 == 0:
+                    
+                    agent.save()
+                    chkt_file_nums = len(next(os.walk('checkpoints/PPO/Town02'))[2])
+                    chkpt_file = 'checkpoints/PPO/Town02/checkpoint_ppo_'+str(chkt_file_nums)+'.pickle'
+                    data_obj = {'cumulative_score': cumulative_score, 'episode': episode, 'timestep': timestep, 'action_std_init': action_std_init}
+                    with open(chkpt_file, 'wb') as handle:
+                        pickle.dump(data_obj, handle)
+            
+            log_f.close()
+            
+            print("Terminating the run.")
+            sys.exit()
         else:
-            test_timesteps = 50
-            test(env,agent,encode,test_timesteps,args.episode_length)
-        #train_thread.join()
+            sys.exit()
+            #test_timesteps = 50
+            #test(env,agent,encode,test_timesteps,args.episode_length)
 
     finally:
         logging.info("Exiting.")

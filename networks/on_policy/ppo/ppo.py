@@ -13,36 +13,42 @@ class ActorCritic(nn.Module):
         self.obs_dim = obs_dim
         self.action_dim = action_dim
         self.device = torch.device("cpu")
+        
         # Create our variable for the matrix.
-        # Note that I chose 0.5 for stdev arbitrarily.
-        self.cov_var = torch.full((self.action_dim,), action_std_init*action_std_init)
+        # Note that I chose 0.4 for stdev arbitrarily.
+        self.cov_var = torch.full((self.action_dim,), action_std_init)
+
         # Create the covariance matrix
         self.cov_mat = torch.diag(self.cov_var).unsqueeze(dim=0)
 
         # actor
         self.actor = nn.Sequential(
-                        nn.Linear(self.obs_dim, 64),
+                        nn.Linear(self.obs_dim, 500),
                         nn.Tanh(),
-                        nn.Linear(64, 64),
+                        nn.Linear(500, 300),
                         nn.Tanh(),
-                        nn.Linear(64, self.action_dim),
+                        nn.Linear(300, 100),
+                        nn.Tanh(),
+                        nn.Linear(100, self.action_dim),
                         nn.Tanh()
                     )
         
         # critic
         self.critic = nn.Sequential(
-                        nn.Linear(self.obs_dim, 64),
+                        nn.Linear(self.obs_dim, 500),
                         nn.Tanh(),
-                        nn.Linear(64, 64),
+                        nn.Linear(500, 300),
                         nn.Tanh(),
-                        nn.Linear(64, 1)
+                        nn.Linear(300, 100),
+                        nn.Tanh(),
+                        nn.Linear(100, 1)
                     )
 
     def forward(self):
         raise NotImplementedError
     
     def set_action_std(self, new_action_std):
-        self.cov_var = torch.full((self.action_dim,), new_action_std * new_action_std)
+        self.cov_var = torch.full((self.action_dim,), new_action_std)
 
 
     def get_value(self, obs):

@@ -1,5 +1,6 @@
 import torch
 import numpy as np
+from encoder_init import EncodeState
 from networks.off_policy.ddqn.dueling_dqn import DuelingDQnetwork
 from networks.off_policy.replay_buffer import ReplayBuffer
 from parameters import *
@@ -16,6 +17,7 @@ class DQNAgent(object):
         self.mem_size = MEMORY_SIZE
         self.batch_size = BATCH_SIZE
         self.train_step = 0
+        #self.encode = EncodeState(LATENT_DIM)
         self.replay_buffer = ReplayBuffer(MEMORY_SIZE,100, n_actions)
         self.q_network_eval = DuelingDQnetwork(n_actions, MODEL_ONLINE)
         self.q_network_target = DuelingDQnetwork(n_actions, MODEL_TARGET)
@@ -25,6 +27,7 @@ class DQNAgent(object):
 
     def get_action(self, observation):
         if np.random.random() > self.epsilon:
+            #observation = self.encode.process(observation)
             #observation = torch.tensor(observation, dtype=torch.float).to(self.q_network_eval.device)
             _, advantage = self.q_network_eval.forward(observation)
             action = torch.argmax(advantage).item()

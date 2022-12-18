@@ -12,7 +12,7 @@ except IndexError:
 
 import carla
 import logging
-from simulation.settings import PORT, TIMEOUT, HOST
+from simulation.settings import PORT, TIMEOUT, HOST, TOWN7
 
 '''
 try:
@@ -44,7 +44,8 @@ class ClientConnection:
             # Connecting to the  Server
             self.client = carla.Client(HOST, PORT)
             self.client.set_timeout(TIMEOUT)
-            self.world = self.client.load_world('Town07')
+            self.world = self.client.load_world(TOWN7)
+            self.world.set_weather(carla.WeatherParameters.CloudyNoon)
             return self.client, self.world
 
         except Exception as e:
