@@ -29,6 +29,4 @@ MODEL_TARGET = 'carla_dueling_dqn_target.pth'
 #Proximal Policy Optimization (hyper)parameters
 PPO_LEARNING_RATE = 1e-4  
 PPO_CHECKPOINT_DIR = 'preTrained_models/ppo/'
-TOWN2 = 'Town02'
-TOWN7 = 'Town07'
 POLICY_CLIP = 0.2

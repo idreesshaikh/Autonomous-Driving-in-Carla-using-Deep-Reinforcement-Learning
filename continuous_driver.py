@@ -28,6 +28,7 @@ def parse_args():
     parser.add_argument('--total-timesteps', type=int, default=2e6, help='total timesteps of the experiment')
     parser.add_argument('--episode-length', type=int, default=7500, help='max timesteps in an episode')
     parser.add_argument('--train', type=bool, default=True, help='is it training?')
+    parser.add_argument('--town', type=str, default="Town07", help='which town do you like?')
     parser.add_argument('--load-checkpoint', type=bool, default=False, help='resume training?')
     parser.add_argument('--torch-deterministic', type=lambda x:bool(strtobool(x)), default=True, nargs='?', const=True, help='if toggled, `torch.backends.cudnn.deterministic=False`')
     parser.add_argument('--cuda', type=lambda x:bool(strtobool(x)), default=True, nargs='?', const=True, help='if toggled, cuda will not be enabled by deafult')
@@ -55,12 +56,12 @@ def runner():
             sys.exit()
     except Exception as e:
         print(e.message)
-
-    writer = SummaryWriter(f"runs/{run_name}/Town02")
+    town = args.town
+    writer = SummaryWriter(f"runs/{run_name}/{town}")
     writer.add_text(
         "hyperparameters",
         "|param|value|\n|-|-|\n%s" % ("\n".join([f"|{key}|{value}" for key, value in vars(args).items()])))
-    
+
     if args.track:
         import wandb
         wandb.init(
@@ -71,7 +72,7 @@ def runner():
             name=run_name,
             save_code=True,
         )
-        wandb.tensorboard.patch(root_logdir="runs/{run_name}/Town02", save=False, tensorboard_x=True, pytorch=True)
+        wandb.tensorboard.patch(root_logdir="runs/{run_name}/{town}", save=False, tensorboard_x=True, pytorch=True)
     
     #Seeding to reproduce the results 
     random.seed(args.seed)
@@ -80,9 +81,9 @@ def runner():
     torch.backends.cudnn.deterministic = args.torch_deterministic
     checkpoint_load = args.load_checkpoint
     run_number = 0
-    current_num_files = next(os.walk('logs/PPO/Town02'))[2]
+    current_num_files = next(os.walk(f'logs/PPO/{town}'))[2]
     run_number = len(current_num_files)
-    log_file = 'logs/Town02/PPO_carla_'+ str(run_number) + ".csv"
+    log_file = f'logs/{town}/PPO_carla_'+ str(run_number) + ".csv"
     action_std_init = 0.2
     action_std_decay_rate = 0.1
     min_action_std = 0.1   
@@ -100,7 +101,11 @@ def runner():
     #========================================================================
 
     try:
-        client, world = ClientConnection().setup()
+        if town == "Town07" or town == "Town07":   
+            client, world = ClientConnection(town).setup()
+        else:
+            print("is name of the town correct?")
+            sys.exit()
         #settings = world.get_settings()
         #settings.no_rendering_mode = True
         #world.apply_settings(settings)
@@ -122,19 +127,19 @@ def runner():
         
         if checkpoint_load:
 
-                chkt_file_nums = len(next(os.walk('checkpoints/PPO/Town02'))[2]) - 1
+                chkt_file_nums = len(next(os.walk(f'checkpoints/PPO/{town}'))[2]) - 1
                 print("Fetching parameteres from checkpoint file no: ", chkt_file_nums)
-                chkpt_file = 'checkpoints/PPO/Town02/checkpoint_ppo_'+str(chkt_file_nums)+'.pickle'
+                chkpt_file = f'checkpoints/PPO/{town}/checkpoint_ppo_'+str(chkt_file_nums)+'.pickle'
                 with open(chkpt_file, 'rb') as f:
                     data = pickle.load(f)
                     episode = data['episode']
                     timestep = data['timestep']
                     cumulative_score = data['cumulative_score']
                     action_std_init = data['action_std_init']
-                agent = PPOAgent(action_std_init)
+                agent = PPOAgent(town, action_std_init)
                 agent.load()
         else:
-            agent = PPOAgent(action_std_init)
+            agent = PPOAgent(town, action_std_init)
 
         if args.train:
 
@@ -202,10 +207,10 @@ def runner():
 
                     agent.chkpt_save()
 
-                    chkt_file_nums = len(next(os.walk('checkpoints/PPO/Town02'))[2])
+                    chkt_file_nums = len(next(os.walk(f'checkpoints/PPO/{town}'))[2])
                     if chkt_file_nums != 0:
                         chkt_file_nums -=1
-                    chkpt_file = 'checkpoints/PPO/Town02/checkpoint_ppo_'+str(chkt_file_nums)+'.pickle'
+                    chkpt_file = f'checkpoints/PPO/{town}/checkpoint_ppo_'+str(chkt_file_nums)+'.pickle'
                     data_obj = {'cumulative_score': cumulative_score, 'episode': episode, 'timestep': timestep, 'action_std_init': action_std_init}
                     with open(chkpt_file, 'wb') as handle:
                         pickle.dump(data_obj, handle)
@@ -234,8 +239,8 @@ def runner():
                 if episode % 100 == 0:
                     
                     agent.save()
-                    chkt_file_nums = len(next(os.walk('checkpoints/PPO/Town02'))[2])
-                    chkpt_file = 'checkpoints/PPO/Town02/checkpoint_ppo_'+str(chkt_file_nums)+'.pickle'
+                    chkt_file_nums = len(next(os.walk(f'checkpoints/PPO/{town}'))[2])
+                    chkpt_file = f'checkpoints/PPO/{town}/checkpoint_ppo_'+str(chkt_file_nums)+'.pickle'
                     data_obj = {'cumulative_score': cumulative_score, 'episode': episode, 'timestep': timestep, 'action_std_init': action_std_init}
                     with open(chkpt_file, 'wb') as handle:
                         pickle.dump(data_obj, handle)
@@ -250,46 +255,12 @@ def runner():
             #test(env,agent,encode,test_timesteps,args.episode_length)
 
     finally:
-        logging.info("Exiting.")
+        sys.exit()
 
-
-def test(env, agent, encode, test_episodes, max_episode_len):
-
-    try:
-        agent.load()
-        print("Checkpoint loading...")
-
-        running_reward = 0
-
-        for ep in range(1, test_episodes+1):
-            ep_reward = 0
-            state = env.reset()
-            state = encode.process(state)
-            
-            for t in range(1, max_episode_len+1):
-                action = agent.get_action(state)
-                state, reward, done, _ = env.step(action)
-                state = encode.process(state)
-                ep_reward += reward
-                
-                if done:
-                    break
-
-            agent.memory.clear()
-
-            running_reward +=  ep_reward
-            print('Episode: {} \t\t Reward: {}'.format(ep, round(ep_reward, 2)))
-            ep_reward = 0
-
-        avg_reward = running_reward / test_episodes
-        avg_reward = round(avg_reward, 2)
-        print("average test reward : " + str(avg_reward))
-    except:
-        print('Exception occurred. Please train your model first...')
 
 if __name__ == "__main__":
     try:
-        logging.basicConfig(filename='logs/ppo.log', level=logging.DEBUG,format='%(levelname)s:%(message)s')
+        
         runner()
 
     except KeyboardInterrupt:

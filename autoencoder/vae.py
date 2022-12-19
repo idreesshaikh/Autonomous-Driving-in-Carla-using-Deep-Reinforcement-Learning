@@ -110,7 +110,6 @@ def main():
         print('\nEPOCH {}/{} \t train loss {:.3f} \t val loss {:.3f}'.format(epoch + 1, NUM_EPOCHS,train_loss,val_loss))
     
     model.save()
-    #model.eval()
 
 if __name__ == "__main__":
     try:

@@ -13,21 +13,21 @@ device = torch.device("cpu")
 class Buffer:
     def __init__(self):
          # Batch data
-        self.observation = []     # batch observations
-        self.actions = []         # batch actions
-        self.log_probs = []       # log probs of each action
-        self.rewards = []         # batch rewards
+        self.observation = []  
+        self.actions = []         
+        self.log_probs = []     
+        self.rewards = []         
         self.dones = []
 
     def clear(self):
-        del self.observation[:]     # batch observations
-        del self.actions[:]         # batch actions
-        del self.log_probs[:]       # log probs of each action
-        del self.rewards[:]         # batch rewards
+        del self.observation[:]    
+        del self.actions[:]        
+        del self.log_probs[:]      
+        del self.rewards[:]
         del self.dones[:]
 
 class PPOAgent(object):
-    def __init__(self, action_std_init=0.4):
+    def __init__(self, town, action_std_init=0.4):
         
         #self.env = env
         self.obs_dim = 100
@@ -39,6 +39,7 @@ class PPOAgent(object):
         self.action_std = action_std_init
         self.encode = EncodeState(LATENT_DIM)
         self.memory = Buffer()
+        self.town = town
 
         self.checkpoint_file_no = 0
         
@@ -130,21 +131,21 @@ class PPOAgent(object):
 
     
     def save(self):
-        self.checkpoint_file_no = len(next(os.walk(PPO_CHECKPOINT_DIR+TOWN2))[2])
-        checkpoint_file = PPO_CHECKPOINT_DIR+TOWN2+"/ppo_policy_" + str(self.checkpoint_file_no)+"_.pth"
+        self.checkpoint_file_no = len(next(os.walk(PPO_CHECKPOINT_DIR+self.town))[2])
+        checkpoint_file = PPO_CHECKPOINT_DIR+self.town+"/ppo_policy_" + str(self.checkpoint_file_no)+"_.pth"
         torch.save(self.old_policy.state_dict(), checkpoint_file)
 
     def chkpt_save(self):
-        self.checkpoint_file_no = len(next(os.walk(PPO_CHECKPOINT_DIR+TOWN2))[2])
+        self.checkpoint_file_no = len(next(os.walk(PPO_CHECKPOINT_DIR+self.town))[2])
         if self.checkpoint_file_no !=0:
             self.checkpoint_file_no -=1
-        checkpoint_file = PPO_CHECKPOINT_DIR+TOWN2+"/ppo_policy_" + str(self.checkpoint_file_no)+"_.pth"
+        checkpoint_file = PPO_CHECKPOINT_DIR+self.town+"/ppo_policy_" + str(self.checkpoint_file_no)+"_.pth"
         torch.save(self.old_policy.state_dict(), checkpoint_file)
    
     def load(self):
-        self.checkpoint_file_no = len(next(os.walk(PPO_CHECKPOINT_DIR+TOWN2))[2]) - 1
+        self.checkpoint_file_no = len(next(os.walk(PPO_CHECKPOINT_DIR+self.town))[2]) - 1
         print("Resuming from model checkpoint no: ", self.checkpoint_file_no)
-        checkpoint_file = PPO_CHECKPOINT_DIR+TOWN2+"/ppo_policy_" + str(self.checkpoint_file_no)+"_.pth"
+        checkpoint_file = PPO_CHECKPOINT_DIR+self.town+"/ppo_policy_" + str(self.checkpoint_file_no)+"_.pth"
         self.old_policy.load_state_dict(torch.load(checkpoint_file))
         self.policy.load_state_dict(torch.load(checkpoint_file))
             

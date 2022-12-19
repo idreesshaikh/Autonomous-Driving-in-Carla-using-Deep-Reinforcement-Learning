@@ -1,16 +1,16 @@
 import time
 import random
 import numpy as np
-import logging
 import pygame
-from simulation.connection import carla, logging
+from simulation.connection import carla
 from simulation.sensors import CameraSensor, CameraSensorEnv, CollisionSensor
 from simulation.settings import *
 
 
 class CarlaEnvironment():
 
-    def __init__(self, client, world, continuous_action=True) -> None:
+    def __init__(self, client, world, town, continuous_action=True) -> None:
+
 
         self.client = client
         self.world = world
@@ -24,8 +24,9 @@ class CarlaEnvironment():
         self.current_waypoint_index = 0
         self.checkpoint_waypoint_index = 0
         self.fresh_start=True
-        self.checkpoint_frequency = 20
+        self.checkpoint_frequency = 100
         self.route_waypoints = None
+        self.town = town
         
         # Objects to be kept alive
         self.camera_obj = None
@@ -38,7 +39,7 @@ class CarlaEnvironment():
         self.actor_list = list()
         self.walker_list = list()
         self.create_pedestrians()
-        logging.info("CarlaEnvironment obj has been initialized!")
+
 
 
     # A reset function for reseting our environment.
@@ -53,7 +54,6 @@ class CarlaEnvironment():
                 self.actor_list.clear()
             self.remove_sensors()
 
-            # Spawn points of the entire map!
 
             # Blueprint of our main vehicle
             vehicle_bp = self.get_vehicle(CAR_NAME)
@@ -61,7 +61,18 @@ class CarlaEnvironment():
             #vehicle = self.actor_vehicle(vehicle_bp, spawn_points)
             #self.set_vehicle(vehicle_bp, spawn_points)
 
-            transform = self.map.get_spawn_points()[38] #Town7  is 38 #Town2 is 1
+            if self.town == "Town07":
+                transform = self.map.get_spawn_points()[38] #Town7  is 38 
+                self.total_distance = 750
+            elif self.town == "Town02":
+                transform = self.map.get_spawn_points()[1] #Town2 is 1
+                self.total_distance = 780
+            else:
+                transform = random.choice(self.map.get_spawn_points())
+                self.total_distance = 250
+
+            
+            #transform = self.map.get_spawn_points()[38] #Town7  is 38 #Town2 is 1
             #transform.location += carla.Location(z=1.0)
             self.vehicle = self.world.try_spawn_actor(vehicle_bp, transform)
             self.actor_list.append(self.vehicle)
@@ -84,12 +95,13 @@ class CarlaEnvironment():
             self.collision_history = self.collision_obj.collision_data
             self.sensor_list.append(self.collision_obj.sensor)
 
-
+            """
             # Lane Invasion sensor
             #self.lane_invasion_obj = LaneInvasionSensor(self.vehicle)
             #self.wrong_maneuver = self.lane_invasion_obj.wrong_maneuver
             #self.sensor_list.append(self.lane_invasion_obj.sensor)
-
+            """
+            
             self.timesteps = 0
             self.rotation = self.vehicle.get_transform().rotation.yaw
             self.previous_location = self.vehicle.get_location()
@@ -99,7 +111,6 @@ class CarlaEnvironment():
             self.max_speed = 25.0
             self.min_speed = 15.0
             self.max_distance_from_center = 3
-            self.total_distance = 250 #Town1 780 #Town7 750
             self.throttle = float(0.0000000)
             self.previous_steer = float(0.0000000)
             self.velocity = float(0.0000000)
@@ -116,17 +127,21 @@ class CarlaEnvironment():
                 current_waypoint = self.waypoint
                 self.route_waypoints.append(current_waypoint)
                 for x in range(self.total_distance):
-                    if x < 650:
+                    if self.town == "Town7":
+                        if x < 650:
+                            next_waypoint = current_waypoint.next(1.0)[0]
+                        else:
+                            next_waypoint = current_waypoint.next(1.0)[-1]
+                    elif self.town == "Town2":
+                        if x < 650:
+                            next_waypoint = current_waypoint.next(1.0)[-1]
+                        else:
+                            next_waypoint = current_waypoint.next(1.0)[0]
+                    else:
                         next_waypoint = current_waypoint.next(1.0)[0]
-                    #elif x < 650: #850:
-                        #next_waypoint = current_waypoint.next(1.0)[-1]
-                    #elif x < 400:
-                        #next_waypoint = current_waypoint.next(1.0)[0]
-                    else: #elif x < 1200:
-                        next_waypoint = current_waypoint.next(1.0)[-1]
+                    
                     #Town 7 ([0] < 650, [-1] < 750)
                     #Town 2 ([-1] < 650, [0] < 750)
-
                     self.route_waypoints.append(next_waypoint)
                     current_waypoint = next_waypoint
             else:
@@ -139,7 +154,6 @@ class CarlaEnvironment():
 
             self.navigation_obs = np.array([self.throttle, self.velocity, self.previous_steer, self.distance_from_center, self.angle])
 
-            logging.info("Environment has been resetted.")
                         
             time.sleep(0.5)
             self.collision_history.clear()
@@ -174,6 +188,7 @@ class CarlaEnvironment():
             # Velocity of the vehicle
             velocity = self.vehicle.get_velocity()
             self.velocity = np.sqrt(velocity.x**2 + velocity.y**2 + velocity.z**2) * 3.6
+            
             # Action fron action space for contolling the vehicle with a discrete action
             if self.continous_action_space:
                 steer = float(action_idx[0])
@@ -198,9 +213,7 @@ class CarlaEnvironment():
                 if traffic_light.get_state() == carla.TrafficLightState.Red:
                     traffic_light.set_state(carla.TrafficLightState.Green)
 
-            self.collision_history = self.collision_obj.collision_data
-            #self.wrong_maneuver = self.lane_invasion_obj.wrong_maneuver
-            
+            self.collision_history = self.collision_obj.collision_data            
 
             # Rotation of the vehicle in correlation to the map/lane
             self.rotation = self.vehicle.get_transform().rotation.yaw
@@ -250,17 +263,13 @@ class CarlaEnvironment():
             if len(self.collision_history) != 0:
                 done = True
                 reward = -10
-                logging.warning("Vehicle has collided.")
             elif self.distance_from_center > self.max_distance_from_center:
                 done = True
                 reward = -10
-                logging.warning("Vehicle has gone out of the lane.")
             elif self.episode_start_time + 10 < time.time() and self.velocity < 1.0:
-                logging.warning("Vehicle has stopped moving.")
                 reward = -10
                 done = True
             elif self.velocity > self.max_speed:
-                logging.warning("Vehicle is moving too fast.")
                 reward = -10
                 done = True
 
@@ -281,10 +290,8 @@ class CarlaEnvironment():
                     reward = 1.0 * centering_factor * angle_factor
 
             if self.timesteps >= 7500:
-                logging.warning("7500 steps run complete.")
                 done = True
             elif self.current_waypoint_index >= len(self.route_waypoints) - 2:
-                logging.warning("Lap completed.")
                 done = True
                 self.fresh_start = True
                 if self.checkpoint_frequency is not None:
@@ -333,7 +340,6 @@ class CarlaEnvironment():
     def create_pedestrians(self):
         try:
 
-
             # Our code for this method has been broken into 3 sections.
 
             # 1. Getting the available spawn points in  our world.
@@ -380,10 +386,7 @@ class CarlaEnvironment():
                 all_actors[i].go_to_location(
                     self.world.get_random_location_from_navigation())
 
-            logging.info("NPC pedestrians / walkers have been generated.")
         except:
-            logging.info(
-                "Unfortunately, we couldn't create pedestrians in our world.")
             self.client.apply_batch(
                 [carla.command.DestroyActor(x) for x in self.walker_list])
 
@@ -407,8 +410,6 @@ class CarlaEnvironment():
                     self.actor_list.append(other_vehicle)
             print("NPC vehicles have been generated in autopilot mode.")
         except:
-            logging.warning(
-                "Unfortunately, we couldn't create other ai vehicles in our world.")
             self.client.apply_batch(
                 [carla.command.DestroyActor(x) for x in self.actor_list])
 
@@ -418,17 +419,19 @@ class CarlaEnvironment():
 # ----------------------------------------------------------------
 
     # Setter for changing the town on the server.
-
     def change_town(self, new_town):
         self.world = self.client.load_world(new_town)
+
 
     # Getter for fetching the current state of the world that simulator is in.
     def get_world(self) -> object:
         return self.world
 
+
     # Getter for fetching blueprint library of the simulator.
     def get_blueprint_library(self) -> object:
         return self.world.get_blueprint_library()
+
 
     # Action space of our vehicle. It can make eight unique actions.
     # Continuous actions are broken into discrete here!
@@ -438,12 +441,14 @@ class CarlaEnvironment():
         elif angle <= -np.pi: angle += 2 * np.pi
         return angle
 
+
     def distance_to_line(self, A, B, p):
         num   = np.linalg.norm(np.cross(B - A, A - p))
         denom = np.linalg.norm(B - A)
         if np.isclose(denom, 0):
             return np.linalg.norm(p - A)
         return num / denom
+
 
     def vector(self, v):
         if isinstance(v, carla.Location) or isinstance(v, carla.Vector3D):
@@ -475,6 +480,7 @@ class CarlaEnvironment():
             blueprint.set_attribute('color', color)
         return blueprint
 
+
     # Spawn the vehicle in the environment
     def set_vehicle(self, vehicle_bp, spawn_points):
         # Main vehicle spawned into the env
@@ -491,4 +497,4 @@ class CarlaEnvironment():
         self.front_camera = None
         self.collision_history = None
         self.wrong_maneuver = None
-        logging.debug("All the sensors have been removed.")
+

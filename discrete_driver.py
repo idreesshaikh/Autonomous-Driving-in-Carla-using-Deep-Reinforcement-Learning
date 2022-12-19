@@ -27,6 +27,7 @@ def parse_args():
     parser.add_argument('--seed', type=int, default=0, help='seed of the experiment')
     parser.add_argument('--total-episodes', type=int, default=EPISODES, help='total timesteps of the experiment')
     parser.add_argument('--train', type=bool, default=True, help='is it training?')
+    parser.add_argument('--town', type=str, default="Town07", help='which town do you like?')
     parser.add_argument('--load-checkpoint', type=bool, default=False, help='resume training?')
     parser.add_argument('--torch-deterministic', type=lambda x:bool(strtobool(x)), default=True, nargs='?', const=True, help='if toggled, `torch.backends.cudnn.deterministic=False`')
     parser.add_argument('--cuda', type=lambda x:bool(strtobool(x)), default=True, nargs='?', const=True, help='if toggled, cuda will not be enabled by deafult')
@@ -55,7 +56,8 @@ def runner():
         print(e.message)
         sys.exit()
 
-    writer = SummaryWriter(f"runs/{run_name}/Town07")
+    town = args.town
+    writer = SummaryWriter(f"runs/{run_name}/{town}")
     writer.add_text(
         "hyperparameters",
         "|param|value|\n|-|-|\n%s" % ("\n".join([f"|{key}|{value}" for key, value in vars(args).items()])))
@@ -70,7 +72,7 @@ def runner():
             name=run_name,
             save_code=True,
         )
-        wandb.tensorboard.patch(root_logdir="runs/{run_name}/Town07", save=False, tensorboard_x=True, pytorch=True)
+        wandb.tensorboard.patch(root_logdir="runs/{run_name}/{town}", save=False, tensorboard_x=True, pytorch=True)
     
     #Seeding to reproduce the results 
     random.seed(args.seed)
@@ -90,9 +92,9 @@ def runner():
     #train_thread = Thread(target=agent.train, daemon=True)
     #train_thread.start()
     run_number = 0
-    current_num_files = next(os.walk('logs/DDQN/Town07'))[2]
+    current_num_files = next(os.walk('logs/DDQN/{town}'))[2]
     run_number = len(current_num_files)
-    log_file = 'logs/DDQN/Town07/DDQN_carla' + "_log_" + str(run_number) + ".csv"
+    log_file = 'logs/DDQN/{town}/DDQN_carla' + "_log_" + str(run_number) + ".csv"
     epoch = 0
     cumulative_score = 0
     episodic_length = list()
@@ -103,7 +105,7 @@ def runner():
     if checkpoint_load:
         agent.load_model()
         if exp_name == 'ddqn':
-            with open('checkpoints/DDQN/Town07/checkpoint_ddqn.pickle', 'rb') as f:
+            with open('checkpoints/DDQN/{town}/checkpoint_ddqn.pickle', 'rb') as f:
                 data = pickle.load(f)
                 epoch = data['epoch']
                 cumulative_score = data['cumulative_score']
@@ -114,7 +116,7 @@ def runner():
     #========================================================================
 
     try:
-        client, world = ClientConnection().setup()
+        client, world = ClientConnection(town).setup()
         #settings = world.get_settings()
         #settings.no_rendering_mode = True
         #world.apply_settings(settings)
@@ -124,7 +126,7 @@ def runner():
         logging.error("Connection has been refused by the server.")
         ConnectionRefusedError
 
-    env = CarlaEnvironment(client, world, continuous_action=False)
+    env = CarlaEnvironment(client, world, town, continuous_action=False)
     encode = EncodeState(LATENT_DIM)
 
 
@@ -207,7 +209,7 @@ def runner():
 
                     if exp_name == 'ddqn':
                         data_obj = {'cumulative_score': cumulative_score, 'epsilon': agent.epsilon,'epoch': step}
-                        with open('checkpoints/DDQN/Town07/checkpoint_ddqn.pickle', 'wb') as handle:
+                        with open('checkpoints/DDQN/{town}/checkpoint_ddqn.pickle', 'wb') as handle:
                             pickle.dump(data_obj, handle)
 
 
@@ -236,13 +238,12 @@ def runner():
         #train_thread.join()
 
     finally:
-        logging.info("Exiting.")
+        sys.exit()
 
 
 if __name__ == "__main__":
     try:
         
-        logging.basicConfig(filename='logs/ddqn.log', level=logging.DEBUG,format='%(levelname)s:%(message)s')
         runner()
 
     except KeyboardInterrupt:

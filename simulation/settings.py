@@ -23,5 +23,3 @@ VISUAL_DISPLAY = True
 RGB_CAMERA = 'sensor.camera.rgb'
 SSC_CAMERA = 'sensor.camera.semantic_segmentation'
 
-TOWN2 = 'Town02'
-TOWN7 = 'Town07'

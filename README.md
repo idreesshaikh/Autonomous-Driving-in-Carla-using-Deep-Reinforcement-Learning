@@ -1,21 +1,36 @@
-## Implementing a Deep Reinforcement Learning Model for Autonomous Driving
+# Implementing a Deep Reinforcement Learning Model for Autonomous Driving
 
+## Setup
 
-* Create a python environment for the project
+* Firstly, create a python environment for the project 💥
 
-* I'd call it **venv** and type out the following command `python -m venv venv`
+* I'd call it **venv** `python -m venv venv`
 
 * Activate the environment `source venv/Script/activate`
 
-* Install all the dependencies in the requirement file `pip install -r requirement.txt`
+* By now I presume you have cloned the repo, if not then you better do it
 
-* Download the Carla version 0.9.08 on windows
-  Note: This code is only meant to work on windows' OS.
+* Install poetry with pip `pip install poetry`
 
-* To run it use `python continuous_driver.py --exp-name=ppo` command. Don't forget to start the Carla server beforehand.
+* Now change directry to our poetry directry with `cd poetry/`
 
-### Following commands are super useful:
+* Inside the poetry directory execute this command `poetry update` to install all the dependencies. Once everything is setup up then we're nearly there 
 
-* `--track` can be used for wandb
-* tensorboard --logdir runs
-* wandb sync "runs/PPO"
+* Download the Carla version 0.9.08 on windows, and after downloading the server
+  Note: This code is only meant to work on windows' OS so be mindful of that
+
+* Once the server is up and running, we can start our client with `python continuous_driver.py --exp-name=ppo` command. Don't forget to start the Carla server beforehand. It starts our our training. Yey!!!
+
+## How our Training looks like.
+
+**Town 2** 🏢
+
+![](gifs/town2-car-turn.gif)
+
+*Don't worry this README file will be updated soon.* 
+1. Cool gifs, 
+2. graphs,
+3. diagrams of Architecture, and 
+4. a lot more is on its way.
+
+*Just couple of days more* 🌞

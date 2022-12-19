@@ -1,7 +1,6 @@
 import math
 import numpy as np
 import weakref
-import logging
 import pygame
 from simulation.connection import carla
 from simulation.settings import RGB_CAMERA, SSC_CAMERA
@@ -72,7 +71,6 @@ class CameraSensorEnv:
         thrid_person_camera_bp.set_attribute('image_size_y', f'720')
         third_camera = world.spawn_actor(thrid_person_camera_bp, carla.Transform(
             carla.Location(x=-4.0, z=2.0), carla.Rotation(pitch=-12.0)), attach_to=self.parent)
-        logging.info("Environment Camera has been setup.")
         return third_camera
 
     @staticmethod
