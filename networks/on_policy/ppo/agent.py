@@ -7,7 +7,6 @@ from encoder_init import EncodeState
 from networks.on_policy.ppo.ppo import ActorCritic
 from parameters import  *
 
-
 device = torch.device("cpu")
 
 class Buffer:
@@ -53,16 +52,16 @@ class PPOAgent(object):
         self.MseLoss = nn.MSELoss()
 
 
-    def get_action(self, obs):
+    def get_action(self, obs, train):
 
         with torch.no_grad():
             if isinstance(obs, np.ndarray):
                 obs = torch.tensor(obs, dtype=torch.float)
             action, logprob = self.old_policy.get_action_and_log_prob(obs.to(device))
-
-        self.memory.observation.append(obs.to(device))
-        self.memory.actions.append(action)
-        self.memory.log_probs.append(logprob)
+        if train:
+            self.memory.observation.append(obs.to(device))
+            self.memory.actions.append(action)
+            self.memory.log_probs.append(logprob)
 
         return action.detach().cpu().numpy().flatten()
     
@@ -144,7 +143,6 @@ class PPOAgent(object):
    
     def load(self):
         self.checkpoint_file_no = len(next(os.walk(PPO_CHECKPOINT_DIR+self.town))[2]) - 1
-        print("Resuming from model checkpoint no: ", self.checkpoint_file_no)
         checkpoint_file = PPO_CHECKPOINT_DIR+self.town+"/ppo_policy_" + str(self.checkpoint_file_no)+"_.pth"
         self.old_policy.load_state_dict(torch.load(checkpoint_file))
         self.policy.load_state_dict(torch.load(checkpoint_file))

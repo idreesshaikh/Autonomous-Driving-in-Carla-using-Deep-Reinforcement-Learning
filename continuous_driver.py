@@ -114,16 +114,16 @@ def runner():
     else:
         env = CarlaEnvironment(client, world,town, checkpoint_frequency=None)
     encode = EncodeState(LATENT_DIM)
+
+
     #========================================================================
     #                           ALGORITHM
     #========================================================================
-
     try:
         time.sleep(0.5)
         
         if checkpoint_load:
             chkt_file_nums = len(next(os.walk(f'checkpoints/PPO/{town}'))[2]) - 1
-            print("Fetching parameteres from checkpoint file no: ", chkt_file_nums)
             chkpt_file = f'checkpoints/PPO/{town}/checkpoint_ppo_'+str(chkt_file_nums)+'.pickle'
             with open(chkpt_file, 'rb') as f:
                 data = pickle.load(f)
@@ -141,10 +141,8 @@ def runner():
                     params.requires_grad = False
             else:
                 agent = PPOAgent(town, action_std_init)
-
         if train:
             #Training
-
             while timestep < total_timesteps:
             
                 observation = env.reset()
@@ -156,7 +154,7 @@ def runner():
                 for t in range(args.episode_length):
                 
                     # select action with policy
-                    action = agent.get_action(observation)
+                    action = agent.get_action(observation, train=True)
 
                     observation, reward, done, info = env.step(action)
                     if observation is None:
@@ -241,20 +239,16 @@ def runner():
             print("Terminating the run.")
             sys.exit()
         else:
-            #Testing 
+            #Testing
             while timestep < args.test_timesteps:
-            
                 observation = env.reset()
                 observation = encode.process(observation)
 
                 current_ep_reward = 0
                 t1 = datetime.now()
-
                 for t in range(args.episode_length):
-                
                     # select action with policy
                     action = agent.get_action(observation, train=False)
-
                     observation, reward, done, info = env.step(action)
                     if observation is None:
                         break
@@ -262,7 +256,6 @@ def runner():
                     
                     timestep +=1
                     current_ep_reward += reward
-
                     # break; if the episode is over
                     if done:
                         episode += 1
@@ -272,7 +265,6 @@ def runner():
                         
                         episodic_length.append(abs(t3.total_seconds()))
                         break
-                
                 deviation_from_center += info[1]
                 distance_covered += info[0]
                 

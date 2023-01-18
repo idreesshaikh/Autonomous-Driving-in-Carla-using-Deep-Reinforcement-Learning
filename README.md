@@ -81,7 +81,11 @@ This will start training an agent with the default parameters, and checkpoints w
 
 ### How our Training looks like.
 
-<p align="center"><img width="450" src="info/gifs/town2-car-turn.gif"> </p>
+<p align="center"><img width="550" src="info/gifs/town 7.gif"> </p>
+<p align="center">Town 7</p>
+<div>
+</div>
+<p align="center"><img width="550" src="info/gifs/town 2.gif"> </p>
 <p align="center">Town 2</p>
 
 ## Variational AutoEncoder
@@ -113,21 +117,21 @@ The folloing diagram depicts the VAE+PPO training pipeline. Note: all the variab
 | File                          | Description                                                                                                           |
 | ------------------------------| --------------------------------------------------------------------------------------------------------------------- |
 | continuous_driver.py          | Script for training/testing our continuous agent e.g. PPO agent                                                       |
-| discrete_driver.py            | Script for training our discrete agent e.g. Duelling DQN agent (*work in progress*)                                     |
-| encoder_init.py               | Script that uses the pre-trained encoder from VAE to turn the incoming images (states) into latent space                           |
-| parameters.py                 | Contains the hyper-paramters of the project                                                                           |
+| discrete_driver.py            | Script for training our discrete agent e.g. Duelling DQN agent *work in progress*                                     |
+| encoder_init.py               | script that uses the trained Encoder to turn the incoming images (states) into latent space                           |
+| parameters.py                 | Contains the hyper-paramters of the Project                                                                           |
 | simulation/connection.py      | Carla Environment class that makes the connection with the CARLA server                                               |
-| simulation/environment.py     | Carla Environment class that contains most of the Environment setup functionality (gym inspired class structure)      |
+| simulation/environment.py     | CARLA Environment class that contains most of the Environment setup functionality (gym inspired class structure)      |
 | simulation/sensors.py         | Carla Environment file that contains all the agent's sensor classes (setup)                                           |
 | simulation/settings.py        | Carla Environement file that contains environment setup parameters                                                    |
 | runs/                         | Folder containing Tensorboard plots/graphs                                                                            |
 | preTrained_models/ppo         | Folder containing pre-trained models' serialized files                                                                |
-| networks/on_policy/agent.py   | Contains code for our PPO agent                                                                                        |
-| networks/on_policy/ppo.py     | Contains code for our PPO network                                                                                      |
+| networks/on_policy/agent.py   | Contains code of our PPO agent                                                                                        |
+| networks/on_policy/ppo.py     | Contains code of our PPO network                                                                                      |
 | logs/                         | Folder containing the logged metrics of our agent while training                                                      |
 | info/                         | Folder containing figures, gifs, diagrams, & documentation of the project                                             |
 | checkpints/                   | Folder containing serialized parameters of our agent saved while training                                             |
-| carla/                        | Folder containing CARLA egg file, that is used in order to make connection with the server                             |
+| carla/                        | Folder containing CARL egg file, that is used in order to make connection with the server                             |
 | autoencoder/                  | Folder containing the code for our Variational Autoencoder (VAE)                                                      |
 
 
