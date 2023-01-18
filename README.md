@@ -81,14 +81,14 @@ This will start training an agent with the default parameters, and checkpoints w
 
 ### How our Training looks like.
 
-<p align="center"><img width="400" src="info/gifs/town2-car-turn.gif"> </p>
+<p align="center"><img width="450" src="info/gifs/town2-car-turn.gif"> </p>
 <p align="center">Town 2</p>
 
 ## Variational AutoEncoder
 
 The Variational Autoencoder (VAE) training process starts by driving around automatically and manually, collecting 12,000 160x80 semantically segmented images we will be using for training. Then, we will use the SS image as the input to the variational autoencoder (h ∗ 𝑤 ∗ 𝑐 = 38400 input units). VAE’s weights are frozen while our DRL networks.
 
-<p align="center"><img width="500" src="info/diagrams/VAE.png"> </p>
+<p align="center"><img width="550" src="info/diagrams/VAE.png"> </p>
 <p align="center"> Variational Autoencoder </p>
 
 ### Once we have trained our VAE, we can use the following command to check out the reconstructed images:
@@ -96,7 +96,7 @@ The Variational Autoencoder (VAE) training process starts by driving around auto
 ```
 cd autoencoder && python reconstructor.py
 ```
-<p align="center"><img width="400" src="info/diagrams/VAE Reconstruction.png"> </p>
+<p align="center"><img width="350" src="info/diagrams/VAE Reconstruction.png"> </p>
 <p align="center"> Original Image to Reconstructed Image </p>
 
 
@@ -112,7 +112,7 @@ python inspect_agent.py --model_name name_of_your_model
 
 The folloing diagram depicts the VAE+PPO training pipeline. Note: all the variable names are missing the subscript 𝑡.
 
-<p align="center"><img width="500" src="info/diagrams/PPO Network (extended).png"> </p>
+<p align="center"><img width="720" src="info/diagrams/PPO Network (extended).png"> </p>
 <p align="center"> VAE + PPO training pipeline </p>
 
 
