@@ -3,8 +3,9 @@
     All the much needed hyper-parameters needed for the algorithm implementation. 
 
 """
-MODEL_LOAD = False
 
+MODEL_LOAD = False
+SEED = 0
 BATCH_SIZE = 1
 IM_WIDTH = 160
 IM_HEIGHT = 80
@@ -12,6 +13,7 @@ GAMMA = 0.99
 MEMORY_SIZE = 5000
 EPISODES = 1000
 
+#VAE Bottleneck
 LATENT_DIM = 95
 
 #Dueling DQN (hyper)parameters
@@ -27,6 +29,9 @@ MODEL_TARGET = 'carla_dueling_dqn_target.pth'
 
 
 #Proximal Policy Optimization (hyper)parameters
+EPISODE_LENGTH = 7500
+TOTAL_TIMESTEPS = 2e6
+TEST_TIMESTEPS = 2e5
 PPO_LEARNING_RATE = 1e-4  
 PPO_CHECKPOINT_DIR = 'preTrained_models/ppo/'
 POLICY_CLIP = 0.2

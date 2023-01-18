@@ -1,0 +1,5 @@
+future==0.18.3
+numpy==1.21.1
+pygame==2.1.2
+Pillow==9.4.0
+poetry==1.2.0

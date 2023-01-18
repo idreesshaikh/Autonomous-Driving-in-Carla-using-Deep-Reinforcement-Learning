@@ -24,16 +24,13 @@ def parse_args():
     parser.add_argument('--exp-name', type=str, help='name of the experiment')
     parser.add_argument('--env-name', type=str, default='carla', help='name of the simulation environment')
     parser.add_argument('--learning-rate', type=float, default=DQN_LEARNING_RATE, help='learning rate of the optimizer')
-    parser.add_argument('--seed', type=int, default=0, help='seed of the experiment')
+    parser.add_argument('--seed', type=int, default=SEED, help='seed of the experiment')
     parser.add_argument('--total-episodes', type=int, default=EPISODES, help='total timesteps of the experiment')
     parser.add_argument('--train', type=bool, default=True, help='is it training?')
     parser.add_argument('--town', type=str, default="Town07", help='which town do you like?')
-    parser.add_argument('--load-checkpoint', type=bool, default=False, help='resume training?')
+    parser.add_argument('--load-checkpoint', type=bool, default=MODEL_LOAD, help='resume training?')
     parser.add_argument('--torch-deterministic', type=lambda x:bool(strtobool(x)), default=True, nargs='?', const=True, help='if toggled, `torch.backends.cudnn.deterministic=False`')
     parser.add_argument('--cuda', type=lambda x:bool(strtobool(x)), default=True, nargs='?', const=True, help='if toggled, cuda will not be enabled by deafult')
-    parser.add_argument('--track', type=lambda x:bool(strtobool(x)), default=False, nargs='?', const=True, help='if toggled, experiment will be tracked with Weights and Biases')
-    parser.add_argument('--wandb-project-name', type=str, default='autonomous driving', help="wandb's project name")
-    parser.add_argument('--wandb-entity', type=str, default="idreesrazak", help="enitity (team) of wandb's project")
     args = parser.parse_args()
     
     return args
@@ -48,10 +45,10 @@ def runner():
     
     args = parse_args()
     exp_name = args.exp_name
+    
     try:
         if exp_name == 'ddqn':
             run_name = f"DDQN"
-
     except Exception as e:
         print(e.message)
         sys.exit()
@@ -61,18 +58,6 @@ def runner():
     writer.add_text(
         "hyperparameters",
         "|param|value|\n|-|-|\n%s" % ("\n".join([f"|{key}|{value}" for key, value in vars(args).items()])))
-    
-    if args.track:
-        import wandb
-        wandb.init(
-            project=args.wandb_project_name,
-            entity=args.wandb_entity,
-            #sync_tensorboard=True,
-            config=vars(args),
-            name=run_name,
-            save_code=True,
-        )
-        wandb.tensorboard.patch(root_logdir="runs/{run_name}/{town}", save=False, tensorboard_x=True, pytorch=True)
     
     #Seeding to reproduce the results 
     random.seed(args.seed)
@@ -89,8 +74,7 @@ def runner():
     n_actions = 7  # Car can only make 7 actions
     agent = DQNAgent(n_actions)
     
-    #train_thread = Thread(target=agent.train, daemon=True)
-    #train_thread.start()
+
     run_number = 0
     current_num_files = next(os.walk('logs/DDQN/{town}'))[2]
     run_number = len(current_num_files)
@@ -111,15 +95,13 @@ def runner():
                 cumulative_score = data['cumulative_score']
                 agent.epsilon = data['epsilon']
 
+
     #========================================================================
     #                           CREATING THE SIMULATION
     #========================================================================
 
     try:
         client, world = ClientConnection(town).setup()
-        #settings = world.get_settings()
-        #settings.no_rendering_mode = True
-        #world.apply_settings(settings)
 
         logging.info("Connection has been setup successfully.")
     except:
@@ -133,7 +115,6 @@ def runner():
 
     try:
         time.sleep(1)
-
         #========================================================================
         #                           INITIALIZING THE MEMORY
         #========================================================================
@@ -235,15 +216,13 @@ def runner():
             sys.exit()
         else:
             sys.exit()
-        #train_thread.join()
 
     finally:
         sys.exit()
 
 
 if __name__ == "__main__":
-    try:
-        
+    try:    
         runner()
 
     except KeyboardInterrupt:

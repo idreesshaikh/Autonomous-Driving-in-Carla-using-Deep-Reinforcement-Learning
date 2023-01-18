@@ -10,21 +10,20 @@ class EncodeState():
         try:
             self.conv_encoder = VariationalEncoder(self.latent_dim).to(self.device)
             self.conv_encoder.load()
-
             self.conv_encoder.eval()
+
             for params in self.conv_encoder.parameters():
                 params.requires_grad = False
         except:
             print('Encoder could not be initialized.')
             sys.exit()
     
-    def process(self, obs):
-        
-        image_obs = torch.tensor(obs[0], dtype=torch.float).to(self.device)
+    def process(self, observation):
+        image_obs = torch.tensor(observation[0], dtype=torch.float).to(self.device)
         image_obs = image_obs.unsqueeze(0)
         image_obs = image_obs.permute(0,3,2,1)
         image_obs = self.conv_encoder(image_obs)
-        navigation_obs = torch.tensor(obs[1], dtype=torch.float).to(self.device)
-        obs = torch.cat((image_obs.view(-1), navigation_obs), -1)
+        navigation_obs = torch.tensor(observation[1], dtype=torch.float).to(self.device)
+        observation = torch.cat((image_obs.view(-1), navigation_obs), -1)
         
-        return obs
+        return observation

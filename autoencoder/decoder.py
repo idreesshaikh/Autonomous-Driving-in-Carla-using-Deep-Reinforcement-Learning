@@ -1,3 +1,4 @@
+import os
 import torch
 import torch.nn as nn
 
@@ -8,7 +9,7 @@ class Decoder(nn.Module):
     
     def __init__(self, latent_dims):
         super().__init__()
-
+        self.model_file = os.path.join('autoencoder/model', 'decoder_model.pth')
         self.decoder_linear = nn.Sequential(
             nn.Linear(latent_dims, 1024),
             nn.LeakyReLU(),
@@ -34,3 +35,9 @@ class Decoder(nn.Module):
         x = self.unflatten(x)
         x = self.decoder(x)
         return x
+
+    def save(self):
+        torch.save(self.state_dict(), self.model_file)
+
+    def load(self):
+        self.load_state_dict(torch.load(self.model_file))

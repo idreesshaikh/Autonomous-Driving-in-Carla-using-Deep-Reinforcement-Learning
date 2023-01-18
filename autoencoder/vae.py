@@ -37,10 +37,12 @@ class VariationalAutoencoder(nn.Module):
     def save(self):
         torch.save(self.state_dict(), self.model_file)
         self.encoder.save()
+        self.decoder.save()
     
     def load(self):
         self.load_state_dict(torch.load(self.model_file))
         self.encoder.load()
+        self.decoder.load()
 
 def train(model, trainloader, optim):
     model.train()

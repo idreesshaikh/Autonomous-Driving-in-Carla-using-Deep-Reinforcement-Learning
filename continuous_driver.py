@@ -1,5 +1,4 @@
 import os
-from statistics import mean
 import sys
 import time
 import random
@@ -24,20 +23,23 @@ def parse_args():
     parser.add_argument('--exp-name', type=str, help='name of the experiment')
     parser.add_argument('--env-name', type=str, default='carla', help='name of the simulation environment')
     parser.add_argument('--learning-rate', type=float, default=PPO_LEARNING_RATE, help='learning rate of the optimizer')
-    parser.add_argument('--seed', type=int, default=0, help='seed of the experiment')
-    parser.add_argument('--total-timesteps', type=int, default=2e6, help='total timesteps of the experiment')
-    parser.add_argument('--episode-length', type=int, default=7500, help='max timesteps in an episode')
-    parser.add_argument('--train', type=bool, default=True, help='is it training?')
+    parser.add_argument('--seed', type=int, default=SEED, help='seed of the experiment')
+    parser.add_argument('--total-timesteps', type=int, default=TOTAL_TIMESTEPS, help='total timesteps of the experiment')
+    parser.add_argument('--test-timesteps', type=int, default=TEST_TIMESTEPS, help='timesteps to test our model')
+    parser.add_argument('--episode-length', type=int, default=EPISODE_LENGTH, help='max timesteps in an episode')
+    parser.add_argument('--train', default=True, type=boolean_string, help='is it training?')
     parser.add_argument('--town', type=str, default="Town07", help='which town do you like?')
-    parser.add_argument('--load-checkpoint', type=bool, default=False, help='resume training?')
+    parser.add_argument('--load-checkpoint', type=bool, default=MODEL_LOAD, help='resume training?')
     parser.add_argument('--torch-deterministic', type=lambda x:bool(strtobool(x)), default=True, nargs='?', const=True, help='if toggled, `torch.backends.cudnn.deterministic=False`')
     parser.add_argument('--cuda', type=lambda x:bool(strtobool(x)), default=True, nargs='?', const=True, help='if toggled, cuda will not be enabled by deafult')
-    parser.add_argument('--track', type=lambda x:bool(strtobool(x)), default=False, nargs='?', const=True, help='if toggled, experiment will be tracked with Weights and Biases')
-    parser.add_argument('--wandb-project-name', type=str, default='autonomous driving', help="wandb's project name")
-    parser.add_argument('--wandb-entity', type=str, default="idreesrazak", help="enitity (team) of wandb's project")
     args = parser.parse_args()
     
     return args
+
+def boolean_string(s):
+    if s not in {'False', 'True'}:
+        raise ValueError('Not a valid boolean string')
+    return s == 'True'
 
 
 
@@ -49,36 +51,38 @@ def runner():
     
     args = parse_args()
     exp_name = args.exp_name
+    train = args.train
+    town = args.town
+    
     try:
         if exp_name == 'ppo':
             run_name = "PPO"
         else:
-            sys.exit()
+            """
+            
+            Here the functionality can be extended to different algorithms.
+
+            """ 
+            sys.exit() 
     except Exception as e:
         print(e.message)
-    town = args.town
-    writer = SummaryWriter(f"runs/{run_name}/{town}")
+        sys.exit()
+    
+    if train == True:
+        writer = SummaryWriter(f"runs/{run_name}/{town}")
+    else:
+        writer = SummaryWriter(f"runs/{run_name}_TEST/{town}")
     writer.add_text(
         "hyperparameters",
         "|param|value|\n|-|-|\n%s" % ("\n".join([f"|{key}|{value}" for key, value in vars(args).items()])))
 
-    if args.track:
-        import wandb
-        wandb.init(
-            project=args.wandb_project_name,
-            entity=args.wandb_entity,
-            #sync_tensorboard=True,
-            config=vars(args),
-            name=run_name,
-            save_code=True,
-        )
-        wandb.tensorboard.patch(root_logdir="runs/{run_name}/{town}", save=False, tensorboard_x=True, pytorch=True)
-    
+
     #Seeding to reproduce the results 
     random.seed(args.seed)
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
     torch.backends.cudnn.deterministic = args.torch_deterministic
+
     checkpoint_load = args.load_checkpoint
     run_number = 0
     current_num_files = next(os.walk(f'logs/PPO/{town}'))[2]
@@ -101,23 +105,14 @@ def runner():
     #========================================================================
 
     try:
-        if town == "Town07" or town == "Town07":   
-            client, world = ClientConnection(town).setup()
-        else:
-            print("is name of the town correct?")
-            sys.exit()
-        #settings = world.get_settings()
-        #settings.no_rendering_mode = True
-        #world.apply_settings(settings)
-
+        client, world = ClientConnection(town).setup()
         logging.info("Connection has been setup successfully.")
     except:
         logging.error("Connection has been refused by the server.")
         ConnectionRefusedError
 
-    env = CarlaEnvironment(client, world)
+    env = CarlaEnvironment(client, world,town, checkpoint_frequency=None)
     encode = EncodeState(LATENT_DIM)
-
     #========================================================================
     #                           ALGORITHM
     #========================================================================
@@ -126,24 +121,28 @@ def runner():
         time.sleep(1)
         
         if checkpoint_load:
-
-                chkt_file_nums = len(next(os.walk(f'checkpoints/PPO/{town}'))[2]) - 1
-                print("Fetching parameteres from checkpoint file no: ", chkt_file_nums)
-                chkpt_file = f'checkpoints/PPO/{town}/checkpoint_ppo_'+str(chkt_file_nums)+'.pickle'
-                with open(chkpt_file, 'rb') as f:
-                    data = pickle.load(f)
-                    episode = data['episode']
-                    timestep = data['timestep']
-                    cumulative_score = data['cumulative_score']
-                    action_std_init = data['action_std_init']
-                agent = PPOAgent(town, action_std_init)
-                agent.load()
-        else:
+            chkt_file_nums = len(next(os.walk(f'checkpoints/PPO/{town}'))[2]) - 1
+            print("Fetching parameteres from checkpoint file no: ", chkt_file_nums)
+            chkpt_file = f'checkpoints/PPO/{town}/checkpoint_ppo_'+str(chkt_file_nums)+'.pickle'
+            with open(chkpt_file, 'rb') as f:
+                data = pickle.load(f)
+                episode = data['episode']
+                timestep = data['timestep']
+                cumulative_score = data['cumulative_score']
+                action_std_init = data['action_std_init']
             agent = PPOAgent(town, action_std_init)
+            agent.load()
+        else:
+            if train == False:
+                agent = PPOAgent(town, 0.1)
+                agent.load()
+                for params in agent.old_policy.actor.parameters():
+                    params.requires_grad = False
+            else:
+                agent = PPOAgent(town, action_std_init)
 
-        if args.train:
-
-            # track total training time
+        if train:
+            #Training 
             log_f = open(log_file,"w+")
             log_f.write('episode,timestep,reward,cumulative reward\n')
 
@@ -179,14 +178,12 @@ def runner():
 
                     # break; if the episode is over
                     if done:
-
                         episode += 1
 
                         t2 = datetime.now()
                         t3 = t2-t1
                         
                         episodic_length.append(abs(t3.total_seconds()))
-                        
                         break
                 
                 deviation_from_center += info[1]
@@ -204,7 +201,6 @@ def runner():
 
                 if episode % 10 == 0:
                     agent.learn()
-
                     agent.chkpt_save()
 
                     chkt_file_nums = len(next(os.walk(f'checkpoints/PPO/{town}'))[2])
@@ -225,7 +221,7 @@ def runner():
                     writer.add_scalar("Cumulative Reward/(t)", cumulative_score, timestep)
                     writer.add_scalar("Average Episodic Reward/info", np.mean(scores[-5]), episode)
                     writer.add_scalar("Average Reward/(t)", np.mean(scores[-5]), timestep)
-                    writer.add_scalar("Episode Length (s)/info", mean(episodic_length), episode)
+                    writer.add_scalar("Episode Length (s)/info", np.mean(episodic_length), episode)
                     writer.add_scalar("Reward/(t)", current_ep_reward, timestep)
                     writer.add_scalar("Average Deviation from Center/episode", deviation_from_center/5, episode)
                     writer.add_scalar("Average Deviation from Center/(t)", deviation_from_center/5, timestep)
@@ -250,19 +246,70 @@ def runner():
             print("Terminating the run.")
             sys.exit()
         else:
+            #Testing 
+            while timestep < args.test_timesteps:
+            
+                observation = env.reset()
+                observation = encode.process(observation)
+
+                current_ep_reward = 0
+                t1 = datetime.now()
+
+                for t in range(args.episode_length):
+                
+                    # select action with policy
+                    action = agent.get_action(observation, train=False)
+
+                    observation, reward, done, info = env.step(action)
+                    if observation is None:
+                        break
+                    observation = encode.process(observation)
+                    
+                    timestep +=1
+                    current_ep_reward += reward
+
+                    # break; if the episode is over
+                    if done:
+                        episode += 1
+
+                        t2 = datetime.now()
+                        t3 = t2-t1
+                        
+                        episodic_length.append(abs(t3.total_seconds()))
+                        break
+                
+                deviation_from_center += info[1]
+                distance_covered += info[0]
+                
+                scores.append(current_ep_reward)
+                cumulative_score = np.mean(scores)
+
+                print('Episode: {}'.format(episode),', Timestep: {}'.format(timestep),', Reward:  {:.2f}'.format(current_ep_reward),', Average Reward:  {:.2f}'.format(cumulative_score))
+                
+                writer.add_scalar("TEST: Episodic Reward/episode", scores[-1], episode)
+                writer.add_scalar("TEST: Cumulative Reward/info", cumulative_score, episode)
+                writer.add_scalar("TEST: Cumulative Reward/(t)", cumulative_score, timestep)
+                writer.add_scalar("TEST: Episode Length (s)/info", np.mean(episodic_length), episode)
+                writer.add_scalar("TEST: Reward/(t)", current_ep_reward, timestep)
+                writer.add_scalar("TEST: Deviation from Center/episode", deviation_from_center, episode)
+                writer.add_scalar("TEST: Deviation from Center/(t)", deviation_from_center, timestep)
+                writer.add_scalar("TEST: Distance Covered (m)/episode", distance_covered, episode)
+                writer.add_scalar("TEST: Distance Covered (m)/(t)", distance_covered, timestep)
+
+                episodic_length = list()
+                deviation_from_center = 0
+                distance_covered = 0
+
+            print("Terminating the run.")
             sys.exit()
-            #test_timesteps = 50
-            #test(env,agent,encode,test_timesteps,args.episode_length)
 
     finally:
         sys.exit()
 
 
 if __name__ == "__main__":
-    try:
-        
+    try:        
         runner()
-
     except KeyboardInterrupt:
         sys.exit()
     finally:
