@@ -25,6 +25,7 @@ def parse_args():
     parser.add_argument('--learning-rate', type=float, default=PPO_LEARNING_RATE, help='learning rate of the optimizer')
     parser.add_argument('--seed', type=int, default=SEED, help='seed of the experiment')
     parser.add_argument('--total-timesteps', type=int, default=TOTAL_TIMESTEPS, help='total timesteps of the experiment')
+    parser.add_argument('--action-std-init', type=float, default=ACTION_STD_INIT, help='initial exploration noise')
     parser.add_argument('--test-timesteps', type=int, default=TEST_TIMESTEPS, help='timesteps to test our model')
     parser.add_argument('--episode-length', type=int, default=EPISODE_LENGTH, help='max timesteps in an episode')
     parser.add_argument('--train', default=True, type=boolean_string, help='is it training?')
@@ -53,7 +54,10 @@ def runner():
     exp_name = args.exp_name
     train = args.train
     town = args.town
-    
+    checkpoint_load = args.load_checkpoint
+    total_timesteps = args.total_timesteps
+    action_std_init = args.action_std_init
+
     try:
         if exp_name == 'ppo':
             run_name = "PPO"
@@ -69,7 +73,7 @@ def runner():
         sys.exit()
     
     if train == True:
-        writer = SummaryWriter(f"runs/{run_name}/{town}")
+        writer = SummaryWriter(f"runs/{run_name}_{action_std_init}_{total_timesteps}/{town}")
     else:
         writer = SummaryWriter(f"runs/{run_name}_TEST/{town}")
     writer.add_text(
@@ -83,12 +87,7 @@ def runner():
     torch.manual_seed(args.seed)
     torch.backends.cudnn.deterministic = args.torch_deterministic
 
-    checkpoint_load = args.load_checkpoint
-    run_number = 0
-    current_num_files = next(os.walk(f'logs/PPO/{town}'))[2]
-    run_number = len(current_num_files)
-    log_file = f'logs/{town}/PPO_carla_'+ str(run_number) + ".csv"
-    action_std_init = 0.2
+    
     action_std_decay_rate = 0.1
     min_action_std = 0.1   
     action_std_decay_freq = 1e6
@@ -134,7 +133,7 @@ def runner():
             agent.load()
         else:
             if train == False:
-                agent = PPOAgent(town, 0.1)
+                agent = PPOAgent(town, action_std_init)
                 agent.load()
                 for params in agent.old_policy.actor.parameters():
                     params.requires_grad = False
@@ -142,11 +141,9 @@ def runner():
                 agent = PPOAgent(town, action_std_init)
 
         if train:
-            #Training 
-            log_f = open(log_file,"w+")
-            log_f.write('episode,timestep,reward,cumulative reward\n')
+            #Training
 
-            while timestep < args.total_timesteps:
+            while timestep < total_timesteps:
             
                 observation = env.reset()
                 observation = encode.process(observation)
@@ -173,7 +170,7 @@ def runner():
                     if timestep % action_std_decay_freq == 0:
                         action_std_init =  agent.decay_action_std(action_std_decay_rate, min_action_std)
 
-                    if timestep == args.total_timesteps -1:
+                    if timestep == total_timesteps -1:
                         agent.chkpt_save()
 
                     # break; if the episode is over
@@ -213,8 +210,6 @@ def runner():
                     
                 
                 if episode % 5 == 0:
-                    log_f.write('{},{},{:.3f},{:.3f}\n'.format(episode, timestep, np.mean(scores[-5]), cumulative_score))
-                    log_f.flush()
 
                     writer.add_scalar("Episodic Reward/episode", scores[-1], episode)
                     writer.add_scalar("Cumulative Reward/info", cumulative_score, episode)
@@ -240,9 +235,7 @@ def runner():
                     data_obj = {'cumulative_score': cumulative_score, 'episode': episode, 'timestep': timestep, 'action_std_init': action_std_init}
                     with open(chkpt_file, 'wb') as handle:
                         pickle.dump(data_obj, handle)
-            
-            log_f.close()
-            
+                        
             print("Terminating the run.")
             sys.exit()
         else:

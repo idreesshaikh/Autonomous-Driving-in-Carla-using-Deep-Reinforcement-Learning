@@ -74,11 +74,6 @@ def runner():
     n_actions = 7  # Car can only make 7 actions
     agent = DQNAgent(n_actions)
     
-
-    run_number = 0
-    current_num_files = next(os.walk('logs/DDQN/{town}'))[2]
-    run_number = len(current_num_files)
-    log_file = 'logs/DDQN/{town}/DDQN_carla' + "_log_" + str(run_number) + ".csv"
     epoch = 0
     cumulative_score = 0
     episodic_length = list()
@@ -136,8 +131,6 @@ def runner():
             #========================================================================
             #                           ALGORITHM
             #========================================================================
-            log_f = open(log_file,"w+")
-            log_f.write('episode,reward,cumulative reward\n')
 
             for step in range(epoch+1, EPISODES+1):
                 if exp_name == 'ddqn':
@@ -193,11 +186,6 @@ def runner():
                         with open('checkpoints/DDQN/{town}/checkpoint_ddqn.pickle', 'wb') as handle:
                             pickle.dump(data_obj, handle)
 
-
-                    log_f.write('{},{:.3f},{:.3f}\n'.format(step, np.mean(scores[-10]), cumulative_score))
-                    log_f.flush()
-
-
                     writer.add_scalar("Cumulative Reward/info", cumulative_score, step)
                     writer.add_scalar("Epsilon/info", agent.epsilon, step)
                     writer.add_scalar("Episodic Reward/episode", scores[-1], step)
@@ -210,8 +198,6 @@ def runner():
                     deviation_from_center = 0
                     distance_covered = 0
 
-            log_f.close()
-            
             print("Terminating the run.")
             sys.exit()
         else:
