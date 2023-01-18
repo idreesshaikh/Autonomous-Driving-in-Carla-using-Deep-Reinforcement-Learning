@@ -109,15 +109,17 @@ def runner():
     except:
         logging.error("Connection has been refused by the server.")
         ConnectionRefusedError
-
-    env = CarlaEnvironment(client, world,town, checkpoint_frequency=None)
+    if train:
+        env = CarlaEnvironment(client, world,town)
+    else:
+        env = CarlaEnvironment(client, world,town, checkpoint_frequency=None)
     encode = EncodeState(LATENT_DIM)
     #========================================================================
     #                           ALGORITHM
     #========================================================================
 
     try:
-        time.sleep(1)
+        time.sleep(0.5)
         
         if checkpoint_load:
             chkt_file_nums = len(next(os.walk(f'checkpoints/PPO/{town}'))[2]) - 1

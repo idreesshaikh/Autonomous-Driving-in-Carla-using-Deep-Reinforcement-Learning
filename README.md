@@ -86,7 +86,7 @@ This will start training an agent with the default parameters, and checkpoints w
 
 ## Variational AutoEncoder
 
-The Variational Autoencoder (VAE) training process starts by driving around automatically and manually, collecting 12,000 160x80 semantically segmented images we will be using for training. Then, we will use the SS image as the input to the variational autoencoder (h ∗ 𝑤 ∗ 𝑐 = 38400 input units). VAE’s weights are frozen while our DRL networks.
+The Variational Autoencoder (VAE) training process starts by driving around automatically and manually, collecting 12,000 160x80 semantically segmented images we will be using for training. Then, we will use the SS image as the input to the variational autoencoder (h ∗ 𝑤 ∗ 𝑐 = 38400 input units). VAE’s weights are frozen while our DRL network trains.
 
 <p align="center"><img width="550" src="info/diagrams/VAE.png"> </p>
 <p align="center"> Variational Autoencoder </p>
