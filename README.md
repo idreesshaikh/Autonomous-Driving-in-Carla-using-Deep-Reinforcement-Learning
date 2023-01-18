@@ -108,6 +108,14 @@ We may also use the following command to see how a trained agent will behave to 
 python inspect_agent.py --model_name name_of_your_model
 ```
 
+## Project Architecture Pipeline (Encoder to PPO)
+
+The folloing diagram depicts the VAE+PPO training pipeline. Note: all the variable names are missing the subscript 𝑡.
+
+<p align="center"><img width="500" src="info/diagrams/PPO Network (extended).png"> </p>
+<p align="center"> VAE + PPO training pipeline </p>
+
+
 # File Overview
 
 | File                          | Description                                                                                                           |
