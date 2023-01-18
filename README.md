@@ -100,14 +100,6 @@ cd autoencoder && python reconstructor.py
 <p align="center"> Original Image to Reconstructed Image </p>
 
 
-## Inspecting the Agent's Decision Making
-
-We may also use the following command to see how a trained agent will behave to changes in latent space vector z by running:
-
-```
-python inspect_agent.py --model_name name_of_your_model
-```
-
 ## Project Architecture Pipeline (Encoder to PPO)
 
 The folloing diagram depicts the VAE+PPO training pipeline. Note: all the variable names are missing the subscript 𝑡.
