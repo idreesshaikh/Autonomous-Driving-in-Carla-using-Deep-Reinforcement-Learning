@@ -48,7 +48,6 @@ def main():
 
     data_dir = 'autoencoder/dataset/'
 
-
     test_transforms = transforms.Compose([transforms.ToTensor()])
 
     test_data = datasets.ImageFolder(data_dir+'test', transform=test_transforms)

@@ -73,9 +73,9 @@ def runner():
         sys.exit()
     
     if train == True:
-        writer = SummaryWriter(f"runs/{run_name}_{action_std_init}_{total_timesteps}/{town}")
+        writer = SummaryWriter(f"runs/{run_name}_{action_std_init}_{int(total_timesteps)}/{town}")
     else:
-        writer = SummaryWriter(f"runs/{run_name}_TEST/{town}")
+        writer = SummaryWriter(f"runs/{run_name}_{action_std_init}_{int(total_timesteps)}_TEST/{town}")
     writer.add_text(
         "hyperparameters",
         "|param|value|\n|-|-|\n%s" % ("\n".join([f"|{key}|{value}" for key, value in vars(args).items()])))
@@ -195,11 +195,9 @@ def runner():
 
 
                 print('Episode: {}'.format(episode),', Timestep: {}'.format(timestep),', Reward:  {:.2f}'.format(current_ep_reward),', Average Reward:  {:.2f}'.format(cumulative_score))
-
                 if episode % 10 == 0:
                     agent.learn()
                     agent.chkpt_save()
-
                     chkt_file_nums = len(next(os.walk(f'checkpoints/PPO/{town}'))[2])
                     if chkt_file_nums != 0:
                         chkt_file_nums -=1

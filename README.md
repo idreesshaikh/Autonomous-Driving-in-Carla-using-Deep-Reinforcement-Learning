@@ -27,7 +27,7 @@ Moving forth we'd advice you to setup your project on **Windows** or **Linux** a
 
 ## Project Setup (Installations)
 
-In order to setup this project you're advised to clone this repository and make sure you have **Python v3.7.+ (64bit)** version installed. After clonding this repository we can create a python virtual environment for this project 💥 let's call it **venv** `python -m venv venv`. You can call it something else if you want :) Now we can activate our virtual env `source venv/Script/activate`, and don't forget to do so before installing any of the dependencies. Moving forward we can install the dependencies with `pip` with the following command `pip install -r requirements.txt`. We're not only using **pip** as our depency manager but **poetry** as well, therefore execute the following command `cd poetry/ && poetry update` in the repo. This will install all the other dependencies now with **poetry**. Once everything is setup up then we're nearly there 
+In order to setup this project you're advised to clone this repository and make sure you have **Python v3.7.+ (64bit)** version installed. After clonding this repository we can create a python virtual environment for this project 💥 let's call it **venv** `python -m venv venv`. You can call it something else if you want :) Now we can activate our virtual env `source venv/Script/activate`, and don't forget to do so before installing any of the dependencies. Moving forward we can install the dependencies with `pip` with the following command `pip install -r requirements.txt`. We're not only using **pip** as our depency manager but **poetry** as well, therefore execute the following command `cd poetry/ && poetry update` in the repo. This will install all the other dependencies now with **poetry**. Once everything is setup up we're nearly there! 
 
 Download the **CARLA server (0.9.8)** + **Additional Maps**, and make sure you've read the Prerequisites of this repo. Once the server is up and running, we can start our client with `python continuous_driver.py --exp-name=ppo --train=False` command. Don't forget to start the Carla server beforehand. Yey!!!
 
@@ -42,7 +42,7 @@ Download the **CARLA server (0.9.8)** + **Additional Maps**, and make sure you'v
 
 # Methodology
 
-Architectural layout encapsulating all the three essential components: 
+Architectural layout encapsulating the three most essential components: 
 
 1. CARLA Simulation. 
 2. VAE. 
@@ -56,7 +56,7 @@ Architectural layout encapsulating all the three essential components:
 
 ## Running a Trained Agent
 
-With the project, we provide two pretrained PPO agents, one for each town (Town 02 & Town 07).
+With the project, we provide you two pretrained PPO agents, one for each town (Town 02 & Town 07).
 The preTrained serialized files for this model are placed in `preTrained_models/PPO/<town>` folder.
 
 ```
@@ -82,11 +82,11 @@ This will start training an agent with the default parameters, and checkpoints w
 ### How our Training looks like.
 
 <p align="center"><img width="550" src="info/gifs/town 7.gif"> </p>
-<p align="center"><b>Town 7</b></p>
+<p align="center">Town 7</p>
 <div>
 </div>
 <p align="center"><img width="550" src="info/gifs/town 2.gif"> </p>
-<p align="center"><b>Town 2</b></p>
+<p align="center">Town 2</p>
 
 ## Variational AutoEncoder
 
@@ -117,7 +117,7 @@ The folloing diagram depicts the VAE+PPO training pipeline. Note: all the variab
 | File                          | Description                                                                                                           |
 | ------------------------------| --------------------------------------------------------------------------------------------------------------------- |
 | continuous_driver.py          | Script for training/testing our continuous agent e.g. PPO agent                                                       |
-| discrete_driver.py            | Script for training our discrete agent e.g. Duelling DQN agent *work in progress*                                     |
+| discrete_driver.py            | Script for training our discrete agent e.g. Duelling DQN agent (*work in progress*)                                   |
 | encoder_init.py               | script that uses the trained Encoder to turn the incoming images (states) into latent space                           |
 | parameters.py                 | Contains the hyper-paramters of the Project                                                                           |
 | simulation/connection.py      | Carla Environment class that makes the connection with the CARLA server                                               |
