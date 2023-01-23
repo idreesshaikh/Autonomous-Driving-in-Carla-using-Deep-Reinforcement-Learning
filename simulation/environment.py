@@ -95,7 +95,7 @@ class CarlaEnvironment():
             self.previous_location = self.vehicle.get_location()
             self.distance_traveled = 0.0
             self.center_lane_deviation = 0.0
-            self.target_speed = 20 #km/h
+            self.target_speed = 22 #km/h
             self.max_speed = 25.0
             self.min_speed = 15.0
             self.max_distance_from_center = 3
