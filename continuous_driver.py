@@ -88,9 +88,9 @@ def runner():
     torch.backends.cudnn.deterministic = args.torch_deterministic
 
     
-    action_std_decay_rate = 0.1
-    min_action_std = 0.1   
-    action_std_decay_freq = 1e6
+    action_std_decay_rate = 0.05
+    min_action_std = 0.05   
+    action_std_decay_freq = 5e5
     timestep = 0
     episode = 0
     cumulative_score = 0
